@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Allow: /deals
+Allow: /about
+Allow: /faq
+Allow: /contact
+
+# Block crawler access to administrative and auth routes
+Disallow: /admin/
+Disallow: /login
+Disallow: /register
+
+# Reference dynamic sitemap (Replace with your actual production domain name, e.g. https://yoursite.com/sitemap.xml)
+Sitemap: https://yoursite.com/sitemap.xml

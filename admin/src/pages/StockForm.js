@@ -1,0 +1,366 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams, Link } from 'react-router-dom';
+import api from '../utils/axios';
+
+export const StockForm = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const isEditMode = !!id;
+
+  const [formData, setFormData] = useState({
+    symbol: '',
+    name: '',
+    sector: '',
+    exchange: 'NSE',
+    currentPrice: '',
+    dayChange: '',
+    dayChangePercent: '',
+    weekHigh52: '',
+    weekLow52: '',
+    marketCap: '',
+    marketCapLabel: 'Large Cap',
+    logoUrl: '',
+    isActive: true
+  });
+
+  const [sectors, setSectors] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(false);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const loadSectors = async () => {
+      try {
+        const response = await api.get('/sectors');
+        if (response.data.success) {
+          setSectors(response.data.data);
+        }
+      } catch (err) {
+        console.error('Error fetching sectors:', err);
+      }
+    };
+    loadSectors();
+  }, []);
+
+  useEffect(() => {
+    if (isEditMode) {
+      const fetchStock = async () => {
+        setFetching(true);
+        try {
+          const response = await api.get(`/stocks/admin/all`); // Get all admin stocks
+          if (response.data.success) {
+            const list = response.data.data;
+            const data = list.find(s => s._id === id); // find by id from admin list
+            if (data) {
+              setFormData({
+                symbol: data.symbol || '',
+                name: data.name || '',
+                sector: data.sector || '',
+                exchange: data.exchange || 'NSE',
+                currentPrice: data.currentPrice || '',
+                dayChange: data.dayChange || '',
+                dayChangePercent: data.dayChangePercent || '',
+                weekHigh52: data.weekHigh52 || '',
+                weekLow52: data.weekLow52 || '',
+                marketCap: data.marketCap || '',
+                marketCapLabel: data.marketCapLabel || 'Large Cap',
+                logoUrl: data.logoUrl || '',
+                isActive: data.isActive || false
+              });
+            } else {
+              setError('Failed to find stock in database');
+            }
+          }
+        } catch (err) {
+          setError('Failed to fetch stock details');
+          console.error(err);
+        } finally {
+          setFetching(false);
+        }
+      };
+      fetchStock();
+    }
+  }, [id, isEditMode]);
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? checked : value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    const formattedData = {
+      ...formData,
+      currentPrice: parseFloat(formData.currentPrice) || 0,
+      dayChange: parseFloat(formData.dayChange) || 0,
+      dayChangePercent: parseFloat(formData.dayChangePercent) || 0,
+      weekHigh52: parseFloat(formData.weekHigh52) || 0,
+      weekLow52: parseFloat(formData.weekLow52) || 0,
+      marketCap: parseFloat(formData.marketCap) || 0
+    };
+
+    try {
+      if (isEditMode) {
+        await api.put(`/stocks/${id}`, formattedData);
+      } else {
+        await api.post('/stocks', formattedData);
+      }
+      navigate('/stocks');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Something went wrong while saving.');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (fetching) {
+    return (
+      <div className="flex justify-center items-center h-64 text-navy-950 font-semibold">
+        Fetching stock details...
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="mb-6 flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-black text-navy-950">
+            {isEditMode ? 'Edit Stock Details' : 'Add New Stock'}
+          </h1>
+          <p className="text-gray-500 text-sm mt-1">Configure exchange ticker symbol and pricing indicators</p>
+        </div>
+        <Link to="/stocks" className="text-xs font-bold text-gray-500 hover:text-navy-950">
+          ← Cancel and Return
+        </Link>
+      </div>
+
+      {error && (
+        <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl mb-6 text-xs font-bold">
+          {error}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="bg-white rounded-3xl border border-gray-150 p-6 md:p-8 shadow-sm space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div>
+            <label className="block text-xs font-bold text-navy-950 mb-1.5 uppercase tracking-wide">
+              Stock Symbol
+            </label>
+            <input
+              type="text"
+              name="symbol"
+              value={formData.symbol}
+              onChange={handleChange}
+              placeholder="e.g. RELIANCE"
+              className="w-full px-4 py-2.5 border border-gray-250 rounded-xl text-xs font-medium focus:outline-none focus:border-brand-500 uppercase"
+              required
+            />
+          </div>
+          <div className="md:col-span-2">
+            <label className="block text-xs font-bold text-navy-950 mb-1.5 uppercase tracking-wide">
+              Company Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="e.g. Reliance Industries Limited"
+              className="w-full px-4 py-2.5 border border-gray-250 rounded-xl text-xs font-medium focus:outline-none focus:border-brand-500"
+              required
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div>
+            <label className="block text-xs font-bold text-navy-950 mb-1.5 uppercase tracking-wide">
+              Sector
+            </label>
+            <select
+              name="sector"
+              value={formData.sector}
+              onChange={handleChange}
+              className="w-full px-4 py-2.5 border border-gray-250 rounded-xl text-xs font-medium focus:outline-none bg-white text-navy-950"
+              required
+            >
+              <option value="">Select Sector</option>
+              {sectors.map(sec => (
+                <option key={sec._id} value={sec.name}>{sec.name}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block text-xs font-bold text-navy-950 mb-1.5 uppercase tracking-wide">
+              Exchange
+            </label>
+            <select
+              name="exchange"
+              value={formData.exchange}
+              onChange={handleChange}
+              className="w-full px-4 py-2.5 border border-gray-250 rounded-xl text-xs font-medium focus:outline-none bg-white text-navy-950"
+              required
+            >
+              <option value="NSE">NSE</option>
+              <option value="BSE">BSE</option>
+              <option value="BOTH">BOTH</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-xs font-bold text-navy-950 mb-1.5 uppercase tracking-wide">
+              Cap Category
+            </label>
+            <select
+              name="marketCapLabel"
+              value={formData.marketCapLabel}
+              onChange={handleChange}
+              className="w-full px-4 py-2.5 border border-gray-250 rounded-xl text-xs font-medium focus:outline-none bg-white text-navy-950"
+              required
+            >
+              <option value="Large Cap">Large Cap</option>
+              <option value="Mid Cap">Mid Cap</option>
+              <option value="Small Cap">Small Cap</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div>
+            <label className="block text-xs font-bold text-navy-950 mb-1.5 uppercase tracking-wide">
+              Current Price (₹)
+            </label>
+            <input
+              type="number"
+              name="currentPrice"
+              value={formData.currentPrice}
+              onChange={handleChange}
+              placeholder="1250.00"
+              step="0.01"
+              className="w-full px-4 py-2.5 border border-gray-250 rounded-xl text-xs font-medium focus:outline-none focus:border-brand-500"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-bold text-navy-950 mb-1.5 uppercase tracking-wide">
+              Day Change (₹)
+            </label>
+            <input
+              type="number"
+              name="dayChange"
+              value={formData.dayChange}
+              onChange={handleChange}
+              placeholder="12.50"
+              step="0.01"
+              className="w-full px-4 py-2.5 border border-gray-250 rounded-xl text-xs font-medium focus:outline-none focus:border-brand-500"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-bold text-navy-950 mb-1.5 uppercase tracking-wide">
+              Day Change Percent (%)
+            </label>
+            <input
+              type="number"
+              name="dayChangePercent"
+              value={formData.dayChangePercent}
+              onChange={handleChange}
+              placeholder="1.01"
+              step="0.01"
+              className="w-full px-4 py-2.5 border border-gray-250 rounded-xl text-xs font-medium focus:outline-none focus:border-brand-500"
+              required
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div>
+            <label className="block text-xs font-bold text-navy-950 mb-1.5 uppercase tracking-wide">
+              52-Week High (₹)
+            </label>
+            <input
+              type="number"
+              name="weekHigh52"
+              value={formData.weekHigh52}
+              onChange={handleChange}
+              placeholder="1450.00"
+              step="0.01"
+              className="w-full px-4 py-2.5 border border-gray-250 rounded-xl text-xs font-medium focus:outline-none focus:border-brand-500"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-bold text-navy-950 mb-1.5 uppercase tracking-wide">
+              52-Week Low (₹)
+            </label>
+            <input
+              type="number"
+              name="weekLow52"
+              value={formData.weekLow52}
+              onChange={handleChange}
+              placeholder="950.00"
+              step="0.01"
+              className="w-full px-4 py-2.5 border border-gray-250 rounded-xl text-xs font-medium focus:outline-none focus:border-brand-500"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-bold text-navy-950 mb-1.5 uppercase tracking-wide">
+              Market Capitalization
+            </label>
+            <input
+              type="number"
+              name="marketCap"
+              value={formData.marketCap}
+              onChange={handleChange}
+              placeholder="e.g. 150000000"
+              className="w-full px-4 py-2.5 border border-gray-250 rounded-xl text-xs font-medium focus:outline-none focus:border-brand-500"
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-xs font-bold text-navy-950 mb-1.5 uppercase tracking-wide">
+              Logo Icon URL
+            </label>
+            <input
+              type="url"
+              name="logoUrl"
+              value={formData.logoUrl}
+              onChange={handleChange}
+              placeholder="https://logo.clearbit.com/..."
+              className="w-full px-4 py-2.5 border border-gray-250 rounded-xl text-xs font-medium focus:outline-none focus:border-brand-500"
+            />
+          </div>
+        </div>
+
+        <label className="flex items-center space-x-2 text-xs font-bold text-navy-950 cursor-pointer">
+          <input
+            type="checkbox"
+            name="isActive"
+            checked={formData.isActive}
+            onChange={handleChange}
+            className="w-4 h-4 text-brand-500 rounded border-gray-300 focus:ring-brand-500"
+          />
+          <span>ACTIVE / VISIBLE</span>
+        </label>
+
+        <div>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-3.5 rounded-xl text-xs transition"
+          >
+            {loading ? 'Saving Stock data...' : isEditMode ? 'Save Stock' : 'Publish Stock'}
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};

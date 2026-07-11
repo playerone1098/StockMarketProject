@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { fetchIPOBySlug } from '../services/api';
-import { formatDate } from '../utils/formatters';
+import { formatDate, formatCurrency } from '../utils/formatters';
 
 export const IPODetail = () => {
   const { slug } = useParams();

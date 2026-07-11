@@ -8,7 +8,7 @@
 ## 1. Project Structure
 
 ```
-CashbackProject/                  (root — will rename repo to StockVista)
+StockMarketProject/                  (root — will rename repo to StockVista)
 ├── backend/                      Node.js + Express REST API
 ├── frontend/                     React public website
 ├── admin/                        React admin panel

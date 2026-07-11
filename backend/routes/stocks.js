@@ -35,6 +35,12 @@ router.post('/', adminAuth, stockController.create);
 router.put('/:id', adminAuth, stockController.update);
 
 /**
+ * @route POST /api/stocks/sync
+ * @desc Sync all stock prices with live market data (admin)
+ */
+router.post('/sync', adminAuth, stockController.syncPrices);
+
+/**
  * @route DELETE /api/stocks/:id
  * @desc Delete a stock (admin)
  */

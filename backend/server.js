@@ -7,6 +7,7 @@ const config = require('./config');
 const errorHandler = require('./middleware/errorHandler');
 const Sector = require('./models/Sector');
 const { DEFAULT_SECTORS } = require('./utils/constants');
+const { syncStockPrices } = require('./utils/stockSyncService');
 
 const app = express();
 
@@ -65,6 +66,10 @@ mongoose.connect(config.mongoUri, {
   } catch (err) {
     console.error('Error seeding default sectors:', err);
   }
+
+  // Trigger initial stock price synchronization and set up interval (every 10 minutes)
+  syncStockPrices();
+  setInterval(syncStockPrices, 10 * 60 * 1000);
 })
 .catch((err) => console.error('❌ MongoDB connection error:', err));
 

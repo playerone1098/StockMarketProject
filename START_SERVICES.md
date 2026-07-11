@@ -9,15 +9,15 @@
 
 ```bash
 # Terminal 1 — Backend API
-cd /Users/ashokchoudhary/Desktop/CashbackProject/backend
+cd /Users/ashokchoudhary/Desktop/StockMarketProject/backend
 npm run dev
 
 # Terminal 2 — Frontend
-cd /Users/ashokchoudhary/Desktop/CashbackProject/frontend
+cd /Users/ashokchoudhary/Desktop/StockMarketProject/frontend
 npm start
 
 # Terminal 3 — Admin Panel
-cd /Users/ashokchoudhary/Desktop/CashbackProject/admin
+cd /Users/ashokchoudhary/Desktop/StockMarketProject/admin
 npm start
 ```
 

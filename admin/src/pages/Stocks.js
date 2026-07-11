@@ -5,6 +5,27 @@ import api from '../utils/axios';
 export const Stocks = () => {
   const [stocks, setStocks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [syncing, setSyncing] = useState(false);
+
+  const handleSyncPrices = async () => {
+    setSyncing(true);
+    try {
+      const response = await api.post('/stocks/sync');
+      if (response.data.success) {
+        alert(`Successfully synchronized stock prices!\nUpdated: ${response.data.data.updatedCount}, Failed: ${response.data.data.failedCount}`);
+        // Re-fetch stocks to update table
+        const stocksRes = await api.get('/stocks/admin/all');
+        if (stocksRes.data.success) {
+          setStocks(stocksRes.data.data);
+        }
+      }
+    } catch (error) {
+      console.error('Error syncing stock prices:', error);
+      alert('Failed to sync stock prices. Please check logs.');
+    } finally {
+      setSyncing(false);
+    }
+  };
 
   useEffect(() => {
     const fetchStocks = async () => {
@@ -43,12 +64,25 @@ export const Stocks = () => {
           <h1 className="text-3xl font-black text-navy-950">Stocks Directory</h1>
           <p className="text-gray-500 text-sm mt-1">Configure company tickers, exchanges, and current price bands</p>
         </div>
-        <Link
-          to="/stocks/new"
-          className="bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-2.5 rounded-xl text-sm transition"
-        >
-          Add New Stock
-        </Link>
+        <div className="flex space-x-3">
+          <button
+            onClick={handleSyncPrices}
+            disabled={syncing}
+            className={`font-bold px-4 py-2.5 rounded-xl text-sm transition flex items-center ${
+              syncing 
+                ? 'bg-gray-150 text-gray-400 cursor-not-allowed' 
+                : 'bg-navy-50 hover:bg-navy-100 text-navy-800'
+            }`}
+          >
+            {syncing ? '🔄 Syncing LTP...' : '⚡ Sync Live Prices'}
+          </button>
+          <Link
+            to="/stocks/new"
+            className="bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-2.5 rounded-xl text-sm transition"
+          >
+            Add New Stock
+          </Link>
+        </div>
       </div>
 
       <div className="bg-white rounded-3xl border border-gray-150 shadow-sm overflow-hidden">

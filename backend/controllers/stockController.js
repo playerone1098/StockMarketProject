@@ -2,6 +2,7 @@ const Stock = require('../models/Stock');
 const Analytics = require('../models/Analytics');
 const catchAsync = require('../utils/catchAsync');
 const ApiError = require('../utils/ApiError');
+const { syncStockPrices } = require('../utils/stockSyncService');
 
 /**
  * Get all active stocks with filters and pagination.
@@ -139,11 +140,33 @@ const remove = catchAsync(async (req, res) => {
   });
 });
 
+/**
+ * Trigger manual price synchronization (admin).
+ */
+const syncPrices = catchAsync(async (req, res) => {
+  const result = await syncStockPrices();
+  
+  if (!result.success) {
+    throw new ApiError(500, `Stock price synchronization failed: ${result.error}`);
+  }
+
+  res.json({
+    success: true,
+    message: 'Stock prices synced successfully',
+    data: {
+      updatedCount: result.updated,
+      failedCount: result.failed,
+      errors: result.errors
+    }
+  });
+});
+
 module.exports = {
   getAll,
   getAdminAll,
   getBySymbol,
   create,
   update,
-  remove
+  remove,
+  syncPrices
 };

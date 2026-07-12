@@ -29,7 +29,7 @@ const createAdmin = async () => {
     if (admin) {
       admin.username = 'admin';
       admin.email = 'admin@stockvista.com';
-      admin.password = 'admin1234';
+      admin.password = 'ashokbhupi@2015';
       admin.role = 'admin';
       admin.profile = {
         firstName: 'StockVista',
@@ -41,7 +41,7 @@ const createAdmin = async () => {
       admin = new User({
         username: 'admin',
         email: 'admin@stockvista.com',
-        password: 'admin1234',
+        password: 'ashokbhupi@2015',
         role: 'admin',
         profile: {
           firstName: 'StockVista',
@@ -54,7 +54,7 @@ const createAdmin = async () => {
 
     console.log('');
     console.log('📧 Email:    admin@stockvista.com');
-    console.log('🔑 Password: admin1234');
+    console.log('🔑 Password: ashokbhupi@2015');
     console.log('');
     console.log('⚠️  Please change the password after first login.');
     console.log('');

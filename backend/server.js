@@ -52,6 +52,11 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
+// Handle MongoDB connection runtime errors (prevents crashing on network drops)
+mongoose.connection.on('error', (err) => {
+  console.error('❌ MongoDB connection runtime error:', err);
+});
+
 // Connect to MongoDB
 mongoose.connect(config.mongoUri, {
   useNewUrlParser: true,

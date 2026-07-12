@@ -27,8 +27,8 @@ const getBaseURL = () => {
     return `http://${hostname}:5000`;
   }
 
-  // Use build-time environment variable if defined, fallback to Railway
-  return process.env.REACT_APP_API_URL || 'https://cashbackproject-production.up.railway.app';
+  // Use build-time environment variable if defined, fallback to AWS deployment
+  return process.env.REACT_APP_API_URL || 'http://52.91.30.253:5000';
 };
 
 axios.defaults.baseURL = getBaseURL();

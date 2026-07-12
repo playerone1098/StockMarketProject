@@ -41,6 +41,12 @@ router.put('/:id', adminAuth, ipoController.update);
 router.patch('/:id', adminAuth, ipoController.partialUpdate);
 
 /**
+ * @route POST /api/ipos/sync
+ * @desc Sync all IPO data with live status (admin)
+ */
+router.post('/sync', adminAuth, ipoController.syncIPOs);
+
+/**
  * @route DELETE /api/ipos/:id
  * @desc Delete an IPO (admin)
  */

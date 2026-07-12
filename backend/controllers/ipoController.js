@@ -2,6 +2,7 @@ const IPO = require('../models/IPO');
 const Analytics = require('../models/Analytics');
 const catchAsync = require('../utils/catchAsync');
 const ApiError = require('../utils/ApiError');
+const { syncIpoData } = require('../utils/ipoSyncService');
 
 /**
  * Get all active IPOs with filters and pagination.
@@ -159,6 +160,26 @@ const remove = catchAsync(async (req, res) => {
   });
 });
 
+/**
+ * Trigger manual IPO synchronization (admin).
+ */
+const syncIPOs = catchAsync(async (req, res) => {
+  const result = await syncIpoData(true);
+
+  if (!result.success) {
+    throw new ApiError(500, `IPO synchronization failed: ${result.error}`);
+  }
+
+  res.json({
+    success: true,
+    message: 'IPO data synced successfully',
+    data: {
+      updatedCount: result.updated,
+      errors: result.errors
+    }
+  });
+});
+
 module.exports = {
   getAll,
   getAdminAll,
@@ -166,5 +187,6 @@ module.exports = {
   create,
   update,
   partialUpdate,
-  remove
+  remove,
+  syncIPOs
 };

@@ -8,6 +8,8 @@ const errorHandler = require('./middleware/errorHandler');
 const Sector = require('./models/Sector');
 const { DEFAULT_SECTORS } = require('./utils/constants');
 const { syncStockPrices } = require('./utils/stockSyncService');
+const { syncIpoData } = require('./utils/ipoSyncService');
+const { syncNewsData } = require('./utils/newsSyncService');
 
 const app = express();
 
@@ -70,6 +72,14 @@ mongoose.connect(config.mongoUri, {
   // Trigger initial stock price synchronization and set up interval (every 10 minutes)
   syncStockPrices();
   setInterval(syncStockPrices, 10 * 60 * 1000);
+
+  // Trigger initial IPO synchronization and set up interval (500 times/month -> every 86.4 minutes)
+  syncIpoData();
+  setInterval(syncIpoData, 86.4 * 60 * 1000);
+
+  // Trigger initial news synchronization and set up interval (every 30 minutes)
+  syncNewsData();
+  setInterval(syncNewsData, 30 * 60 * 1000);
 })
 .catch((err) => console.error('❌ MongoDB connection error:', err));
 

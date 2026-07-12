@@ -5,6 +5,27 @@ import api from '../utils/axios';
 export const BlogPosts = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [syncing, setSyncing] = useState(false);
+
+  const handleSyncNews = async () => {
+    setSyncing(true);
+    try {
+      const response = await api.post('/blogs/sync-news');
+      if (response.data.success) {
+        alert(`Successfully synchronized news!\nNew Articles: ${response.data.data.insertedCount}`);
+        // Re-fetch blogs to update table
+        const blogsRes = await api.get('/blogs/admin/all');
+        if (blogsRes.data.success) {
+          setBlogs(blogsRes.data.data);
+        }
+      }
+    } catch (error) {
+      console.error('Error syncing news:', error);
+      alert('Failed to sync news. Please check logs.');
+    } finally {
+      setSyncing(false);
+    }
+  };
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -42,6 +63,7 @@ export const BlogPosts = () => {
       case 'ipo-review': return 'IPO Review';
       case 'sector-analysis': return 'Sector Analysis';
       case 'personal-finance': return 'Personal Finance';
+      case 'news': return 'News & Updates';
       default: return cat;
     }
   };
@@ -61,12 +83,25 @@ export const BlogPosts = () => {
           <h1 className="text-3xl font-black text-navy-950">Blog Posts</h1>
           <p className="text-gray-500 text-sm mt-1">Author market commentary, sector analytics, and educational reviews</p>
         </div>
-        <Link
-          to="/blogs/new"
-          className="bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-2.5 rounded-xl text-sm transition"
-        >
-          New Article
-        </Link>
+        <div className="flex space-x-3">
+          <button
+            onClick={handleSyncNews}
+            disabled={syncing}
+            className={`font-bold px-4 py-2.5 rounded-xl text-sm transition flex items-center ${
+              syncing 
+                ? 'bg-gray-150 text-gray-400 cursor-not-allowed' 
+                : 'bg-navy-50 hover:bg-navy-100 text-navy-800'
+            }`}
+          >
+            {syncing ? '🔄 Syncing News...' : '⚡ Sync Live News'}
+          </button>
+          <Link
+            to="/blogs/new"
+            className="bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-2.5 rounded-xl text-sm transition"
+          >
+            New Article
+          </Link>
+        </div>
       </div>
 
       <div className="bg-white rounded-3xl border border-gray-150 shadow-sm overflow-hidden">

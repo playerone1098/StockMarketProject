@@ -41,6 +41,12 @@ router.post('/', adminAuth, blogController.create);
 router.put('/:id', adminAuth, blogController.update);
 
 /**
+ * @route POST /api/blogs/sync-news
+ * @desc Sync live news from stock.indianapi.in (admin)
+ */
+router.post('/sync-news', adminAuth, blogController.syncNews);
+
+/**
  * @route DELETE /api/blogs/:id
  * @desc Delete a blog post (admin)
  */

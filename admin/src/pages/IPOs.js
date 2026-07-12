@@ -5,6 +5,27 @@ import api from '../utils/axios';
 export const IPOs = () => {
   const [ipos, setIpos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [syncing, setSyncing] = useState(false);
+
+  const handleSyncIpos = async () => {
+    setSyncing(true);
+    try {
+      const response = await api.post('/ipos/sync');
+      if (response.data.success) {
+        alert(`Successfully synchronized IPO data!\nUpdated: ${response.data.data.updatedCount}`);
+        // Re-fetch IPOs to update table
+        const iposRes = await api.get('/ipos/admin/all');
+        if (iposRes.data.success) {
+          setIpos(iposRes.data.data);
+        }
+      }
+    } catch (error) {
+      console.error('Error syncing IPOs:', error);
+      alert('Failed to sync IPO data. Please check logs.');
+    } finally {
+      setSyncing(false);
+    }
+  };
 
   useEffect(() => {
     const fetchIpos = async () => {
@@ -70,12 +91,25 @@ export const IPOs = () => {
           <h1 className="text-3xl font-black text-navy-950">IPO Board Tracker</h1>
           <p className="text-gray-500 text-sm mt-1">Configure open bidding windows, listing dates, and subscription status</p>
         </div>
-        <Link
-          to="/ipos/new"
-          className="bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-2.5 rounded-xl text-sm transition"
-        >
-          Add New IPO
-        </Link>
+        <div className="flex space-x-3">
+          <button
+            onClick={handleSyncIpos}
+            disabled={syncing}
+            className={`font-bold px-4 py-2.5 rounded-xl text-sm transition flex items-center ${
+              syncing 
+                ? 'bg-gray-150 text-gray-400 cursor-not-allowed' 
+                : 'bg-navy-50 hover:bg-navy-100 text-navy-800'
+            }`}
+          >
+            {syncing ? '🔄 Syncing IPOs...' : '⚡ Sync IPOs'}
+          </button>
+          <Link
+            to="/ipos/new"
+            className="bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-2.5 rounded-xl text-sm transition"
+          >
+            Add New IPO
+          </Link>
+        </div>
       </div>
 
       <div className="bg-white rounded-3xl border border-gray-150 shadow-sm overflow-hidden">

@@ -2,6 +2,7 @@ const BlogPost = require('../models/BlogPost');
 const Analytics = require('../models/Analytics');
 const catchAsync = require('../utils/catchAsync');
 const ApiError = require('../utils/ApiError');
+const { syncNewsData } = require('../utils/newsSyncService');
 
 /**
  * Get all active blog posts with filters and pagination.
@@ -151,6 +152,26 @@ const remove = catchAsync(async (req, res) => {
   });
 });
 
+/**
+ * Trigger manual news synchronization (admin).
+ */
+const syncNews = catchAsync(async (req, res) => {
+  const result = await syncNewsData();
+
+  if (!result.success) {
+    throw new ApiError(500, `News synchronization failed: ${result.error}`);
+  }
+
+  res.json({
+    success: true,
+    message: 'Market news synced successfully',
+    data: {
+      insertedCount: result.inserted,
+      errors: result.errors
+    }
+  });
+});
+
 module.exports = {
   getAll,
   getAdminAll,
@@ -158,5 +179,6 @@ module.exports = {
   getFeatured,
   create,
   update,
-  remove
+  remove,
+  syncNews
 };

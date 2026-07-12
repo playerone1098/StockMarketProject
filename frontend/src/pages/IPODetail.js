@@ -59,11 +59,51 @@ export const IPODetail = () => {
     }
   };
 
+  const ipoJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    'name': `${ipo.companyName} IPO Bidding Window`,
+    'description': ipo.description || `Initial Public Offering of ${ipo.companyName}. Sector: ${ipo.sector}`,
+    'startDate': ipo.openDate,
+    'endDate': ipo.closeDate,
+    'eventAttendanceMode': 'https://schema.org/OnlineEventAttendanceMode',
+    'eventStatus': 'https://schema.org/EventScheduled',
+    'location': {
+      '@type': 'VirtualLocation',
+      'url': window.location.origin + window.location.pathname
+    },
+    'organizer': {
+      '@type': 'Organization',
+      'name': ipo.companyName,
+      'logo': ipo.imageUrl || `${window.location.origin}/logo.png`
+    },
+    'offers': {
+      '@type': 'Offer',
+      'priceCurrency': 'INR',
+      'price': ipo.priceRange?.max || 0,
+      'url': window.location.origin + window.location.pathname,
+      'category': 'FinancialProduct'
+    }
+  };
+
   return (
     <>
       <Helmet>
         <title>{`${ipo.companyName} IPO Date, Price Band & Status | StockVista`}</title>
         <meta name="description" content={`Get latest details of ${ipo.companyName} IPO: Price band, issue size, bidding window timeline, registrar information, and subscription stats.`} />
+        <meta property="og:title" content={`${ipo.companyName} IPO Date, Price Band & Status | StockVista`} />
+        <meta property="og:description" content={`Get latest details of ${ipo.companyName} IPO: Price band, issue size, bidding window timeline, registrar information, and subscription stats.`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={window.location.origin + window.location.pathname} />
+        {ipo.imageUrl && <meta property="og:image" content={ipo.imageUrl} />}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${ipo.companyName} IPO Date, Price Band & Status | StockVista`} />
+        <meta name="twitter:description" content={`Get latest details of ${ipo.companyName} IPO: Price band, issue size, bidding window timeline, registrar information, and subscription stats.`} />
+        {ipo.imageUrl && <meta name="twitter:image" content={ipo.imageUrl} />}
+        <link rel="canonical" href={window.location.origin + window.location.pathname} />
+        <script type="application/ld+json">
+          {JSON.stringify(ipoJsonLd)}
+        </script>
       </Helmet>
 
       <div className="max-w-4xl mx-auto px-4 py-8">

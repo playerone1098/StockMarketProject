@@ -33,6 +33,14 @@ export const Contact = () => {
       <Helmet>
         <title>Contact Us | Get in Touch with StockVista Support</title>
         <meta name="description" content="Reach out to StockVista regarding trading ideas, corporate inquiries, advertising opportunities, or research feedback." />
+        <meta property="og:title" content="Contact StockVista — Get in Touch" />
+        <meta property="og:description" content="Reach out to StockVista regarding trading ideas, corporate inquiries, advertising opportunities, or research feedback." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={window.location.origin + window.location.pathname} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Contact StockVista — Get in Touch" />
+        <meta name="twitter:description" content="Reach out to StockVista regarding trading ideas, corporate inquiries, or research feedback." />
+        <link rel="canonical" href={window.location.origin + window.location.pathname} />
       </Helmet>
 
       {/* Page Title */}

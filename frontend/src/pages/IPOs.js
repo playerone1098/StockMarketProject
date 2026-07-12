@@ -55,6 +55,14 @@ export const IPOs = () => {
       <Helmet>
         <title>{statusFilter ? `${statusFilter.toUpperCase()}` : 'Indian Stock Market'} IPOs Board & List | StockVista</title>
         <meta name="description" content="Track ongoing, upcoming, closed, and listed Initial Public Offerings (IPOs) in the Indian Stock market with subscription details." />
+        <meta property="og:title" content="IPO Tracker & Board | StockVista" />
+        <meta property="og:description" content="Track ongoing, upcoming, closed, and listed Initial Public Offerings (IPOs) in the Indian Stock market with subscription details." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={window.location.origin + window.location.pathname} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="IPO Tracker & Board | StockVista" />
+        <meta name="twitter:description" content="Track upcoming and listed IPOs in India with live subscription details on StockVista." />
+        <link rel="canonical" href={window.location.origin + window.location.pathname} />
       </Helmet>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

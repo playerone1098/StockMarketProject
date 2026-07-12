@@ -1,6 +1,9 @@
 User-agent: *
 Allow: /
-Allow: /deals
+Allow: /trading-ideas
+Allow: /ipos
+Allow: /blog
+Allow: /stocks
 Allow: /about
 Allow: /faq
 Allow: /contact
@@ -10,5 +13,5 @@ Disallow: /admin/
 Disallow: /login
 Disallow: /register
 
-# Reference dynamic sitemap (Replace with your actual production domain name, e.g. https://yoursite.com/sitemap.xml)
-Sitemap: https://yoursite.com/sitemap.xml
+# TODO: Replace with your actual production domain before deploying
+# Sitemap: https://yourdomain.com/sitemap.xml

@@ -60,11 +60,50 @@ export const BlogDetail = () => {
     }
   };
 
+  const blogJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    'headline': blog.title,
+    'description': blog.excerpt,
+    'image': blog.imageUrl || `${window.location.origin}/og-image.png`,
+    'datePublished': blog.createdAt,
+    'dateModified': blog.updatedAt || blog.createdAt,
+    'author': {
+      '@type': 'Person',
+      'name': blog.author || 'StockVista Editorial'
+    },
+    'publisher': {
+      '@type': 'Organization',
+      'name': 'StockVista',
+      'logo': {
+        '@type': 'ImageObject',
+        'url': `${window.location.origin}/logo.png`
+      }
+    },
+    'mainEntityOfPage': {
+      '@type': 'WebPage',
+      '@id': window.location.origin + window.location.pathname
+    }
+  };
+
   return (
     <>
       <Helmet>
         <title>{`${blog.title} | StockVista Blog`}</title>
         <meta name="description" content={blog.excerpt} />
+        <meta property="og:title" content={`${blog.title} | StockVista Blog`} />
+        <meta property="og:description" content={blog.excerpt} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={window.location.origin + window.location.pathname} />
+        {blog.imageUrl && <meta property="og:image" content={blog.imageUrl} />}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${blog.title} | StockVista Blog`} />
+        <meta name="twitter:description" content={blog.excerpt} />
+        {blog.imageUrl && <meta name="twitter:image" content={blog.imageUrl} />}
+        <link rel="canonical" href={window.location.origin + window.location.pathname} />
+        <script type="application/ld+json">
+          {JSON.stringify(blogJsonLd)}
+        </script>
       </Helmet>
 
       <div className="max-w-3xl mx-auto px-4 py-8">

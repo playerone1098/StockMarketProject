@@ -78,6 +78,16 @@ export const TradingIdeaDetail = () => {
       <Helmet>
         <title>{`${idea.title} | StockVista Trading Idea`}</title>
         <meta name="description" content={idea.summary} />
+        <meta property="og:title" content={`${idea.title} | StockVista Trading Idea`} />
+        <meta property="og:description" content={idea.summary} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={window.location.origin + window.location.pathname} />
+        {idea.imageUrl && <meta property="og:image" content={idea.imageUrl} />}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${idea.title} | StockVista Trading Idea`} />
+        <meta name="twitter:description" content={idea.summary} />
+        {idea.imageUrl && <meta name="twitter:image" content={idea.imageUrl} />}
+        <link rel="canonical" href={window.location.origin + window.location.pathname} />
         <script type="application/ld+json">
           {JSON.stringify(jsonLd)}
         </script>

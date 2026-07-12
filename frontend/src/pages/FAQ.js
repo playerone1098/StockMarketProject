@@ -61,11 +61,35 @@ export const FAQ = () => {
     return matchesSearch && matchesCategory;
   });
 
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    'mainEntity': faqs.map(faq => ({
+      '@type': 'Question',
+      'name': faq.question,
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': faq.answer
+      }
+    }))
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <Helmet>
         <title>Frequently Asked Questions (FAQ) | StockVista Help</title>
         <meta name="description" content="Find answers to common questions about StockVista's trading ideas, stop loss criteria, IPO board, subscription updates, and market data sources." />
+        <meta property="og:title" content="FAQ — StockVista Help & Support" />
+        <meta property="og:description" content="Find answers to common questions about StockVista's trading ideas, stop loss criteria, IPO board, subscription updates, and market data sources." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={window.location.origin + window.location.pathname} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="FAQ — StockVista Help & Support" />
+        <meta name="twitter:description" content="Find answers to common questions about StockVista's trading ideas, IPO board, and market data." />
+        <link rel="canonical" href={window.location.origin + window.location.pathname} />
+        <script type="application/ld+json">
+          {JSON.stringify(faqJsonLd)}
+        </script>
       </Helmet>
 
       {/* Header */}

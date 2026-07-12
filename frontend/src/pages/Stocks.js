@@ -79,6 +79,14 @@ export const Stocks = () => {
       <Helmet>
         <title>{sectorFilter ? `${sectorFilter} Stocks` : 'Indian Stock Screener'} | StockVista</title>
         <meta name="description" content="Research and screen top Indian stocks by market sectors like Banking, IT, Auto, FMCG. Get real-time price updates and market caps." />
+        <meta property="og:title" content="Indian Stock Screener & Directory | StockVista" />
+        <meta property="og:description" content="Research and screen top Indian stocks by market sectors like Banking, IT, Auto, FMCG. Get real-time price updates and market caps." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={window.location.origin + window.location.pathname} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Indian Stock Screener & Directory | StockVista" />
+        <meta name="twitter:description" content="Research top Indian stocks by sector with real-time price updates on StockVista." />
+        <link rel="canonical" href={window.location.origin + window.location.pathname} />
       </Helmet>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

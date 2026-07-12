@@ -36,6 +36,29 @@ export const Home = () => {
     loadHomeData();
   }, []);
 
+  const websiteJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    'name': 'StockVista',
+    'url': window.location.origin,
+    'potentialAction': {
+      '@type': 'SearchAction',
+      'target': {
+        '@type': 'EntryPoint',
+        'urlTemplate': `${window.location.origin}/stocks?search={search_term_string}`
+      },
+      'query-input': 'required name=search_term_string'
+    }
+  };
+
+  const organizationJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    'name': 'StockVista',
+    'url': window.location.origin,
+    'logo': `${window.location.origin}/logo.png`
+  };
+
   const helmet = (
     <Helmet>
       <title>StockVista — Stock Market Insights, Trading Ideas & IPO Tracker</title>
@@ -43,7 +66,19 @@ export const Home = () => {
       <meta property="og:title" content="StockVista — Stock Market Insights & Trading Ideas" />
       <meta property="og:description" content="Get professional research-backed trading recommendations, upcoming IPO tracking data, and finance blogs on StockVista." />
       <meta property="og:type" content="website" />
+      <meta property="og:url" content={window.location.origin + window.location.pathname} />
+      <meta property="og:image" content={`${window.location.origin}/og-image.png`} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="StockVista — Stock Market Insights & Trading Ideas" />
+      <meta name="twitter:description" content="Get professional research-backed trading recommendations, upcoming IPO tracking data, and finance blogs on StockVista." />
+      <meta name="twitter:image" content={`${window.location.origin}/og-image.png`} />
       <link rel="canonical" href={window.location.origin + window.location.pathname} />
+      <script type="application/ld+json">
+        {JSON.stringify(websiteJsonLd)}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify(organizationJsonLd)}
+      </script>
     </Helmet>
   );
 

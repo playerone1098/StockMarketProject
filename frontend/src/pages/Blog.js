@@ -64,6 +64,14 @@ export const Blog = () => {
       <Helmet>
         <title>{category ? `${category.replace('-', ' ').toUpperCase()}` : 'Finance Education'} Blog & Insights | StockVista</title>
         <meta name="description" content="Read daily market research reports, financial news analysis, stock sector forecasts, and easy personal finance tutorials on StockVista." />
+        <meta property="og:title" content="Finance Blog & Insights | StockVista" />
+        <meta property="og:description" content="Read daily market research reports, financial news analysis, stock sector forecasts, and easy personal finance tutorials on StockVista." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={window.location.origin + window.location.pathname} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Finance Blog & Insights | StockVista" />
+        <meta name="twitter:description" content="Read daily market research reports, financial news analysis, and personal finance tutorials." />
+        <link rel="canonical" href={window.location.origin + window.location.pathname} />
       </Helmet>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

@@ -32,11 +32,21 @@
 5. Replace `<password>` with your database password
 6. Replace `<your-database-name>` with your desired database name
 
-## 6. Update Environment Variables
-Update the `.env` file in `/backend/`:
+## 6. Update Environment Variables & Database Isolation
+Update the `.env` file in `/backend/`. StockVista automatically isolates development/test data from production data based on `NODE_ENV`.
 
-```
-MONGODB_URI=mongodb+srv://your-username:your-password@cluster.mongodb.net/your-database-name?retryWrites=true&w=majority
+- **Development/Local:** Connects to the `stockvista_dev` database by default.
+- **Production (AWS/Vercel):** Connects to the `stockvista_prod` database by default.
+
+To override this, you can set the database name explicitly using the `MONGODB_DB_NAME` environment variable.
+
+Example `.env` configuration:
+```env
+# MongoDB Atlas Connection string (without specifying database name path)
+MONGODB_URI=mongodb+srv://your-username:your-password@cluster.mongodb.net/?appName=StockVista
+
+# Optional database override (defaults to stockvista_prod in production, stockvista_dev in development)
+MONGODB_DB_NAME=stockvista_dev
 ```
 
 ## 7. Restart Backend

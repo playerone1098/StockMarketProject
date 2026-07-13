@@ -104,6 +104,17 @@ export const IPODetail = () => {
         <script type="application/ld+json">
           {JSON.stringify(ipoJsonLd)}
         </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            'itemListElement': [
+              { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': window.location.origin },
+              { '@type': 'ListItem', 'position': 2, 'name': 'IPO Tracker', 'item': `${window.location.origin}/ipos` },
+              { '@type': 'ListItem', 'position': 3, 'name': ipo.companyName }
+            ]
+          })}
+        </script>
       </Helmet>
 
       <div className="max-w-4xl mx-auto px-4 py-8">

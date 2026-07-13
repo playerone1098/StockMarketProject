@@ -104,6 +104,17 @@ export const BlogDetail = () => {
         <script type="application/ld+json">
           {JSON.stringify(blogJsonLd)}
         </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            'itemListElement': [
+              { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': window.location.origin },
+              { '@type': 'ListItem', 'position': 2, 'name': 'Blog', 'item': `${window.location.origin}/blog` },
+              { '@type': 'ListItem', 'position': 3, 'name': blog.title }
+            ]
+          })}
+        </script>
       </Helmet>
 
       <div className="max-w-3xl mx-auto px-4 py-8">

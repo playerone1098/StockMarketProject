@@ -104,9 +104,9 @@ export const TradingIdeas = () => {
         </div>
 
         {/* Filters and Search Control Panel */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {/* Search Box */}
-          <form onSubmit={handleSearchSubmit} className="lg:col-span-2 flex gap-2">
+          <form onSubmit={handleSearchSubmit} className="md:col-span-2 flex gap-2">
             <input
               type="text"
               placeholder="Search stocks, tickers or ideas..."
@@ -128,7 +128,7 @@ export const TradingIdeas = () => {
             <select
               value={ideaType}
               onChange={(e) => handleFilterType(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl border border-gray-250 text-sm focus:outline-none bg-white text-navy-950"
+              className="w-full px-3 py-2.5 rounded-xl border border-gray-250 text-sm focus:outline-none bg-white text-navy-950 font-medium"
             >
               <option value="">All Signals</option>
               <option value="buy">BUY</option>
@@ -136,34 +136,21 @@ export const TradingIdeas = () => {
               <option value="hold">HOLD</option>
             </select>
           </div>
-        </div>
 
-        {/* Sector Quick Pills */}
-        <div className="flex flex-wrap gap-2 mb-8 items-center border-b border-gray-100 pb-5">
-          <span className="text-xs font-semibold text-gray-400 mr-2">Sectors:</span>
-          <button
-            onClick={() => handleFilterSector('')}
-            className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition ${
-              !category
-                ? 'bg-brand-500 text-white border-brand-500'
-                : 'bg-white text-navy-800 border-gray-200 hover:bg-navy-50'
-            }`}
-          >
-            All Sectors
-          </button>
-          {sectors.map((sec) => (
-            <button
-              key={sec._id}
-              onClick={() => handleFilterSector(sec.name)}
-              className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition ${
-                category === sec.name
-                  ? 'bg-brand-500 text-white border-brand-500'
-                  : 'bg-white text-navy-800 border-gray-200 hover:bg-navy-50'
-              }`}
+          {/* Sector Filter Dropdown */}
+          <div className="flex items-center space-x-2">
+            <span className="text-xs text-gray-500 font-semibold whitespace-nowrap">Sector:</span>
+            <select
+              value={category}
+              onChange={(e) => handleFilterSector(e.target.value)}
+              className="w-full px-3 py-2.5 rounded-xl border border-gray-250 text-sm focus:outline-none bg-white text-navy-950 font-medium"
             >
-              {sec.name}
-            </button>
-          ))}
+              <option value="">All Sectors</option>
+              {sectors.map((sec) => (
+                <option key={sec._id} value={sec.name}>{sec.name}</option>
+              ))}
+            </select>
+          </div>
         </div>
 
         {/* Grid Display */}

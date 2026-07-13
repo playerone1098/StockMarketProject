@@ -3,7 +3,7 @@ const Stock = require('../models/Stock');
 const TradingIdea = require('../models/TradingIdea');
 const IPO = require('../models/IPO');
 const BlogPost = require('../models/BlogPost');
-require('dotenv').config();
+const config = require('../config');
 
 /**
  * Sample stocks — 15 major Indian companies with realistic data.
@@ -262,7 +262,8 @@ const sampleBlogPosts = [
  */
 const seedSampleData = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
+    await mongoose.connect(config.mongoUri, {
+      dbName: config.dbName,
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

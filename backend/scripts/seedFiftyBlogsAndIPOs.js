@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const BlogPost = require('../models/BlogPost');
 const IPO = require('../models/IPO');
-require('dotenv').config();
+const config = require('../config');
 
 const realIPOs = [
   {
@@ -1298,8 +1298,8 @@ for (let i = 0; i < neededCount; i++) {
 
 const seedData = async () => {
   try {
-    const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/stockvista';
-    await mongoose.connect(mongoUri, {
+    await mongoose.connect(config.mongoUri, {
+      dbName: config.dbName,
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

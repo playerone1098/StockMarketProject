@@ -61,6 +61,7 @@ mongoose.connection.on('error', (err) => {
 
 // Connect to MongoDB
 mongoose.connect(config.mongoUri, {
+  dbName: config.dbName,
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -69,7 +70,16 @@ mongoose.connect(config.mongoUri, {
   try {
     const count = await Sector.countDocuments();
     if (count === 0) {
-      await Sector.insertMany(DEFAULT_SECTORS.map((name) => ({ name })));
+      const sectors = DEFAULT_SECTORS.map((name) => {
+        const slug = name
+          .toLowerCase()
+          .replace(/[^a-z0-9\s-]/g, '')
+          .replace(/\s+/g, '-')
+          .replace(/-+/g, '-')
+          .trim();
+        return { name, slug };
+      });
+      await Sector.insertMany(sectors);
       console.log('📊 Default sectors seeded successfully!');
     }
   } catch (err) {

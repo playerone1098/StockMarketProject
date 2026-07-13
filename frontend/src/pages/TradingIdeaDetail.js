@@ -91,6 +91,17 @@ export const TradingIdeaDetail = () => {
         <script type="application/ld+json">
           {JSON.stringify(jsonLd)}
         </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            'itemListElement': [
+              { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': window.location.origin },
+              { '@type': 'ListItem', 'position': 2, 'name': 'Trading Ideas', 'item': `${window.location.origin}/trading-ideas` },
+              { '@type': 'ListItem', 'position': 3, 'name': idea.title }
+            ]
+          })}
+        </script>
       </Helmet>
 
       <div className="max-w-4xl mx-auto px-4 py-8">

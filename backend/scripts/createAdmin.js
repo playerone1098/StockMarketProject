@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 const User = require('../models/User');
-require('dotenv').config();
+const config = require('../config');
 
 /**
  * Create or reset the admin user for StockVista.
  */
 const createAdmin = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
+    await mongoose.connect(config.mongoUri, {
+      dbName: config.dbName,
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

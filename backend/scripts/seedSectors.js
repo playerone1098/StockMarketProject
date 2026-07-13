@@ -1,14 +1,15 @@
 const mongoose = require('mongoose');
 const Sector = require('../models/Sector');
 const { DEFAULT_SECTORS } = require('../utils/constants');
-require('dotenv').config();
+const config = require('../config');
 
 /**
  * Seed default sectors into the database.
  */
 const seedSectors = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
+    await mongoose.connect(config.mongoUri, {
+      dbName: config.dbName,
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -17,7 +18,15 @@ const seedSectors = async () => {
     await Sector.deleteMany({});
     console.log('🗑️  Cleared existing sectors');
 
-    const sectors = DEFAULT_SECTORS.map((name) => ({ name }));
+    const sectors = DEFAULT_SECTORS.map((name) => {
+      const slug = name
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .trim();
+      return { name, slug };
+    });
     await Sector.insertMany(sectors);
 
     console.log(`✅ ${sectors.length} sectors seeded successfully!`);

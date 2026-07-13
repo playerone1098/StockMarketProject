@@ -12,6 +12,9 @@ const config = {
   /** @type {string} MongoDB connection URI */
   mongoUri: process.env.MONGODB_URI || 'mongodb://localhost:27017/stockvista',
 
+  /** @type {string} MongoDB database name */
+  dbName: process.env.MONGODB_DB_NAME || (process.env.NODE_ENV === 'production' ? 'stockvista_prod' : 'stockvista_dev'),
+
   /** @type {string} JWT secret key */
   jwtSecret: process.env.JWT_SECRET || 'stockvista-dev-secret-change-in-production',
 

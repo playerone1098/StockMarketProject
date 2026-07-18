@@ -10,9 +10,18 @@ const config = require('../config');
  * @param {import('express').Response} res
  */
 const login = catchAsync(async (req, res) => {
-  const { email, password } = req.body;
+  const { email, username, password } = req.body;
 
-  const user = await User.findOne({ email });
+  let query = {};
+  if (email) {
+    query.email = email.toLowerCase();
+  } else if (username) {
+    query.username = username;
+  } else {
+    throw new ApiError(400, 'Please provide email or username');
+  }
+
+  const user = await User.findOne(query);
   if (!user) {
     throw new ApiError(400, 'Invalid credentials');
   }

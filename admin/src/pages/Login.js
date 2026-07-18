@@ -4,7 +4,7 @@ import api from '../utils/axios';
 
 export const Login = () => {
   const [formData, setFormData] = useState({
-    email: '',
+    username: '',
     password: ''
   });
   const [loading, setLoading] = useState(false);
@@ -25,7 +25,7 @@ export const Login = () => {
 
     try {
       const response = await api.post('/auth/login', {
-        email: formData.email,
+        username: formData.username,
         password: formData.password,
       });
 
@@ -60,7 +60,7 @@ export const Login = () => {
         <h1 className="text-3xl font-bold text-center text-gray-900 mb-8">Admin Login</h1>
 
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded mb-6">
+          <div className="bg-red-55 border border-red-200 text-red-650 px-4 py-3 rounded mb-6">
             {error}
           </div>
         )}
@@ -68,15 +68,15 @@ export const Login = () => {
         <form onSubmit={handleSubmit}>
           <div className="mb-6">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              Email
+              Username
             </label>
             <input
-              type="email"
-              name="email"
-              value={formData.email}
+              type="text"
+              name="username"
+              value={formData.username}
               onChange={handleChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-              placeholder="Enter your email"
+              placeholder="Enter your username"
               required
             />
           </div>

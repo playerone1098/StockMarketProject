@@ -12,8 +12,16 @@ const router = express.Router();
  * @access Public
  */
 router.post('/login', [
-  body('email').isEmail().withMessage('Please provide a valid email'),
   body('password').exists().withMessage('Password is required'),
+  body().custom((value) => {
+    if (!value.email && !value.username) {
+      throw new Error('Please provide email or username');
+    }
+    if (value.email && !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value.email)) {
+      throw new Error('Please provide a valid email');
+    }
+    return true;
+  }),
   validate
 ], authController.login);
 

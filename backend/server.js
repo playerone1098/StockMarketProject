@@ -87,16 +87,22 @@ mongoose.connect(config.mongoUri, {
   }
 
   // Trigger initial stock price synchronization and set up interval (every 10 minutes)
-  syncStockPrices();
-  setInterval(syncStockPrices, 10 * 60 * 1000);
+  syncStockPrices().catch(err => console.error('❌ Critical error during initial stock sync:', err));
+  setInterval(() => {
+    syncStockPrices().catch(err => console.error('❌ Critical error during interval stock sync:', err));
+  }, 10 * 60 * 1000);
 
   // Trigger initial IPO synchronization and set up interval (500 times/month -> every 86.4 minutes)
-  syncIpoData();
-  setInterval(syncIpoData, 86.4 * 60 * 1000);
+  syncIpoData().catch(err => console.error('❌ Critical error during initial IPO sync:', err));
+  setInterval(() => {
+    syncIpoData().catch(err => console.error('❌ Critical error during interval IPO sync:', err));
+  }, 86.4 * 60 * 1000);
 
   // Trigger initial news synchronization and set up interval (every 30 minutes)
-  syncNewsData();
-  setInterval(syncNewsData, 30 * 60 * 1000);
+  syncNewsData().catch(err => console.error('❌ Critical error during initial news sync:', err));
+  setInterval(() => {
+    syncNewsData().catch(err => console.error('❌ Critical error during interval news sync:', err));
+  }, 30 * 60 * 1000);
 })
 .catch((err) => console.error('❌ MongoDB connection error:', err));
 
@@ -130,6 +136,8 @@ app.use('/api/stocks', require('./routes/stocks'));
 app.use('/api/sectors', require('./routes/sectors'));
 app.use('/api/analytics', require('./routes/analytics'));
 app.use('/api/market', require('./routes/market'));
+app.use('/api/watchlist', require('./routes/watchlist'));
+app.use('/api/notifications', require('./routes/notification'));
 
 // 404 handler
 app.use((req, res) => {

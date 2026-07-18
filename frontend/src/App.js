@@ -17,6 +17,10 @@ import { FAQ } from './pages/FAQ';
 import { NotFound } from './pages/NotFound';
 import { trackPageView } from './services/api';
 
+import { Login } from './pages/Login';
+import { Register } from './pages/Register';
+import { Watchlists } from './pages/Watchlists';
+
 function App() {
   const location = useLocation();
 
@@ -42,6 +46,9 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/faq" element={<FAQ />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/watchlists" element={<Watchlists />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

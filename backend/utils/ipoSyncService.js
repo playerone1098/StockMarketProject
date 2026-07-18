@@ -48,23 +48,23 @@ const syncIpoData = async (force = false) => {
   const isSimulationMode = !apiKey;
   const modeLabel = isSimulationMode ? 'Simulation Mode' : 'Live API Mode';
   
-  // Throttle API requests in Live API mode to strictly respect 500 requests/month pacing (every 86.4 minutes)
-  if (!isSimulationMode && !force) {
-    const lastUpdatedIpo = await IPO.findOne({ isActive: true }).sort({ updatedAt: -1 });
-    if (lastUpdatedIpo) {
-      const timeSinceLastSync = Date.now() - new Date(lastUpdatedIpo.updatedAt).getTime();
-      const minInterval = 86.4 * 60 * 1000; // 86.4 minutes in ms
-      if (timeSinceLastSync < minInterval) {
-        const remainingMs = minInterval - timeSinceLastSync;
-        console.log(`⏳ IPO API sync throttled. Last sync was ${Math.round(timeSinceLastSync / 60000)}m ago. Next sync in ${Math.round(remainingMs / 60000)}m.`);
-        return { success: true, updated: 0, mode: modeLabel, skipped: true };
-      }
-    }
-  }
-
   console.log(`🔄 Initiating IPO live data synchronization (${modeLabel})...`);
 
   try {
+    // Throttle API requests in Live API mode to strictly respect 500 requests/month pacing (every 86.4 minutes)
+    if (!isSimulationMode && !force) {
+      const lastUpdatedIpo = await IPO.findOne({ isActive: true }).sort({ updatedAt: -1 });
+      if (lastUpdatedIpo) {
+        const timeSinceLastSync = Date.now() - new Date(lastUpdatedIpo.updatedAt).getTime();
+        const minInterval = 86.4 * 60 * 1000; // 86.4 minutes in ms
+        if (timeSinceLastSync < minInterval) {
+          const remainingMs = minInterval - timeSinceLastSync;
+          console.log(`⏳ IPO API sync throttled. Last sync was ${Math.round(timeSinceLastSync / 60000)}m ago. Next sync in ${Math.round(remainingMs / 60000)}m.`);
+          return { success: true, updated: 0, mode: modeLabel, skipped: true };
+        }
+      }
+    }
+
     const activeIpos = await IPO.find({ isActive: true });
 
     if (activeIpos.length === 0) {

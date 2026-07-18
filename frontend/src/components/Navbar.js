@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchSectors } from '../services/api';
+import { useAuth } from '../context/AuthContext';
+import { useNotifications } from '../context/NotificationContext';
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [sectors, setSectors] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
+
+  // Auth and notification state integration
+  const { user, logout } = useAuth();
+  const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications();
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
   useEffect(() => {
     const getSectors = async () => {
@@ -46,6 +53,12 @@ export const Navbar = () => {
             <Link to="/stocks" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition">
               Stocks Directory
             </Link>
+
+            {user && (
+              <Link to="/watchlists" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition">
+                Watchlists
+              </Link>
+            )}
 
             {/* Sectors Dropdown */}
             <div className="relative">
@@ -92,9 +105,201 @@ export const Navbar = () => {
             <Link to="/faq" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition">
               FAQ
             </Link>
+
+            {/* Notification Bell Dropdown */}
+            {user && (
+              <div className="relative">
+                <button
+                  onClick={() => setIsNotificationOpen(!isNotificationOpen)}
+                  className="relative p-1.5 text-gray-300 hover:text-white focus:outline-none transition rounded-full hover:bg-navy-900"
+                >
+                  <span className="sr-only">View notifications</span>
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                  </svg>
+                  {unreadCount > 0 && (
+                    <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-0.5 text-[9px] font-bold leading-none text-white transform translate-x-1/3 -translate-y-1/3 bg-brand-500 rounded-full">
+                      {unreadCount}
+                    </span>
+                  )}
+                </button>
+
+                {isNotificationOpen && (
+                  <>
+                    <div className="fixed inset-0 z-10" onClick={() => setIsNotificationOpen(false)}></div>
+                    <div className="absolute right-0 mt-2 w-80 rounded-2xl shadow-xl bg-white border border-gray-150 text-gray-800 ring-1 ring-black ring-opacity-5 z-20 overflow-hidden divide-y divide-gray-100">
+                      <div className="px-4 py-3 flex items-center justify-between bg-gray-50">
+                        <span className="font-bold text-sm text-navy-950">Notifications</span>
+                        {unreadCount > 0 && (
+                          <button
+                            onClick={() => {
+                              markAllAsRead();
+                              setIsNotificationOpen(false);
+                            }}
+                            className="text-[10px] font-bold text-brand-600 hover:text-brand-700"
+                          >
+                            Mark all read
+                          </button>
+                        )}
+                      </div>
+                      
+                      <div className="max-h-64 overflow-y-auto divide-y divide-gray-50">
+                        {notifications.length === 0 ? (
+                          <div className="px-4 py-6 text-center text-xs text-gray-400">
+                            No notifications yet
+                          </div>
+                        ) : (
+                          notifications.map((n) => (
+                            <div
+                              key={n._id}
+                              onClick={() => {
+                                markAsRead(n._id);
+                                setIsNotificationOpen(false);
+                              }}
+                              className={`px-4 py-3 text-left transition hover:bg-gray-50 cursor-pointer ${
+                                !n.isRead ? 'bg-brand-50/20' : ''
+                              }`}
+                            >
+                              <div className="flex items-start justify-between">
+                                <span className={`text-xs font-bold leading-tight block ${!n.isRead ? 'text-brand-750' : 'text-navy-950'}`}>
+                                  {n.title}
+                                </span>
+                                {!n.isRead && (
+                                  <span className="h-1.5 w-1.5 bg-brand-500 rounded-full flex-shrink-0 mt-1"></span>
+                                )}
+                              </div>
+                              <p className="text-[11px] text-gray-500 mt-1 leading-relaxed">{n.message}</p>
+                              <span className="text-[9px] text-gray-400 mt-1 block">
+                                {new Date(n.createdAt).toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit' })}
+                              </span>
+                            </div>
+                          ))
+                        )}
+                      </div>
+                      
+                      <div className="px-4 py-2 text-center bg-gray-55">
+                        <Link
+                          to="/watchlists"
+                          onClick={() => setIsNotificationOpen(false)}
+                          className="text-[10px] font-bold text-navy-900 hover:text-brand-600 block w-full"
+                        >
+                          View Watchlists
+                        </Link>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+
+            {/* Auth Buttons */}
+            {user ? (
+              <div className="flex items-center space-x-3 ml-2 border-l border-navy-800 pl-4">
+                <span className="text-xs text-gray-300 font-semibold truncate max-w-[100px]">
+                  Hi, {user.username}
+                </span>
+                <button
+                  onClick={logout}
+                  className="px-3.5 py-1.5 bg-navy-800 hover:bg-navy-900 text-white rounded-xl text-xs font-bold transition"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-2 ml-2 border-l border-navy-800 pl-4">
+                <Link
+                  to="/login"
+                  className="text-gray-300 hover:text-white px-3 py-1.5 rounded-md text-xs font-bold transition"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/register"
+                  className="px-3.5 py-1.5 bg-brand-500 hover:bg-brand-600 text-white rounded-xl text-xs font-bold transition shadow-sm"
+                >
+                  Register
+                </Link>
+              </div>
+            )}
           </div>
 
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center space-x-2">
+            {!user ? (
+              <Link
+                to="/login"
+                className="px-3.5 py-1.5 bg-brand-500 hover:bg-brand-600 text-white rounded-xl text-xs font-bold transition shadow-sm mr-1"
+              >
+                Sign In
+              </Link>
+            ) : (
+              <div className="relative mr-1">
+                <button
+                  onClick={() => setIsNotificationOpen(!isNotificationOpen)}
+                  className="relative p-1.5 text-gray-300 hover:text-white focus:outline-none transition rounded-full hover:bg-navy-900"
+                >
+                  <span className="sr-only">View notifications</span>
+                  <svg className="h-5.5 w-5.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                  </svg>
+                  {unreadCount > 0 && (
+                    <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-0.5 text-[9px] font-bold leading-none text-white transform translate-x-1/3 -translate-y-1/3 bg-brand-500 rounded-full">
+                      {unreadCount}
+                    </span>
+                  )}
+                </button>
+
+                {isNotificationOpen && (
+                  <>
+                    <div className="fixed inset-0 z-10" onClick={() => setIsNotificationOpen(false)}></div>
+                    <div className="absolute right-0 mt-2 w-72 rounded-2xl shadow-xl bg-white border border-gray-150 text-gray-800 ring-1 ring-black ring-opacity-5 z-20 overflow-hidden divide-y divide-gray-100">
+                      <div className="px-4 py-2.5 flex items-center justify-between bg-gray-50">
+                        <span className="font-bold text-xs text-navy-950">Notifications</span>
+                        {unreadCount > 0 && (
+                          <button
+                            onClick={() => {
+                              markAllAsRead();
+                              setIsNotificationOpen(false);
+                            }}
+                            className="text-[9px] font-bold text-brand-600 hover:text-brand-700"
+                          >
+                            Mark all read
+                          </button>
+                        )}
+                      </div>
+                      
+                      <div className="max-h-48 overflow-y-auto divide-y divide-gray-50">
+                        {notifications.length === 0 ? (
+                          <div className="px-4 py-4 text-center text-[10px] text-gray-400">
+                            No notifications yet
+                          </div>
+                        ) : (
+                          notifications.map((n) => (
+                            <div
+                              key={n._id}
+                              onClick={() => {
+                                markAsRead(n._id);
+                                setIsNotificationOpen(false);
+                              }}
+                              className={`px-4 py-2.5 text-left transition hover:bg-gray-50 cursor-pointer ${
+                                !n.isRead ? 'bg-brand-50/20' : ''
+                              }`}
+                            >
+                              <div className="flex items-start justify-between">
+                                <span className={`text-[11px] font-bold leading-tight block ${!n.isRead ? 'text-brand-750' : 'text-navy-950'}`}>
+                                  {n.title}
+                                </span>
+                              </div>
+                              <p className="text-[10px] text-gray-500 mt-0.5 leading-snug">{n.message}</p>
+                            </div>
+                          ))
+                        )}
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-gray-300 hover:text-white p-2 focus:outline-none"
@@ -142,6 +347,16 @@ export const Navbar = () => {
             >
               Stocks Directory
             </Link>
+
+            {user && (
+              <Link
+                to="/watchlists"
+                onClick={() => setIsMenuOpen(false)}
+                className="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-base font-semibold"
+              >
+                Watchlists
+              </Link>
+            )}
 
             {/* Mobile Sectors Dropdown */}
             <div className="py-1">
@@ -193,6 +408,39 @@ export const Navbar = () => {
             >
               FAQ
             </Link>
+
+            {/* Mobile Auth Buttons */}
+            {user ? (
+              <div className="pt-4 border-t border-navy-800 px-3 pb-2 space-y-2">
+                <div className="text-sm font-semibold text-gray-300">Logged in as {user.username}</div>
+                <button
+                  onClick={() => {
+                    logout();
+                    setIsMenuOpen(false);
+                  }}
+                  className="w-full text-center px-4 py-2 bg-navy-800 hover:bg-navy-950 text-white rounded-xl text-sm font-semibold transition"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <div className="pt-4 border-t border-navy-800 px-3 pb-2 flex gap-2">
+                <Link
+                  to="/login"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="flex-1 text-center px-4 py-2 border border-navy-800 text-gray-300 hover:text-white rounded-xl text-sm font-semibold transition"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/register"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="flex-1 text-center px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white rounded-xl text-sm font-semibold transition"
+                >
+                  Register
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       )}

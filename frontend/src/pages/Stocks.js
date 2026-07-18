@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { fetchStocks, fetchSectors } from '../services/api';
 import { StockCard } from '../components/StockCard';
+import { useAuth } from '../context/AuthContext';
 
 export const Stocks = () => {
+  const { user } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
   const [stocks, setStocks] = useState([]);
   const [sectors, setSectors] = useState([]);
@@ -95,6 +97,27 @@ export const Stocks = () => {
           <h1 className="text-3xl font-extrabold text-navy-950">Stocks Directory</h1>
           <p className="text-gray-500 text-sm mt-1">Research financial metrics and track day updates of prominent Indian companies ({totalItems} stocks tracked)</p>
         </div>
+
+        {/* Guest alert CTA */}
+        {!user && (
+          <div className="mb-8 p-6 bg-gradient-to-r from-navy-950 to-navy-900 border border-navy-850 rounded-3xl text-white flex flex-col md:flex-row justify-between items-center gap-4 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-brand-500 opacity-10 rounded-full blur-2xl"></div>
+            <div className="text-left relative z-10">
+              <h3 className="font-extrabold text-base">Track Stock Metrics & Get Real-Time Alerts</h3>
+              <p className="text-xs text-gray-300 mt-1 leading-relaxed">
+                Add your choices to watchlists and receive push alerts for 4% price shifts and new filings.
+              </p>
+            </div>
+            <div className="flex gap-2 relative z-10 w-full md:w-auto shrink-0 justify-end">
+              <Link to="/login" className="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold rounded-xl transition shadow-sm">
+                Sign Up Free
+              </Link>
+              <Link to="/login" className="px-4 py-2 bg-navy-800 hover:bg-navy-755 text-white border border-navy-700 text-xs font-bold rounded-xl transition">
+                Sign In
+              </Link>
+            </div>
+          </div>
+        )}
 
         {/* Search Panel */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">

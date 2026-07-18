@@ -1,6 +1,8 @@
 const YahooFinance = require('yahoo-finance2').default;
 const yahooFinance = new YahooFinance({ suppressNotices: ['yahooSurvey'] });
 const Stock = require('../models/Stock');
+const Watchlist = require('../models/Watchlist');
+const Notification = require('../models/Notification');
 
 /**
  * Maps a stock symbol to its Yahoo Finance ticker symbol.
@@ -67,6 +69,35 @@ const syncStockPrices = async () => {
               }
             }
           );
+
+          // Check for significant movement (4% and above)
+          if (Math.abs(dayChangePercent) >= 4) {
+            const watchlists = await Watchlist.find({ stocks: stock._id });
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            for (const wl of watchlists) {
+              const existingNotification = await Notification.findOne({
+                user: wl.user,
+                type: 'price_movement',
+                stock: stock._id,
+                createdAt: { $gte: today }
+              });
+
+              if (!existingNotification) {
+                const isGain = dayChangePercent >= 0;
+                const percentText = `${isGain ? '+' : ''}${dayChangePercent.toFixed(2)}%`;
+                await Notification.create({
+                  user: wl.user,
+                  type: 'price_movement',
+                  stock: stock._id,
+                  title: `Significant Movement for ${stock.symbol}`,
+                  message: `${stock.name} (${stock.symbol}) is ${isGain ? 'up' : 'down'} by ${percentText} today, trading at ₹${currentPrice.toFixed(2)}.`
+                });
+                console.log(`🔔 Created price alert for user ${wl.user} on stock ${stock.symbol}`);
+              }
+            }
+          }
 
           updatedCount++;
           console.log(`✅ Synced ${stock.symbol} (${ticker}): ₹${currentPrice} (${dayChangePercent >= 0 ? '+' : ''}${dayChangePercent.toFixed(2)}%)`);

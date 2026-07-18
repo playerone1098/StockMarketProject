@@ -1,5 +1,7 @@
 const BlogPost = require('../models/BlogPost');
 const Stock = require('../models/Stock');
+const Watchlist = require('../models/Watchlist');
+const Notification = require('../models/Notification');
 
 /**
  * Generates a random percentage between min and max.
@@ -91,6 +93,44 @@ const generateSimulatedNews = async () => {
 };
 
 /**
+ * Scans watchlists and notifies users about news related to their stock.
+ * @param {Object} post - The newly created BlogPost news document
+ */
+const notifyWatchlistNews = async (post) => {
+  try {
+    const stockTag = post.tags.find(tag => tag !== 'market-news');
+    if (!stockTag) return;
+
+    const stock = await Stock.findOne({ symbol: stockTag.toUpperCase() });
+    if (!stock) return;
+
+    const watchlists = await Watchlist.find({ stocks: stock._id });
+    
+    for (const wl of watchlists) {
+      const existing = await Notification.findOne({
+        user: wl.user,
+        type: 'news',
+        relatedNews: post._id
+      });
+
+      if (!existing) {
+        await Notification.create({
+          user: wl.user,
+          type: 'news',
+          stock: stock._id,
+          relatedNews: post._id,
+          title: `News Alert: ${stock.symbol}`,
+          message: post.title
+        });
+        console.log(`🔔 Created news alert for user ${wl.user} on stock ${stock.symbol}`);
+      }
+    }
+  } catch (err) {
+    console.error('❌ Error during news alert generation:', err.message);
+  }
+};
+
+/**
  * Synchronizes Indian stock market news.
  * Fetches from IndianAPI in live mode, or generates simulated news articles.
  * @returns {Promise<{success: boolean, inserted: number, mode: string, errors: Array}>}
@@ -125,7 +165,7 @@ const syncNewsData = async () => {
           if (existing) continue;
 
           // Create new BlogPost news item
-          await BlogPost.create({
+          const newPost = await BlogPost.create({
             title,
             excerpt: item.summary || item.description || title,
             content: `Read the full story from **${item.source || 'our news source'}** [here](${item.url || '#'}).\n\n*Published at: ${item.publishedAt ? new Date(item.publishedAt).toLocaleString() : new Date().toLocaleString()}*`,
@@ -136,6 +176,8 @@ const syncNewsData = async () => {
             isFeatured: false,
             isActive: true
           });
+
+          await notifyWatchlistNews(newPost);
 
           insertedCount++;
         } catch (itemErr) {
@@ -155,7 +197,8 @@ const syncNewsData = async () => {
           const existing = await BlogPost.findOne({ title: newsItem.title });
           if (existing) continue;
 
-          await BlogPost.create(newsItem);
+          const newPost = await BlogPost.create(newsItem);
+          await notifyWatchlistNews(newPost);
           insertedCount++;
           console.log(`✅ Generated news: "${newsItem.title}"`);
         } catch (simErr) {

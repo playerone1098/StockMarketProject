@@ -13,6 +13,11 @@ export const fetchMarketStats = async () => {
   return res.data;
 };
 
+export const fetchMarketIndices = async () => {
+  const res = await axios.get('/api/market/indices');
+  return res.data;
+};
+
 export const fetchSectors = async () => {
   const res = await axios.get('/api/sectors');
   return res.data;
@@ -74,4 +79,51 @@ export const trackPageView = async (path) => {
   } catch (err) {
     console.error('Analytics tracking failed:', err);
   }
+};
+
+// Watchlist API Calls
+export const fetchWatchlists = async () => {
+  const res = await axios.get('/api/watchlist');
+  return res.data;
+};
+
+export const createWatchlist = async (name) => {
+  const res = await axios.post('/api/watchlist', { name });
+  return res.data;
+};
+
+export const deleteWatchlist = async (id) => {
+  const res = await axios.delete(`/api/watchlist/${id}`);
+  return res.data;
+};
+
+export const addStockToWatchlist = async (watchlistId, symbol) => {
+  const res = await axios.post(`/api/watchlist/${watchlistId}/stocks`, { symbol });
+  return res.data;
+};
+
+export const removeStockFromWatchlist = async (watchlistId, stockId) => {
+  const res = await axios.delete(`/api/watchlist/${watchlistId}/stocks/${stockId}`);
+  return res.data;
+};
+
+export const fetchWatchlistNews = async () => {
+  const res = await axios.get('/api/watchlist/news');
+  return res.data;
+};
+
+// Notification API Calls
+export const fetchNotifications = async () => {
+  const res = await axios.get('/api/notifications');
+  return res.data;
+};
+
+export const markNotificationRead = async (id) => {
+  const res = await axios.post(`/api/notifications/${id}/read`);
+  return res.data;
+};
+
+export const markAllNotificationsRead = async () => {
+  const res = await axios.post('/api/notifications/read-all');
+  return res.data;
 };

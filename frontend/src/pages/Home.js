@@ -5,8 +5,10 @@ import { fetchFeaturedTradingIdeas, fetchIPOs, fetchFeaturedBlogs, fetchMarketSt
 import { IdeaCard } from '../components/IdeaCard';
 import { IPOCard } from '../components/IPOCard';
 import { BlogCard } from '../components/BlogCard';
+import { useAuth } from '../context/AuthContext';
 
 export const Home = () => {
+  const { user } = useAuth();
   const [featuredIdeas, setFeaturedIdeas] = useState([]);
   const [activeIpos, setActiveIpos] = useState([]);
   const [featuredBlogs, setFeaturedBlogs] = useState([]);
@@ -26,7 +28,14 @@ export const Home = () => {
         if (ideasRes.success) setFeaturedIdeas(ideasRes.data);
         if (iposRes.success) setActiveIpos(iposRes.data);
         if (blogsRes.success) setFeaturedBlogs(blogsRes.data);
-        if (statsRes.success) setStats(statsRes.data);
+        if (statsRes.success && statsRes.data?.counts) {
+          setStats({
+            stocks: statsRes.data.counts.stocks,
+            ideas: statsRes.data.counts.tradingIdeas,
+            ipos: statsRes.data.counts.ipos,
+            blogs: statsRes.data.counts.blogs
+          });
+        }
       } catch (err) {
         console.error('Error fetching home data:', err);
       } finally {
@@ -112,17 +121,26 @@ export const Home = () => {
             Explore daily technical & fundamental trading ideas, track upcoming IPOs, and master the markets with expert finance guides.
           </p>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+            {user ? (
+              <Link
+                to="/watchlists"
+                className="px-8 py-3.5 bg-brand-500 hover:bg-brand-600 text-white rounded-xl text-sm font-bold shadow-lg shadow-brand-500/20 transition-all w-full sm:w-auto"
+              >
+                Go to My Watchlists
+              </Link>
+            ) : (
+              <Link
+                to="/login"
+                className="px-8 py-3.5 bg-brand-500 hover:bg-brand-600 text-white rounded-xl text-sm font-bold shadow-lg shadow-brand-500/20 transition-all w-full sm:w-auto"
+              >
+                Create Free Watchlist
+              </Link>
+            )}
             <Link
-              to="/trading-ideas"
-              className="px-8 py-3.5 bg-brand-500 hover:bg-brand-600 text-white rounded-xl text-sm font-bold shadow-lg shadow-brand-500/20 transition-all w-full sm:w-auto"
-            >
-              Browse Trading Ideas
-            </Link>
-            <Link
-              to="/ipos"
+              to="/stocks"
               className="px-8 py-3.5 bg-navy-800 hover:bg-navy-700 text-white border border-navy-700 rounded-xl text-sm font-bold transition w-full sm:w-auto"
             >
-              Track Live IPOs
+              Browse Stock Directory
             </Link>
           </div>
         </div>
@@ -195,6 +213,33 @@ export const Home = () => {
             </div>
           )}
         </section>
+
+        {/* Watchlist Prompt Banner */}
+        {!user && (
+          <section className="bg-gradient-to-r from-brand-600 to-brand-700 text-white rounded-3xl p-8 md:p-12 shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.1),transparent)]"></div>
+            <div className="relative z-10 max-w-xl text-left">
+              <h2 className="text-3xl font-black mb-3">Never Miss a Significant Market Move</h2>
+              <p className="text-sm text-brand-100 leading-relaxed">
+                Create a customized stock watchlist to track live metrics and news. Get instant desktop and browser notifications for movements of 4% and above.
+              </p>
+            </div>
+            <div className="relative z-10 flex gap-3 w-full md:w-auto flex-shrink-0">
+              <Link
+                to="/login"
+                className="px-6 py-3 bg-white text-brand-700 font-extrabold rounded-2xl text-sm transition hover:bg-brand-50 w-full md:w-auto text-center shadow-md"
+              >
+                Create Free Account
+              </Link>
+              <Link
+                to="/login"
+                className="px-6 py-3 bg-brand-800 text-white font-bold rounded-2xl text-sm transition hover:bg-brand-900 border border-brand-500/20 w-full md:w-auto text-center"
+              >
+                Sign In
+              </Link>
+            </div>
+          </section>
+        )}
 
         {/* Blog & Educational Section */}
         <section>

@@ -15,4 +15,10 @@ router.get('/overview', marketController.getOverview);
  */
 router.get('/stats', marketController.getStats);
 
+/**
+ * @route GET /api/market/indices
+ * @desc Get live stock indices (public)
+ */
+router.get('/indices', marketController.getIndices);
+
 module.exports = router;

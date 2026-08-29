@@ -258,10 +258,10 @@ export const Watchlist = () => {
         </div>
 
         {/* Dynamic Animated Layout Container */}
-        <div className={`transition-all duration-500 ease-in-out ${selectedStock ? 'flex flex-col lg:flex-row gap-6 items-start' : 'space-y-6'}`}>
+        <div className={`transition-all duration-500 ease-in-out ${selectedStock ? 'flex flex-col lg:flex-row gap-4 items-start' : 'space-y-6'}`}>
           
           {/* Watchlist Panel (Full Width when no stock selected; Left Side Panel when stock is selected) */}
-          <div className={`transition-all duration-500 ease-in-out ${selectedStock ? 'w-full lg:w-96 shrink-0 space-y-4' : 'w-full space-y-6'}`}>
+          <div className={`transition-all duration-500 ease-in-out ${selectedStock ? 'w-full lg:w-72 shrink-0 space-y-3' : 'w-full space-y-6'}`}>
             
             {/* Add Stock Search Bar */}
             <div className="relative">
@@ -354,7 +354,7 @@ export const Watchlist = () => {
                 </div>
               ) : selectedStock ? (
                 /* SIDE PANEL COMPACT STOCK CARDS LIST (When stock is selected) */
-                <div className="p-3 space-y-2 max-h-[720px] overflow-y-auto custom-scrollbar">
+                <div className="p-2 space-y-1.5 max-h-[720px] overflow-y-auto custom-scrollbar">
                   {currentWatchlist.items.map((item) => {
                     const st = item.stockDetails || {};
                     const isPositive = (st.changePercent || 0) >= 0;
@@ -364,42 +364,35 @@ export const Watchlist = () => {
                       <div
                         key={item._id || item.symbol}
                         onClick={() => setSelectedStock(item.symbol)}
-                        className={`p-3.5 rounded-2xl cursor-pointer transition-all duration-300 border flex items-center justify-between group ${
+                        className={`px-2.5 py-2 rounded-xl cursor-pointer transition-all duration-300 border flex items-center justify-between group ${
                           isActive
-                            ? 'bg-amber-500/10 border-amber-500 shadow-lg shadow-amber-500/10 scale-[1.01]'
+                            ? 'bg-amber-500/10 border-amber-500/60 shadow-md shadow-amber-500/10'
                             : 'bg-navy-950/60 border-navy-800/80 hover:border-navy-700 hover:bg-navy-800/50'
                         }`}
                       >
-                        <div className="flex items-center gap-3 min-w-0">
-                          <div className={`w-9 h-9 rounded-xl flex items-center justify-center font-black text-xs transition ${
-                            isActive ? 'bg-amber-500 text-navy-950 font-black' : 'bg-navy-900 border border-navy-800 text-amber-400 group-hover:border-amber-500'
+                        <div className="flex items-center gap-2 min-w-0">
+                          <div className={`w-7 h-7 rounded-lg flex items-center justify-center font-black text-[10px] transition shrink-0 ${
+                            isActive ? 'bg-amber-500 text-navy-950' : 'bg-navy-900 border border-navy-800 text-amber-400'
                           }`}>
-                            {item.symbol.slice(0, 3)}
+                            {item.symbol.slice(0, 2)}
                           </div>
                           <div className="truncate">
-                            <div className="flex items-center gap-1.5">
-                              <span className={`font-extrabold text-sm ${isActive ? 'text-amber-400' : 'text-white group-hover:text-amber-400'}`}>
-                                {item.symbol}
-                              </span>
-                              {isActive && (
-                                <span className="bg-amber-500 text-navy-950 text-[10px] font-black px-1.5 py-0.5 rounded animate-pulse">
-                                  CHART
-                                </span>
-                              )}
-                            </div>
-                            <div className="text-[11px] text-gray-400 truncate max-w-[130px]">
+                            <span className={`font-extrabold text-xs block ${isActive ? 'text-amber-400' : 'text-white group-hover:text-amber-400'}`}>
+                              {item.symbol}
+                            </span>
+                            <span className="text-[10px] text-gray-500 block truncate max-w-[90px]">
                               {st.companyName || item.symbol}
-                            </div>
+                            </span>
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-3 shrink-0">
+                        <div className="flex items-center gap-1.5 shrink-0">
                           <div className="text-right">
-                            <div className="font-extrabold text-white text-xs">
+                            <div className="font-bold text-white text-[11px]">
                               ₹{st.currentPrice ? Number(st.currentPrice).toLocaleString('en-IN', { minimumFractionDigits: 2 }) : '—'}
                             </div>
                             {st.changePercent !== undefined && (
-                              <div className={`text-[10px] font-bold ${isPositive ? 'text-emerald-400' : 'text-rose-400'}`}>
+                              <div className={`text-[9px] font-bold ${isPositive ? 'text-emerald-400' : 'text-rose-400'}`}>
                                 {isPositive ? '+' : ''}{Number(st.changePercent).toFixed(2)}%
                               </div>
                             )}

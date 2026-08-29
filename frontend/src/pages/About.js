@@ -6,15 +6,15 @@ export const About = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <Helmet>
-        <title>About Us | Learn Our Mission & Investment Principles | StockVista</title>
-        <meta name="description" content="Discover StockVista's journey, professional core research values, and stats. We empower Indian retail investors with high-quality stock picks, blogs, and IPO information." />
-        <meta property="og:title" content="About StockVista — Our Mission & Investment Principles" />
-        <meta property="og:description" content="Discover StockVista's journey, professional core research values, and stats. We empower Indian retail investors with high-quality stock picks, blogs, and IPO information." />
+        <title>About Us | Learn Our Mission & Investment Principles | JodhpurTraders</title>
+        <meta name="description" content="Discover JodhpurTraders's journey, professional core research values, and stats. We empower Indian retail investors with high-quality stock picks, blogs, and IPO information." />
+        <meta property="og:title" content="About JodhpurTraders — Our Mission & Investment Principles" />
+        <meta property="og:description" content="Discover JodhpurTraders's journey, professional core research values, and stats. We empower Indian retail investors with high-quality stock picks, blogs, and IPO information." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={window.location.origin + window.location.pathname} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="About StockVista — Our Mission & Investment Principles" />
-        <meta name="twitter:description" content="Discover StockVista's journey, professional core research values, and stats." />
+        <meta name="twitter:title" content="About JodhpurTraders — Our Mission & Investment Principles" />
+        <meta name="twitter:description" content="Discover JodhpurTraders's journey, professional core research values, and stats." />
         <link rel="canonical" href={window.location.origin + window.location.pathname} />
       </Helmet>
       

@@ -15,4 +15,10 @@ router.get('/overview', marketController.getOverview);
  */
 router.get('/stats', marketController.getStats);
 
+/**
+ * @route GET /api/market/indices
+ * @desc Get Indian benchmark indices (Nifty 50, Bank Nifty, Sensex) (public)
+ */
+router.get('/indices', marketController.getIndices);
+
 module.exports = router;

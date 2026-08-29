@@ -72,7 +72,7 @@ const tradingIdeaSchema = new mongoose.Schema({
   },
   author: {
     type: String,
-    default: 'StockVista Research'
+    default: 'JodhpurTraders Research'
   },
   isFeatured: {
     type: Boolean,

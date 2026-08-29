@@ -1,7 +1,7 @@
 {
-  "name": "stockvista-admin",
+  "name": "jodhpurtraders-admin",
   "version": "1.0.0",
-  "description": "StockVista - Stock Market & Finance Platform Admin Panel",
+  "description": "JodhpurTraders - Stock Market & Finance Platform Admin Panel",
   "private": true,
   "dependencies": {
     "autoprefixer": "^10.4.15",

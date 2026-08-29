@@ -79,7 +79,7 @@ const generateSimulatedNews = async () => {
       content: article.content,
       category: 'news',
       tags: ['market-news', stock.symbol.toLowerCase()],
-      author: 'StockVista Research',
+      author: 'JodhpurTraders Research',
       readTime: 3,
       isFeatured: false,
       isActive: true
@@ -131,7 +131,7 @@ const syncNewsData = async () => {
             content: `Read the full story from **${item.source || 'our news source'}** [here](${item.url || '#'}).\n\n*Published at: ${item.publishedAt ? new Date(item.publishedAt).toLocaleString() : new Date().toLocaleString()}*`,
             category: 'news',
             tags: ['market-news', (item.ticker || item.symbol || 'general').toLowerCase()],
-            author: item.source || 'StockVista News',
+            author: item.source || 'JodhpurTraders News',
             readTime: 2,
             isFeatured: false,
             isActive: true

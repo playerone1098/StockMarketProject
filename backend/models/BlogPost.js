@@ -36,7 +36,7 @@ const blogPostSchema = new mongoose.Schema({
   },
   author: {
     type: String,
-    default: 'StockVista Editorial'
+    default: 'JodhpurTraders Editorial'
   },
   readTime: {
     type: Number,

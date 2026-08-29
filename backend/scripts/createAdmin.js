@@ -3,7 +3,7 @@ const User = require('../models/User');
 require('dotenv').config();
 
 /**
- * Create or reset the admin user for StockVista.
+ * Create or reset the admin user for JodhpurTraders.
  */
 const createAdmin = async () => {
   try {
@@ -14,13 +14,14 @@ const createAdmin = async () => {
 
     console.log('');
     console.log('╔═══════════════════════════════════════╗');
-    console.log('║       🚀 StockVista Admin Setup       ║');
+    console.log('║     🚀 JodhpurTraders Admin Setup     ║');
     console.log('╚═══════════════════════════════════════╝');
     console.log('');
 
     // Find by either email or username to avoid E11000 duplicate key errors
     let admin = await User.findOne({ 
       $or: [
+        { email: 'admin@jodhpurtraders.com' },
         { email: 'admin@stockvista.com' },
         { username: 'admin' }
       ]
@@ -28,11 +29,11 @@ const createAdmin = async () => {
 
     if (admin) {
       admin.username = 'admin';
-      admin.email = 'admin@stockvista.com';
+      admin.email = 'admin@jodhpurtraders.com';
       admin.password = 'ashokbhupi@2015';
       admin.role = 'admin';
       admin.profile = {
-        firstName: 'StockVista',
+        firstName: 'JodhpurTraders',
         lastName: 'Admin'
       };
       await admin.save();
@@ -40,11 +41,11 @@ const createAdmin = async () => {
     } else {
       admin = new User({
         username: 'admin',
-        email: 'admin@stockvista.com',
+        email: 'admin@jodhpurtraders.com',
         password: 'ashokbhupi@2015',
         role: 'admin',
         profile: {
-          firstName: 'StockVista',
+          firstName: 'JodhpurTraders',
           lastName: 'Admin'
         }
       });
@@ -53,7 +54,7 @@ const createAdmin = async () => {
     }
 
     console.log('');
-    console.log('📧 Email:    admin@stockvista.com');
+    console.log('📧 Email:    admin@jodhpurtraders.com');
     console.log('🔑 Password: ashokbhupi@2015');
     console.log('');
     console.log('⚠️  Please change the password after first login.');

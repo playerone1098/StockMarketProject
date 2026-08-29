@@ -1,3 +1,4 @@
+const http = require('http');
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -10,8 +11,17 @@ const { DEFAULT_SECTORS } = require('./utils/constants');
 const { syncStockPrices } = require('./utils/stockSyncService');
 const { syncIpoData } = require('./utils/ipoSyncService');
 const { syncNewsData } = require('./utils/newsSyncService');
+const { initWebSocketServer, getWSStats } = require('./utils/websocketService');
 
 const app = express();
+const server = http.createServer(app);
+
+// Initialize WebSocket real-time data server
+try {
+  initWebSocketServer(server);
+} catch (wsErr) {
+  console.warn('⚠️ WebSocket server initialization warning:', wsErr.message);
+}
 
 // Trust proxy for rate limiting behind reverse proxies (Railway, nginx, etc.)
 app.set('trust proxy', 1);
@@ -63,9 +73,10 @@ mongoose.connection.on('error', (err) => {
 mongoose.connect(config.mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 5000
 })
 .then(async () => {
-  console.log('✅ MongoDB connected');
+  console.log('✅ MongoDB connected successfully!');
   try {
     const count = await Sector.countDocuments();
     if (count === 0) {
@@ -76,9 +87,9 @@ mongoose.connect(config.mongoUri, {
     console.error('Error seeding default sectors:', err);
   }
 
-  // Trigger initial stock price synchronization and set up interval (every 10 minutes)
+  // Trigger initial stock price synchronization and set up interval (every 1 minute for live updates)
   syncStockPrices();
-  setInterval(syncStockPrices, 10 * 60 * 1000);
+  setInterval(syncStockPrices, 60 * 1000);
 
   // Trigger initial IPO synchronization and set up interval (500 times/month -> every 86.4 minutes)
   syncIpoData();
@@ -88,11 +99,14 @@ mongoose.connect(config.mongoUri, {
   syncNewsData();
   setInterval(syncNewsData, 30 * 60 * 1000);
 })
-.catch((err) => console.error('❌ MongoDB connection error:', err));
+.catch((err) => {
+  console.error('❌ Could not connect to MongoDB:', err.message);
+  console.error('💡 TIP: Make sure MongoDB is running locally (e.g. `mongod` or `sudo systemctl start mongod`) or update `MONGODB_URI` in `backend/.env` with your MongoDB Atlas cloud database URI.');
+});
 
 // Health check
 app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'OK', platform: 'StockVista' });
+  res.status(200).json({ status: 'OK', platform: 'JodhpurTraders' });
 });
 
 // Status check
@@ -102,17 +116,29 @@ app.get('/api/status', (req, res) => {
   res.json({
     success: true,
     data: {
-      platform: 'StockVista',
+      platform: 'JodhpurTraders',
       backend: 'Connected',
       database: dbStatusMap[dbState] || 'Unknown',
-      environment: config.nodeEnv
+      environment: config.nodeEnv,
+      websocket: getWSStats()
     }
+  });
+});
+
+// WebSocket status check
+app.get('/api/ws/status', (req, res) => {
+  res.json({
+    success: true,
+    data: getWSStats()
   });
 });
 
 // Routes
 app.use('/sitemap.xml', require('./routes/sitemap'));
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/users', require('./routes/users'));
+app.use('/api/watchlists', require('./routes/watchlists'));
+app.use('/api/portfolios', require('./routes/portfolios'));
 app.use('/api/trading-ideas', require('./routes/tradingIdeas'));
 app.use('/api/ipos', require('./routes/ipos'));
 app.use('/api/blogs', require('./routes/blogs'));
@@ -120,6 +146,12 @@ app.use('/api/stocks', require('./routes/stocks'));
 app.use('/api/sectors', require('./routes/sectors'));
 app.use('/api/analytics', require('./routes/analytics'));
 app.use('/api/market', require('./routes/market'));
+app.use('/api/indian', require('./routes/indianApiRoutes'));
+app.use('/api/social', require('./routes/social'));
+app.use('/api/chart-analysis', require('./routes/chartAnalysis'));
+app.use('/api/screener-presets', require('./routes/screenerPresets'));
+
+
 
 // 404 handler
 app.use((req, res) => {
@@ -132,6 +164,6 @@ app.use((req, res) => {
 // Centralized error handler (must be last)
 app.use(errorHandler);
 
-app.listen(config.port, () => {
-  console.log(`🚀 StockVista server running on port ${config.port} [${config.nodeEnv}]`);
+server.listen(config.port, () => {
+  console.log(`🚀 JodhpurTraders server & WebSocket running on port ${config.port} [${config.nodeEnv}]`);
 });

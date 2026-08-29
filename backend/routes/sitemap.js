@@ -17,9 +17,11 @@ router.get('/', async (req, res) => {
 
   const staticPages = [
     { loc: `${BASE_URL}/`, priority: '1.0' },
+    { loc: `${BASE_URL}/community`, priority: '0.9' },
     { loc: `${BASE_URL}/trading-ideas`, priority: '0.9' },
     { loc: `${BASE_URL}/ipos`, priority: '0.9' },
     { loc: `${BASE_URL}/blog`, priority: '0.9' },
+    { loc: `${BASE_URL}/screener`, priority: '0.9' },
     { loc: `${BASE_URL}/stocks`, priority: '0.8' },
     { loc: `${BASE_URL}/about`, priority: '0.6' },
     { loc: `${BASE_URL}/contact`, priority: '0.5' },

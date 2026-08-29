@@ -70,11 +70,11 @@ export const BlogDetail = () => {
     'dateModified': blog.updatedAt || blog.createdAt,
     'author': {
       '@type': 'Person',
-      'name': blog.author || 'StockVista Editorial'
+      'name': blog.author || 'JodhpurTraders Editorial'
     },
     'publisher': {
       '@type': 'Organization',
-      'name': 'StockVista',
+      'name': 'JodhpurTraders',
       'logo': {
         '@type': 'ImageObject',
         'url': `${window.location.origin}/logo.png`
@@ -89,15 +89,15 @@ export const BlogDetail = () => {
   return (
     <>
       <Helmet>
-        <title>{`${blog.title} | StockVista Blog`}</title>
+        <title>{`${blog.title} | JodhpurTraders Blog`}</title>
         <meta name="description" content={blog.excerpt} />
-        <meta property="og:title" content={`${blog.title} | StockVista Blog`} />
+        <meta property="og:title" content={`${blog.title} | JodhpurTraders Blog`} />
         <meta property="og:description" content={blog.excerpt} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={window.location.origin + window.location.pathname} />
         {blog.imageUrl && <meta property="og:image" content={blog.imageUrl} />}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${blog.title} | StockVista Blog`} />
+        <meta name="twitter:title" content={`${blog.title} | JodhpurTraders Blog`} />
         <meta name="twitter:description" content={blog.excerpt} />
         {blog.imageUrl && <meta name="twitter:image" content={blog.imageUrl} />}
         <link rel="canonical" href={window.location.origin + window.location.pathname} />

@@ -31,15 +31,15 @@ export const Contact = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <Helmet>
-        <title>Contact Us | Get in Touch with StockVista Support</title>
-        <meta name="description" content="Reach out to StockVista regarding trading ideas, corporate inquiries, advertising opportunities, or research feedback." />
-        <meta property="og:title" content="Contact StockVista — Get in Touch" />
-        <meta property="og:description" content="Reach out to StockVista regarding trading ideas, corporate inquiries, advertising opportunities, or research feedback." />
+        <title>Contact Us | Get in Touch with JodhpurTraders Support</title>
+        <meta name="description" content="Reach out to JodhpurTraders regarding trading ideas, corporate inquiries, advertising opportunities, or research feedback." />
+        <meta property="og:title" content="Contact JodhpurTraders — Get in Touch" />
+        <meta property="og:description" content="Reach out to JodhpurTraders regarding trading ideas, corporate inquiries, advertising opportunities, or research feedback." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={window.location.origin + window.location.pathname} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Contact StockVista — Get in Touch" />
-        <meta name="twitter:description" content="Reach out to StockVista regarding trading ideas, corporate inquiries, or research feedback." />
+        <meta name="twitter:title" content="Contact JodhpurTraders — Get in Touch" />
+        <meta name="twitter:description" content="Reach out to JodhpurTraders regarding trading ideas, corporate inquiries, or research feedback." />
         <link rel="canonical" href={window.location.origin + window.location.pathname} />
       </Helmet>
 
@@ -61,7 +61,7 @@ export const Contact = () => {
             <div>
               <h3 className="font-extrabold text-navy-950 text-base mb-1">Email Us</h3>
               <p className="text-brand-600 text-sm font-semibold mb-2">
-                contact@stockvista.com
+                contact@jodhpurtraders.com
               </p>
               <p className="text-gray-500 text-xs leading-relaxed">
                 We respond to all research feedback within 24 business hours.

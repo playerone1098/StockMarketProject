@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { fetchTradingIdeaBySlug } from '../services/api';
 import { formatCurrency, formatDate } from '../utils/formatters';
+import { StockChart } from '../components/StockChart';
 
 export const TradingIdeaDetail = () => {
   const { slug } = useParams();
@@ -65,7 +66,7 @@ export const TradingIdeaDetail = () => {
     'dateModified': idea.updatedAt,
     'author': {
       '@type': 'Organization',
-      'name': 'StockVista Research Desk'
+      'name': 'JodhpurTraders Research Desk'
     },
     'about': {
       '@type': 'FinancialProduct',
@@ -76,15 +77,15 @@ export const TradingIdeaDetail = () => {
   return (
     <>
       <Helmet>
-        <title>{`${idea.title} | StockVista Trading Idea`}</title>
+        <title>{`${idea.title} | JodhpurTraders Trading Idea`}</title>
         <meta name="description" content={idea.summary} />
-        <meta property="og:title" content={`${idea.title} | StockVista Trading Idea`} />
+        <meta property="og:title" content={`${idea.title} | JodhpurTraders Trading Idea`} />
         <meta property="og:description" content={idea.summary} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={window.location.origin + window.location.pathname} />
         {idea.imageUrl && <meta property="og:image" content={idea.imageUrl} />}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${idea.title} | StockVista Trading Idea`} />
+        <meta name="twitter:title" content={`${idea.title} | JodhpurTraders Trading Idea`} />
         <meta name="twitter:description" content={idea.summary} />
         {idea.imageUrl && <meta name="twitter:image" content={idea.imageUrl} />}
         <link rel="canonical" href={window.location.origin + window.location.pathname} />
@@ -117,12 +118,20 @@ export const TradingIdeaDetail = () => {
           {idea.title}
         </h1>
 
-        <div className="flex items-center space-x-2 text-xs text-gray-400 font-semibold mb-8">
+        <div className="flex items-center space-x-2 text-xs text-gray-400 font-semibold mb-6">
           <span>By {idea.author}</span>
           <span>•</span>
           <span>Published {formatDate(idea.createdAt)}</span>
           <span>•</span>
           <span>{idea.viewCount} views</span>
+        </div>
+
+        {/* Educational Disclaimer Banner */}
+        <div className="mb-8 bg-amber-50/90 border border-amber-200/80 rounded-2xl p-4 text-xs text-amber-900 flex items-center gap-3 shadow-xs">
+          <span className="text-amber-600 flex-shrink-0 text-base">⚠️</span>
+          <p className="leading-normal font-medium">
+            <strong className="font-bold">Disclaimer:</strong> Trading ideas are for educational purposes only and are provided with proper stop loss and technical analysis. Please invest money only based on your own research.
+          </p>
         </div>
 
         {/* Cover Image */}
@@ -147,6 +156,16 @@ export const TradingIdeaDetail = () => {
             <span className="text-xl md:text-3xl font-black text-red-400">{formatCurrency(idea.stopLoss)}</span>
           </div>
         </div>
+
+        {/* Interactive Stock Performance Chart */}
+        {idea.stockSymbol && (
+          <div className="mb-8">
+            <h3 className="text-lg font-extrabold text-navy-950 mb-3 flex items-center gap-2">
+              <span>📈</span> Live Stock Performance Chart ({idea.stockSymbol})
+            </h3>
+            <StockChart symbol={idea.stockSymbol} initialPrice={idea.entryPrice} />
+          </div>
+        )}
 
         {/* Meta Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-white border border-gray-100 rounded-2xl p-4 mb-8 text-center text-xs">
@@ -194,7 +213,7 @@ export const TradingIdeaDetail = () => {
         <div className="bg-gray-50 border border-gray-150 rounded-2xl p-5 text-xs text-gray-500 leading-relaxed">
           <h4 className="font-bold text-navy-950 mb-1.5">Important Investment Disclaimer</h4>
           <p>
-            The analysis, research, and ideas presented here are for educational and informational purposes only. They are not intended as personal financial advice or recommendations to buy, sell, or hold any financial instrument. Investing in stock markets carries significant financial risk. Please consult a registered investment advisor before acting on any information. StockVista does not guarantee the accuracy, completeness, or timeliness of any market info presented.
+            The analysis, research, and ideas presented here are for educational and informational purposes only. They are not intended as personal financial advice or recommendations to buy, sell, or hold any financial instrument. Investing in stock markets carries significant financial risk. Please consult a registered investment advisor before acting on any information. JodhpurTraders does not guarantee the accuracy, completeness, or timeliness of any market info presented.
           </p>
         </div>
       </div>

@@ -84,23 +84,31 @@ export const TradingIdeas = () => {
   return (
     <>
       <Helmet>
-        <title>{category ? `${category} Sector` : 'All'} Trading Ideas & Picks | StockVista</title>
+        <title>{category ? `${category} Sector` : 'All'} Trading Ideas & Picks | JodhpurTraders</title>
         <meta name="description" content="Browse professional short-term, medium-term and long-term trading ideas and stock analysis filtered by sector, signals, and research tags." />
-        <meta property="og:title" content="Trading Ideas & Stock Picks | StockVista" />
+        <meta property="og:title" content="Trading Ideas & Stock Picks | JodhpurTraders" />
         <meta property="og:description" content="Browse professional short-term, medium-term and long-term trading ideas and stock analysis filtered by sector, signals, and research tags." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={window.location.origin + window.location.pathname} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Trading Ideas & Stock Picks | StockVista" />
-        <meta name="twitter:description" content="Browse professional trading ideas and stock analysis filtered by sector on StockVista." />
+        <meta name="twitter:title" content="Trading Ideas & Stock Picks | JodhpurTraders" />
+        <meta name="twitter:description" content="Browse professional trading ideas and stock analysis filtered by sector on JodhpurTraders." />
         <link rel="canonical" href={window.location.origin + window.location.pathname} />
       </Helmet>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Page Header */}
-        <div className="mb-8">
+        <div className="mb-6">
           <h1 className="text-3xl font-extrabold text-navy-950">Trading Ideas & Analysis</h1>
           <p className="text-gray-500 text-sm mt-1">Research-backed market recommendations from certified analysts ({totalItems} ideas found)</p>
+        </div>
+
+        {/* Educational Disclaimer Banner */}
+        <div className="mb-8 bg-amber-50/90 border border-amber-200/80 rounded-2xl p-4 text-xs text-amber-900 flex items-center gap-3 shadow-xs">
+          <span className="text-amber-600 flex-shrink-0 text-base">⚠️</span>
+          <p className="leading-normal font-medium">
+            <strong className="font-bold">Disclaimer:</strong> Trading ideas are for educational purposes only and are provided with proper stop loss and technical analysis. Please invest money only based on your own research.
+          </p>
         </div>
 
         {/* Filters and Search Control Panel */}

@@ -6,8 +6,8 @@ export const NotFound = () => {
   return (
     <>
       <Helmet>
-        <title>404 - Page Not Found | StockVista</title>
-        <meta name="description" content="The page you are looking for does not exist on StockVista. Navigate back to explore trading ideas, IPO tracker, and finance blogs." />
+        <title>404 - Page Not Found | JodhpurTraders</title>
+        <meta name="description" content="The page you are looking for does not exist on JodhpurTraders. Navigate back to explore trading ideas, IPO tracker, and finance blogs." />
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
       <div className="max-w-7xl mx-auto px-4 py-20 text-center flex flex-col justify-center items-center">

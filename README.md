@@ -1,11 +1,11 @@
-# StockVista — Stock Market & Finance Platform
+# JodhpurTraders — Stock Market & Finance Platform
 
 A comprehensive MERN stack platform for stock market insights, trading ideas, IPO tracking, and finance education.
 
 ## Project Structure
 
 ```
-StockVista/
+JodhpurTraders/
 ├── backend/          # Node.js/Express REST API (Port 5000)
 ├── frontend/         # React public website (Port 3000)
 ├── admin/            # React admin panel (Port 3003)
@@ -65,7 +65,7 @@ StockVista/
 ```bash
 # Clone the repository
 git clone <repo-url>
-cd StockVista
+cd JodhpurTraders
 
 # Install backend dependencies
 cd backend
@@ -125,7 +125,7 @@ cd admin && npm start
 - **API Health**: http://localhost:5000/health
 
 ### Admin Login
-- **Email**: admin@stockvista.com
+- **Email**: admin@jodhpurtraders.com
 - **Password**: admin1234 (change in production!)
 
 ## API Endpoints
@@ -148,7 +148,7 @@ See [RULES.md](./RULES.md) for detailed architecture guidelines.
 
 ## Disclaimer
 
-The information provided on StockVista is for educational and informational purposes only. It should not be considered as financial advice. Please consult a certified financial advisor before making investment decisions. Stock market investments are subject to market risks.
+The information provided on JodhpurTraders is for educational and informational purposes only. It should not be considered as financial advice. Please consult a certified financial advisor before making investment decisions. Stock market investments are subject to market risks.
 
 ## License
 

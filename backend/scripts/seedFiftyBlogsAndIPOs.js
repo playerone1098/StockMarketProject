@@ -1298,7 +1298,7 @@ for (let i = 0; i < neededCount; i++) {
 
 const seedData = async () => {
   try {
-    const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/stockvista';
+    const mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/stockvista';
     await mongoose.connect(mongoUri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,

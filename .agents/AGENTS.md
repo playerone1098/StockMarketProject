@@ -1,6 +1,9 @@
-# Project-Scoped Agent Rules — SEO & Search Engine Findability
+# Project-Scoped Agent Rules — End-to-End Implementation & SEO
 
-These guidelines are automatically loaded by AI coding assistants to ensure that all future frontend development is optimized for search engines (Google, Bing, Yahoo, etc.) and social media crawlers.
+These guidelines are automatically loaded by AI coding assistants.
+
+## 0. Mandatory End-to-End Rule
+Any requested feature MUST be implemented end-to-end across Database -> Backend API -> Frontend UI -> Admin Panel (if required) -> Sitemap/SEO.
 
 ## 1. Page Metadata Standards
 Every page component created or modified in `frontend/src/pages/` must include:
@@ -29,3 +32,10 @@ All dynamic views or detail screens must embed JSON-LD schema scripts (`<script 
 When introducing any new indexable routes:
 - Add the route to the static list in `backend/routes/sitemap.js`.
 - If the route represents a new dynamic resource (e.g. news articles, stocks), query the resource database and map it to `<url>` elements in the sitemap generator.
+
+## 5. Modern Zero-Designer & Text-First UI Rules
+All UI implementations MUST strictly comply with `DESIGN_SYSTEM_RULES.md`:
+- **Text-First Actions & Text Buttons**: Use self-descriptive text buttons (`View Details →`, `Filter [All]`, `[+ Add New]`) and native text glyphs (`▲`, `▼`, `→`, `←`, `•`, `✓`, `✕`, `★`, `◆`) rather than external icon libraries (`lucide-react`, `font-awesome`, `react-icons`).
+- **Initials-Based Avatars**: Replace missing visual assets or logos with styled uppercase initials badges (`RE`, `TC`, `HD`).
+- **Full Mobile & Desktop Responsiveness**: Build mobile-first layouts (`grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4`) with touch-friendly targets (`min-h-[44px]`, `py-2.5 px-4`) and overflow scroll guards for tables.
+

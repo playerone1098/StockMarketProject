@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Sidebar } from './components/Sidebar';
 import { PrivateRoute } from './components/PrivateRoute';
+import { ThemeProvider } from './context/ThemeContext';
 
 // Pages
 import { Login } from './pages/Login';
 import { Dashboard } from './pages/Dashboard';
+import { Users } from './pages/Users';
 import { TradingIdeas } from './pages/TradingIdeas';
 import { TradingIdeaForm } from './pages/TradingIdeaForm';
 import { IPOs } from './pages/IPOs';
@@ -15,12 +17,17 @@ import { BlogPostForm } from './pages/BlogPostForm';
 import { Stocks } from './pages/Stocks';
 import { StockForm } from './pages/StockForm';
 import { Sectors } from './pages/Sectors';
+import { SocialModeration } from './pages/SocialModeration';
 import { Analytics } from './pages/Analytics';
+import { ScreenerPresets } from './pages/ScreenerPresets';
+import { ScreenerPresetForm } from './pages/ScreenerPresetForm';
+
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50 flex">
-      <Routes>
+    <ThemeProvider>
+      <div className="min-h-screen bg-slate-50 dark:bg-zinc-950 text-slate-900 dark:text-white flex transition-colors duration-200">
+        <Routes>
         <Route path="/login" element={<Login />} />
         
         {/* Protected Dashboard Route */}
@@ -28,6 +35,15 @@ function App() {
           <PrivateRoute>
             <Layout>
               <Dashboard />
+            </Layout>
+          </PrivateRoute>
+        } />
+
+        {/* Protected Users Route */}
+        <Route path="/users" element={
+          <PrivateRoute>
+            <Layout>
+              <Users />
             </Layout>
           </PrivateRoute>
         } />
@@ -132,7 +148,43 @@ function App() {
             </Layout>
           </PrivateRoute>
         } />
+        <Route path="/chart-analyses" element={
+          <PrivateRoute>
+            <Layout>
+              <ChartAnalyses />
+            </Layout>
+          </PrivateRoute>
+        } />
+        <Route path="/social-moderation" element={
+          <PrivateRoute>
+            <Layout>
+              <SocialModeration />
+            </Layout>
+          </PrivateRoute>
+        } />
+        <Route path="/screener-presets" element={
+          <PrivateRoute>
+            <Layout>
+              <ScreenerPresets />
+            </Layout>
+          </PrivateRoute>
+        } />
+        <Route path="/screener-presets/new" element={
+          <PrivateRoute>
+            <Layout>
+              <ScreenerPresetForm />
+            </Layout>
+          </PrivateRoute>
+        } />
+        <Route path="/screener-presets/edit/:id" element={
+          <PrivateRoute>
+            <Layout>
+              <ScreenerPresetForm />
+            </Layout>
+          </PrivateRoute>
+        } />
         <Route path="/analytics" element={
+
           <PrivateRoute>
             <Layout>
               <Analytics />
@@ -144,6 +196,7 @@ function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>
+    </ThemeProvider>
   );
 }
 
@@ -151,7 +204,7 @@ function Layout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="flex w-full min-h-screen relative overflow-hidden">
+    <div className="flex w-full min-h-screen relative overflow-hidden bg-slate-50 dark:bg-zinc-950 text-slate-900 dark:text-white transition-colors duration-200">
       {/* Sidebar Backdrop Overlay on Mobile */}
       {isSidebarOpen && (
         <div
@@ -166,18 +219,18 @@ function Layout({ children }) {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-h-screen overflow-hidden">
         {/* Top Navbar for Mobile/Tablet */}
-        <header className="flex md:hidden items-center justify-between px-6 py-4 bg-zinc-950 text-white border-b border-zinc-900 shadow-sm z-30">
+        <header className="flex md:hidden items-center justify-between px-6 py-4 bg-white dark:bg-zinc-950 text-slate-900 dark:text-white border-b border-slate-200 dark:border-zinc-900 shadow-sm z-30">
           <div className="flex items-center space-x-3">
-            <h1 className="text-xl font-black tracking-tight bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-              StockVista
+            <h1 className="text-xl font-black tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
+              JodhpurTraders
             </h1>
-            <span className="text-[9px] uppercase tracking-wider text-zinc-500 font-bold px-1.5 py-0.5 bg-zinc-900 rounded">
+            <span className="text-[9px] uppercase tracking-wider text-slate-500 dark:text-zinc-500 font-bold px-1.5 py-0.5 bg-slate-100 dark:bg-zinc-900 rounded">
               Admin
             </span>
           </div>
           <button
             onClick={() => setIsSidebarOpen(true)}
-            className="p-2 rounded-xl text-zinc-400 hover:text-white hover:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+            className="p-2 rounded-xl text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
             aria-label="Open sidebar"
           >
             <svg
@@ -198,7 +251,7 @@ function Layout({ children }) {
         </header>
 
         {/* Inner Main Content */}
-        <main className="flex-1 bg-gray-50 overflow-y-auto">
+        <main className="flex-1 bg-slate-50 dark:bg-zinc-950 overflow-y-auto transition-colors duration-200">
           {children}
         </main>
       </div>

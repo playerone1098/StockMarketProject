@@ -28,6 +28,12 @@ export const StockForm = () => {
   const [fetching, setFetching] = useState(false);
   const [error, setError] = useState('');
 
+  // AI Auto-Fill state
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiSuccess, setAiSuccess] = useState('');
+  const [aiError, setAiError] = useState('');
+  const [aiSource, setAiSource] = useState('');
+
   useEffect(() => {
     const loadSectors = async () => {
       try {
@@ -82,12 +88,66 @@ export const StockForm = () => {
     }
   }, [id, isEditMode]);
 
+  /**
+   * AI Auto-Fill: Fetches comprehensive company data from Yahoo Finance
+   * and populates the entire form with a single click.
+   */
+  const handleAiAutoFill = async () => {
+    const symbol = formData.symbol.trim();
+    if (!symbol) {
+      setAiError('Please enter a stock symbol first (e.g., RELIANCE, TCS, INFY)');
+      return;
+    }
+
+    setAiLoading(true);
+    setAiError('');
+    setAiSuccess('');
+    setAiSource('');
+
+    try {
+      const response = await api.get(`/stocks/ai-lookup/${symbol}`);
+      if (response.data.success) {
+        const data = response.data.data;
+
+        setFormData({
+          symbol: data.symbol || symbol,
+          name: data.name || '',
+          sector: data.sector || '',
+          exchange: data.exchange || 'NSE',
+          currentPrice: data.currentPrice || '',
+          dayChange: data.dayChange || '',
+          dayChangePercent: data.dayChangePercent || '',
+          weekHigh52: data.weekHigh52 || '',
+          weekLow52: data.weekLow52 || '',
+          marketCap: data.marketCap || '',
+          marketCapLabel: data.marketCapLabel || 'Large Cap',
+          logoUrl: data.logoUrl || '',
+          isActive: data.isActive !== undefined ? data.isActive : true
+        });
+
+        setAiSuccess(response.data.message || `Successfully auto-filled details for ${data.symbol}`);
+        setAiSource(response.data.source || 'Yahoo Finance');
+      }
+    } catch (err) {
+      const msg = err.response?.data?.message || 'AI lookup failed. Please check the symbol and try again.';
+      setAiError(msg);
+    } finally {
+      setAiLoading(false);
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
       [name]: type === 'checkbox' ? checked : value
     });
+
+    // Clear AI messages when user manually edits
+    if (aiSuccess || aiError) {
+      setAiSuccess('');
+      setAiError('');
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -149,6 +209,91 @@ export const StockForm = () => {
       )}
 
       <form onSubmit={handleSubmit} className="bg-white rounded-3xl border border-gray-150 p-6 md:p-8 shadow-sm space-y-6">
+
+        {/* ═══════════════════════════════════════════════════════════════
+            AI AUTO-FILL SECTION — The star of the show
+            ═══════════════════════════════════════════════════════════════ */}
+        {!isEditMode && (
+          <div className="relative overflow-hidden rounded-2xl border-2 border-dashed border-indigo-200 bg-gradient-to-br from-indigo-50/80 via-blue-50/50 to-violet-50/80 p-5">
+            {/* Decorative shimmer effect */}
+            <div className="absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br from-indigo-200/30 to-violet-200/30 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-16 -left-16 w-32 h-32 bg-gradient-to-tr from-blue-200/20 to-indigo-200/20 rounded-full blur-2xl pointer-events-none" />
+
+            <div className="relative flex flex-col sm:flex-row items-start sm:items-end gap-4">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">✨</span>
+                  <h3 className="text-sm font-black text-indigo-900 tracking-tight">AI Auto-Fill</h3>
+                  <span className="text-[9px] uppercase tracking-widest text-indigo-600 font-bold px-2 py-0.5 bg-indigo-100 rounded-full">
+                    Powered by Yahoo Finance
+                  </span>
+                </div>
+                <p className="text-xs text-indigo-700/80 leading-relaxed">
+                  Type a stock symbol below and click <strong>"Auto-Fill with AI"</strong> to automatically populate all company details — name, sector, price, market cap, and more.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleAiAutoFill}
+                disabled={aiLoading || !formData.symbol.trim()}
+                className={`
+                  flex-shrink-0 relative group inline-flex items-center gap-2 px-5 py-3 rounded-xl text-xs font-bold
+                  transition-all duration-300 transform
+                  ${aiLoading
+                    ? 'bg-indigo-300 text-white cursor-wait'
+                    : formData.symbol.trim()
+                      ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:from-indigo-700 hover:to-violet-700 hover:shadow-lg hover:shadow-indigo-500/25 hover:-translate-y-0.5 active:translate-y-0'
+                      : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                  }
+                `}
+              >
+                {aiLoading ? (
+                  <>
+                    <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    <span>Fetching data...</span>
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <span>Auto-Fill with AI</span>
+                  </>
+                )}
+              </button>
+            </div>
+
+            {/* AI Success feedback */}
+            {aiSuccess && (
+              <div className="mt-4 flex items-start gap-2 bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-3 rounded-xl text-xs font-medium animate-fadeIn">
+                <svg className="w-4 h-4 flex-shrink-0 mt-0.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div>
+                  <p className="font-bold">{aiSuccess}</p>
+                  {aiSource && (
+                    <p className="text-emerald-600/70 mt-0.5">Source: {aiSource} • Review the auto-filled data below and make any adjustments before saving.</p>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* AI Error feedback */}
+            {aiError && (
+              <div className="mt-4 flex items-start gap-2 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-xs font-medium animate-fadeIn">
+                <svg className="w-4 h-4 flex-shrink-0 mt-0.5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p>{aiError}</p>
+              </div>
+            )}
+          </div>
+        )}
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
             <label className="block text-xs font-bold text-navy-950 mb-1.5 uppercase tracking-wide">

@@ -1,27 +1,13 @@
 const express = require('express');
-const { body } = require('express-validator');
-const { auth } = require('../middleware/auth');
-const validate = require('../middleware/validate');
-const authController = require('../controllers/authController');
-
 const router = express.Router();
+const authController = require('../controllers/authController');
+const { auth } = require('../middleware/auth');
 
-/**
- * @route POST /api/auth/login
- * @desc Login with email and password
- * @access Public
- */
-router.post('/login', [
-  body('email').isEmail().withMessage('Please provide a valid email'),
-  body('password').exists().withMessage('Password is required'),
-  validate
-], authController.login);
+// Google OAuth endpoint (Unified Login / Register)
+router.post('/google', authController.googleAuth);
 
-/**
- * @route GET /api/auth/me
- * @desc Get current authenticated user
- * @access Private
- */
+// Authenticated user management
 router.get('/me', auth, authController.getMe);
+router.put('/profile', auth, authController.updateProfile);
 
 module.exports = router;

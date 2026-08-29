@@ -1,4 +1,4 @@
-# StockVista — Services Startup Guide
+# JodhpurTraders — Services Startup Guide
 
 ## Service Ports
 - **Backend API:** http://localhost:5000
@@ -9,15 +9,15 @@
 
 ```bash
 # Terminal 1 — Backend API
-cd /Users/ashokchoudhary/Desktop/StockMarketProject/backend
+cd backend
 npm run dev
 
 # Terminal 2 — Frontend
-cd /Users/ashokchoudhary/Desktop/StockMarketProject/frontend
+cd frontend
 npm start
 
 # Terminal 3 — Admin Panel
-cd /Users/ashokchoudhary/Desktop/StockMarketProject/admin
+cd admin
 npm start
 ```
 
@@ -44,7 +44,7 @@ npm run seed
 ```
 
 ## Admin Credentials
-- **Email:** admin@stockvista.com
+- **Email:** admin@jodhpurtraders.com
 - **Password:** admin1234
 
 ## Troubleshooting

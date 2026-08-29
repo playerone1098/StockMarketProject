@@ -5,6 +5,19 @@
 
 ---
 
+## 0. Mandatory End-to-End Rule
+
+> **CRITICAL RULE**: Every feature requested or created MUST be built **End-to-End**:
+> 1. **Database** — Create or update Mongoose Schemas/Models.
+> 2. **Backend API** — Implement Controllers, Services, and Routes (with validation & error handling).
+> 3. **Frontend Application** — Build Pages, Reusable Components, and API Service integrations with full UI state management.
+> 4. **Admin Panel** — Provide admin management, moderation, or form interfaces (if applicable/required).
+> 5. **SEO & Sitemap** — Include `<Helmet>` SEO tags, structured JSON-LD metadata, and sitemap entries.
+>
+> Partial implementations (e.g. backend only or frontend mock only) are strictly prohibited.
+
+---
+
 ## 1. Project Structure
 
 ```
@@ -111,21 +124,31 @@ backend/
    - Route paths, enum values, config values
    - Single source of truth
 
-### Directory Structure
+### Design System & UI/UX Rules
 
-```
-frontend/src/
-├── components/          Reusable UI components
-├── pages/               Route-level page components
-├── services/            API call functions
-├── hooks/               Custom React hooks
-├── utils/               Pure utility functions
-├── constants/           Shared constants
-├── context/             React Context providers (if needed)
-├── App.js               Root component with routing
-├── index.js             Entry point
-└── index.css            Global styles
-```
+All frontend and admin UI development MUST follow the **Zero-Designer, Text-First, Responsive Design System** detailed in `DESIGN_SYSTEM_RULES.md`:
+
+1. **Icon-Light & Text-First Architecture**:
+   - Prefer text buttons (`View Details →`, `Filter [All]`, `[+ Add New]`) over icon buttons.
+   - Use native text glyphs (`▲`, `▼`, `→`, `←`, `•`, `✓`, `✕`, `★`, `◆`) for market change trends, action triggers, and status indicators.
+   - Use initials-based text avatars (`RE`, `TC`, `HD`) for fallback company logos or user avatars.
+
+2. **Mobile & Desktop Responsiveness**:
+   - Build mobile-first using Tailwind breakpoint utilities (`grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4`).
+   - Ensure minimum touch target heights of `44px` (`py-2.5 px-4`) for touch inputs and buttons on mobile devices.
+   - Protect all data tables and stock lists with `overflow-x-auto` to prevent horizontal clipping or scrolling bugs on mobile screens.
+
+3. **Modern Color & Elevation Tokens**:
+   - Main background/hero sections use deep navy (`navy-950` / `#0f1322`, `navy-900` / `#1e253f`) in dark mode, and crisp neutral tones (`slate-50`, `white`, `slate-100`) in light mode.
+   - Positive/Bullish trends use `brand-600` / `brand-500` emerald green text & badges (`bg-brand-50 text-brand-700 dark:bg-emerald-500/10 dark:text-emerald-400`).
+   - Negative/Bearish trends use `red-600` text & badges (`bg-red-50 text-red-700 dark:bg-red-500/10 dark:text-red-400`).
+   - Cards use `rounded-2xl border border-slate-200 dark:border-navy-800 bg-white dark:bg-navy-900 shadow-sm` with smooth `card-hover` transitions.
+
+4. **Dual Light & Dark Mode Architecture**:
+   - Both `frontend` and `admin` support instant switching between Light Mode and Dark Mode.
+   - Theme toggle controls must use text-first indicators (`[DARK 🌙]` / `[LIGHT ☀️]`).
+   - State is stored in `localStorage` under `'theme'` and applies the `dark` class to `document.documentElement`.
+
 
 ---
 

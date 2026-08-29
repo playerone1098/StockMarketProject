@@ -5,6 +5,19 @@
 
 ---
 
+## 0. Mandatory End-to-End Implementation Rule
+
+**CRITICAL REQUIREMENT**: Any feature requested by the user MUST be developed completely **End-to-End** across all architectural layers:
+- **Database (DB)**: Create or extend schemas/models in `backend/models/`.
+- **Backend API**: Add controllers, services, and route handlers in `backend/controllers/`, `backend/services/`, `backend/routes/`.
+- **Frontend App**: Implement responsive UI pages, components, and service calls in `frontend/src/`.
+- **Admin Panel**: Create administrative views, tables, moderation screens, or forms in `admin/src/` if required.
+- **Sitemap & SEO**: Register routes in `sitemap.js` and add meta/structured data.
+
+Never deliver partial or backend-only / frontend-only solutions when a full feature is requested.
+
+---
+
 ## 1. Read Before Writing
 
 - **ALWAYS** read the existing file before modifying it
@@ -134,21 +147,13 @@ const [error, setError] = useState(null);
 
 ---
 
-## 6. Component Rules (React)
-
-### DO:
-- Keep components focused and small (< 150 lines)
-- Use descriptive prop names
-- Handle loading, error, and empty states
-- Include key prop on all list-rendered elements
-- Use semantic HTML (`<article>`, `<section>`, `<nav>`, `<main>`)
-
-### DON'T:
-- Don't use inline styles (use Tailwind classes)
-- Don't hardcode text that should be a constant
-- Don't create components that do too many things
-- Don't use `index` as key for dynamic lists
-- Don't leave `console.log` statements in production code
+### Design System & Icon-Light UI Rules (Zero-Designer Strategy):
+- **ALWAYS** check `DESIGN_SYSTEM_RULES.md` for standardized UI component patterns before creating new views.
+- **NEVER** import or rely on heavy external icon libraries (e.g. `lucide-react`, `font-awesome`, `react-icons`) unless explicitly requested.
+- **ALWAYS** use Text Buttons (`View Details →`, `Filter [All]`, `[+ Add New]`, `[Delete]`) and Unicode text glyphs (`▲`, `▼`, `→`, `←`, `•`, `✓`, `✕`, `★`, `◆`) for action buttons, change indicators, and status tags.
+- **ALWAYS** use Initials-Based Text Avatars (`stock.symbol.slice(0, 2)` or `user.name.slice(0, 2)`) for missing stock/user logos.
+- **ALWAYS** ensure mobile & desktop responsiveness using Tailwind grids (`grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4`) and overflow guards (`overflow-x-auto`) for data tables.
+- **ALWAYS** maintain minimum touch target heights of `44px` (`py-2.5 px-4`) for mobile interactables.
 
 ---
 

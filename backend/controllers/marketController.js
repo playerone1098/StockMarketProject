@@ -57,9 +57,15 @@ const getStats = catchAsync(async (req, res) => {
   res.json({
     success: true,
     data: {
+      stocks: totalStocks,
+      ideas: totalIdeas,
+      tradingIdeas: totalIdeas,
+      ipos: totalIpos,
+      blogs: totalBlogs,
       counts: {
         stocks: totalStocks,
         tradingIdeas: totalIdeas,
+        ideas: totalIdeas,
         ipos: totalIpos,
         blogs: totalBlogs
       },
@@ -70,4 +76,22 @@ const getStats = catchAsync(async (req, res) => {
   });
 });
 
-module.exports = { getOverview, getStats };
+/**
+ * Get Indian benchmark indices (Nifty 50, Bank Nifty, Sensex, FinNifty, MidCap 100).
+ */
+const getIndices = catchAsync(async (req, res) => {
+  const indices = [
+    { symbol: 'NIFTY50', name: 'Nifty 50', value: 24835.40, change: 142.80, changePercent: 0.58, isUp: true },
+    { symbol: 'BANKNIFTY', name: 'Bank Nifty', value: 52240.15, change: 385.50, changePercent: 0.74, isUp: true },
+    { symbol: 'SENSEX', name: 'BSE Sensex', value: 81420.80, change: 410.25, changePercent: 0.51, isUp: true },
+    { symbol: 'FINNIFTY', name: 'Fin Nifty', value: 23450.60, change: 115.30, changePercent: 0.49, isUp: true },
+    { symbol: 'MIDCAP100', name: 'Nifty Midcap 100', value: 58920.10, change: 540.80, changePercent: 0.93, isUp: true }
+  ];
+
+  res.json({
+    success: true,
+    data: indices
+  });
+});
+
+module.exports = { getOverview, getStats, getIndices };

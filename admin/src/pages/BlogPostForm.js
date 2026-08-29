@@ -14,7 +14,7 @@ export const BlogPostForm = () => {
     category: 'market-analysis',
     tags: '',
     imageUrl: '',
-    author: 'StockVista Editorial',
+    author: 'JodhpurTraders Editorial',
     readTime: '5',
     isFeatured: false,
     isActive: true
@@ -39,7 +39,7 @@ export const BlogPostForm = () => {
               category: data.category || 'market-analysis',
               tags: data.tags ? data.tags.join(', ') : '',
               imageUrl: data.imageUrl || '',
-              author: data.author || 'StockVista Editorial',
+              author: data.author || 'JodhpurTraders Editorial',
               readTime: data.readTime?.toString() || '5',
               isFeatured: data.isFeatured || false,
               isActive: data.isActive || false

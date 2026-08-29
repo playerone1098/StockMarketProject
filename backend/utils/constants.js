@@ -1,5 +1,5 @@
 /**
- * Shared constants for the StockVista platform.
+ * Shared constants for the JodhpurTraders platform.
  * @module constants
  */
 

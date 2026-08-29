@@ -10,10 +10,10 @@ const config = {
   port: parseInt(process.env.PORT, 10) || 5000,
 
   /** @type {string} MongoDB connection URI */
-  mongoUri: process.env.MONGODB_URI || 'mongodb://localhost:27017/stockvista',
+  mongoUri: process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/jodhpurtraders',
 
   /** @type {string} JWT secret key */
-  jwtSecret: process.env.JWT_SECRET || 'stockvista-dev-secret-change-in-production',
+  jwtSecret: process.env.JWT_SECRET || 'jodhpurtraders-dev-secret-change-in-production',
 
   /** @type {string} Node environment */
   nodeEnv: process.env.NODE_ENV || 'development',

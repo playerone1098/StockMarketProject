@@ -89,15 +89,15 @@ export const IPODetail = () => {
   return (
     <>
       <Helmet>
-        <title>{`${ipo.companyName} IPO Date, Price Band & Status | StockVista`}</title>
+        <title>{`${ipo.companyName} IPO Date, Price Band & Status | JodhpurTraders`}</title>
         <meta name="description" content={`Get latest details of ${ipo.companyName} IPO: Price band, issue size, bidding window timeline, registrar information, and subscription stats.`} />
-        <meta property="og:title" content={`${ipo.companyName} IPO Date, Price Band & Status | StockVista`} />
+        <meta property="og:title" content={`${ipo.companyName} IPO Date, Price Band & Status | JodhpurTraders`} />
         <meta property="og:description" content={`Get latest details of ${ipo.companyName} IPO: Price band, issue size, bidding window timeline, registrar information, and subscription stats.`} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={window.location.origin + window.location.pathname} />
         {ipo.imageUrl && <meta property="og:image" content={ipo.imageUrl} />}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${ipo.companyName} IPO Date, Price Band & Status | StockVista`} />
+        <meta name="twitter:title" content={`${ipo.companyName} IPO Date, Price Band & Status | JodhpurTraders`} />
         <meta name="twitter:description" content={`Get latest details of ${ipo.companyName} IPO: Price band, issue size, bidding window timeline, registrar information, and subscription stats.`} />
         {ipo.imageUrl && <meta name="twitter:image" content={ipo.imageUrl} />}
         <link rel="canonical" href={window.location.origin + window.location.pathname} />

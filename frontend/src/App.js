@@ -54,7 +54,7 @@ function AppContent() {
             <Route path="/stocks/:symbol" element={<StockDetail />} />
             <Route path="/community" element={<Community />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/register" element={<Login />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/watchlist" element={<Watchlist />} />
             <Route path="/settings" element={<Settings />} />

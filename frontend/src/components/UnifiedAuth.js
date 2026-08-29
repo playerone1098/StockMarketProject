@@ -33,7 +33,7 @@ export const UnifiedAuth = () => {
 
   // Load Google Identity Services SDK script dynamically
   useEffect(() => {
-    const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+    const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID || '817253510812-74npu66qfekfggmbeui8tn8aco9b3fi6.apps.googleusercontent.com';
     if (!googleClientId) {
       setError('Google Client ID is missing. Please configure REACT_APP_GOOGLE_CLIENT_ID in your frontend .env file.');
       return;
@@ -102,7 +102,7 @@ export const UnifiedAuth = () => {
             Welcome to JodhpurTraders
           </h2>
           <p className="mt-2 text-sm text-gray-400">
-            Sign in or create your account using your Google Account
+            Sign in with your Google Account
           </p>
           <div className="mt-3 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-400 text-xs font-semibold">
             <span className="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span>
@@ -143,7 +143,7 @@ export const UnifiedAuth = () => {
             )}
 
             <p className="text-xs text-gray-500 leading-relaxed max-w-xs pt-2">
-              Existing users log in instantly. New users get an account created automatically.
+              Fast & secure single sign-in with your Google Account.
             </p>
           </div>
         </div>

@@ -208,15 +208,9 @@ export const Navbar = () => {
               <div className="flex items-center space-x-2 ml-2">
                 <Link
                   to="/login"
-                  className="text-slate-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white px-3.5 py-1.5 rounded-lg text-sm font-semibold transition border border-slate-200 dark:border-navy-800 bg-slate-100 dark:bg-navy-900/60 hover:bg-slate-200 dark:hover:bg-navy-800"
-                >
-                  Sign In
-                </Link>
-                <Link
-                  to="/register"
                   className="bg-brand-600 hover:bg-brand-500 text-white px-4 py-1.5 rounded-lg text-sm font-semibold transition shadow-md hover:shadow-brand-500/20"
                 >
-                  Sign Up
+                  Sign In
                 </Link>
               </div>
             )}
@@ -342,16 +336,9 @@ export const Navbar = () => {
                 <Link
                   to="/login"
                   onClick={() => setIsMenuOpen(false)}
-                  className="w-full text-center text-slate-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white py-2 rounded-lg text-sm font-semibold border border-slate-200 dark:border-navy-800 bg-slate-100 dark:bg-navy-950"
-                >
-                  Sign In
-                </Link>
-                <Link
-                  to="/register"
-                  onClick={() => setIsMenuOpen(false)}
                   className="w-full text-center bg-brand-600 hover:bg-brand-500 text-white py-2 rounded-lg text-sm font-semibold shadow-md"
                 >
-                  Sign Up
+                  Sign In
                 </Link>
               </div>
             )}

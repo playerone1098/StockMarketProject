@@ -47,12 +47,31 @@ export const StockDetail = () => {
   const [financialStats, setFinancialStats] = useState(null);
 
   useEffect(() => {
+    const loadNews = async (currentStock) => {
+      try {
+        const searchSymbol = currentStock?.symbol || symbol;
+        const searchName = currentStock?.name || '';
+        const res = await fetchBlogs({
+          symbol: searchSymbol,
+          search: searchSymbol,
+          name: searchName,
+          limit: 6
+        });
+        if (res.success && res.data) {
+          setRelatedNews(res.data);
+        }
+      } catch (err) {
+        console.error('Error loading news:', err);
+      }
+    };
+
     const loadStock = async () => {
       setLoading(true);
       try {
         const res = await fetchStockBySymbol(symbol);
         if (res.success && res.data) {
           setStock(res.data);
+          loadNews(res.data);
         } else {
           setError(true);
         }
@@ -64,18 +83,7 @@ export const StockDetail = () => {
       }
     };
 
-    const loadNews = async () => {
-      try {
-        const res = await fetchBlogs({ limit: 4 });
-        if (res.success && res.data) {
-          setRelatedNews(res.data);
-        }
-      } catch (err) {
-        console.error('Error loading news:', err);
-      }
-    };
-
-    const loadIndianApiInsights = async () => {
+    const loadMarketInsights = async () => {
       try {
         const targetRes = await fetchIndianTargetPrice(symbol);
         if (targetRes.success && targetRes.data) {
@@ -86,14 +94,14 @@ export const StockDetail = () => {
           setFinancialStats(statsRes.data);
         }
       } catch (err) {
-        console.error('Error loading Indian API insights:', err);
+        console.error('Error loading analyst insights:', err);
       }
     };
 
     if (symbol) {
       loadStock();
       loadNews();
-      loadIndianApiInsights();
+      loadMarketInsights();
     }
   }, [symbol]);
 
@@ -398,28 +406,28 @@ export const StockDetail = () => {
                 </div>
               </div>
 
-              {/* Live Analyst Recommendation & Target Price from IndianAPI */}
+              {/* Live Analyst Recommendation & Target Price */}
               {targetPriceData && (
                 <div className="mt-6 p-6 bg-gradient-to-br from-navy-950 to-navy-900 text-white rounded-2xl space-y-4">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-navy-800 pb-3">
                     <div>
-                      <span className="text-xs text-brand-400 font-bold uppercase tracking-wider">IndianAPI Consensus</span>
+                      <span className="text-xs text-brand-400 font-bold uppercase tracking-wider">Market Analyst Consensus</span>
                       <h3 className="text-lg font-extrabold">Analyst Target Price & Consensus</h3>
                     </div>
                     <div className="flex items-center gap-2 bg-brand-500/20 text-brand-300 px-4 py-1.5 rounded-full border border-brand-500/30 text-xs font-bold">
                       <span>Rating:</span>
-                      <span className="text-white font-black">{targetPriceData.recommendation?.RatingText || 'Strong Buy'}</span>
+                      <span className="text-white font-black">{targetPriceData.recommendation?.RatingText || 'Buy'}</span>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
                     <div className="bg-navy-900/60 p-3 rounded-xl border border-navy-800">
                       <span className="text-[11px] text-gray-400 block">Average Target</span>
-                      <span className="text-lg font-extrabold text-emerald-400">{formatCurrency(targetPriceData.priceTarget?.Mean || stock.currentPrice * 1.15)}</span>
+                      <span className="text-lg font-extrabold text-emerald-400">{formatCurrency(targetPriceData.priceTarget?.Mean || stock.currentPrice * 1.12)}</span>
                     </div>
                     <div className="bg-navy-900/60 p-3 rounded-xl border border-navy-800">
                       <span className="text-[11px] text-gray-400 block">High Estimate</span>
-                      <span className="text-lg font-extrabold text-brand-400">{formatCurrency(targetPriceData.priceTarget?.High || stock.currentPrice * 1.30)}</span>
+                      <span className="text-lg font-extrabold text-brand-400">{formatCurrency(targetPriceData.priceTarget?.High || stock.currentPrice * 1.25)}</span>
                     </div>
                     <div className="bg-navy-900/60 p-3 rounded-xl border border-navy-800">
                       <span className="text-[11px] text-gray-400 block">Low Estimate</span>
@@ -427,13 +435,13 @@ export const StockDetail = () => {
                     </div>
                     <div className="bg-navy-900/60 p-3 rounded-xl border border-navy-800">
                       <span className="text-[11px] text-gray-400 block">Analyst Coverage</span>
-                      <span className="text-lg font-extrabold text-white">{targetPriceData.priceTarget?.NumberOfEstimates || 35} Analysts</span>
+                      <span className="text-lg font-extrabold text-white">{targetPriceData.priceTarget?.NumberOfEstimates || 24} Analysts</span>
                     </div>
                   </div>
                 </div>
               )}
 
-              {/* Quarterly Financial Results from IndianAPI */}
+              {/* Quarterly Financial Results */}
               {financialStats && (
                 <div className="mt-6 space-y-3">
                   <h3 className="text-base font-extrabold text-navy-950">Quarterly Results (₹ in Cr)</h3>
@@ -493,29 +501,35 @@ export const StockDetail = () => {
                 </Link>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {relatedNews.map((newsItem) => (
-                  <Link
-                    key={newsItem._id}
-                    to={`/blog/${newsItem.slug}`}
-                    className="p-5 rounded-2xl border border-gray-100 hover:border-brand-300 hover:shadow-md transition bg-gray-50/50 flex flex-col justify-between"
-                  >
-                    <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-brand-50 text-brand-600 border border-brand-200">
-                          {newsItem.category || 'Market News'}
-                        </span>
-                        <span className="text-[11px] text-gray-400 font-medium">
-                          {new Date(newsItem.createdAt).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}
-                        </span>
+              {relatedNews.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {relatedNews.map((newsItem) => (
+                    <Link
+                      key={newsItem._id}
+                      to={`/blog/${newsItem.slug}`}
+                      className="p-5 rounded-2xl border border-gray-100 hover:border-brand-300 hover:shadow-md transition bg-gray-50/50 flex flex-col justify-between"
+                    >
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-brand-50 text-brand-600 border border-brand-200">
+                            {newsItem.category || 'Market News'}
+                          </span>
+                          <span className="text-[11px] text-gray-400 font-medium">
+                            {new Date(newsItem.createdAt).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}
+                          </span>
+                        </div>
+                        <h3 className="font-bold text-navy-950 text-base leading-snug line-clamp-2">{newsItem.title}</h3>
+                        <p className="text-xs text-gray-500 mt-2 line-clamp-2">{newsItem.excerpt}</p>
                       </div>
-                      <h3 className="font-bold text-navy-950 text-base leading-snug line-clamp-2">{newsItem.title}</h3>
-                      <p className="text-xs text-gray-500 mt-2 line-clamp-2">{newsItem.excerpt}</p>
-                    </div>
-                    <span className="text-xs font-bold text-brand-600 mt-4 block">Read Analysis →</span>
-                  </Link>
-                ))}
-              </div>
+                      <span className="text-xs font-bold text-brand-600 mt-4 block">Read Analysis →</span>
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <div className="p-8 text-center bg-gray-50 rounded-2xl border border-gray-100">
+                  <p className="text-sm font-semibold text-gray-500">No company news currently available for {stock.name}.</p>
+                </div>
+              )}
             </div>
           )}
 

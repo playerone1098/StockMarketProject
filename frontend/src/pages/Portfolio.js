@@ -82,11 +82,12 @@ export const Portfolio = () => {
   const handleStockSearch = async (query) => {
     setStockQuery(query);
     setHoldingForm(prev => ({ ...prev, symbol: query }));
-    if (query.trim().length > 1) {
+    if (query.trim().length >= 3) {
       try {
-        const res = await fetchStocks({ search: query, limit: 5 });
+        const res = await fetchStocks({ search: query.trim(), limit: 15 });
         if (res.success && res.data) {
-          setStockSuggestions(res.data.stocks || []);
+          const list = Array.isArray(res.data) ? res.data : (res.data.stocks || []);
+          setStockSuggestions(list);
         }
       } catch (err) {
         console.error(err);
@@ -333,13 +334,7 @@ export const Portfolio = () => {
               to="/login"
               className="w-full sm:w-auto px-8 py-3.5 bg-brand-600 hover:bg-brand-500 text-white font-extrabold text-sm rounded-xl shadow-lg shadow-brand-500/25 transition text-center"
             >
-              Sign In to Your Account →
-            </Link>
-            <Link
-              to="/register"
-              className="w-full sm:w-auto px-6 py-3.5 bg-navy-950 hover:bg-navy-800 border border-navy-800 text-gray-200 font-bold text-sm rounded-xl transition text-center"
-            >
-              Create Free Account
+              Sign In to Access Portfolio Tracker →
             </Link>
           </div>
         </div>

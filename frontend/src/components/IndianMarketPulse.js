@@ -107,9 +107,9 @@ export const IndianMarketPulse = () => {
         <div>
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider">Live IndianAPI Feed</span>
+            <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider">Live Market Feed</span>
           </div>
-          <h2 className="text-xl font-extrabold text-navy-950 mt-1">Indian Market Pulse & Derivatives</h2>
+          <h2 className="text-xl font-extrabold text-navy-950 mt-1">Market Pulse & Derivatives</h2>
         </div>
 
         {/* Tab Controls */}

@@ -2,17 +2,74 @@ const BlogPost = require('../models/BlogPost');
 const Analytics = require('../models/Analytics');
 const catchAsync = require('../utils/catchAsync');
 const ApiError = require('../utils/ApiError');
-const { syncNewsData } = require('../utils/newsSyncService');
+const { syncNewsData, generateNewsForStock } = require('../utils/newsSyncService');
 
 /**
  * Get all active blog posts with filters and pagination.
  */
 const getAll = catchAsync(async (req, res) => {
-  const { category, search, page = 1, limit = 12 } = req.query;
+  const { category, search, symbol, name, page = 1, limit = 12 } = req.query;
 
   const filter = { isActive: true };
   if (category) filter.category = category;
-  if (search) filter.$text = { $search: search };
+
+  const searchParam = search || symbol || name;
+
+  if (searchParam) {
+    const cleanSearch = searchParam.trim();
+    const terms = [cleanSearch];
+    if (symbol && !terms.includes(symbol)) terms.push(symbol);
+    if (name) {
+      const nameFirstWord = name.trim().split(' ')[0];
+      if (nameFirstWord.length > 2 && !terms.includes(nameFirstWord)) {
+        terms.push(nameFirstWord);
+      }
+    }
+
+    const regexConditions = terms.map(term => {
+      const escaped = term.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+      const regex = new RegExp(escaped, 'i');
+      return [
+        { title: regex },
+        { excerpt: regex },
+        { content: regex },
+        { tags: { $in: [term.toLowerCase(), term.toUpperCase()] } }
+      ];
+    }).flat();
+
+    filter.$or = regexConditions;
+
+    const skip = (parseInt(page, 10) - 1) * parseInt(limit, 10);
+    let posts = await BlogPost.find(filter)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(parseInt(limit, 10));
+
+    let total = await BlogPost.countDocuments(filter);
+
+    // If fewer than 2 relevant articles exist for requested stock, auto-generate company-specific news
+    if (posts.length < 2 && (symbol || search)) {
+      const targetSymbol = symbol || search;
+      await generateNewsForStock(targetSymbol, name);
+
+      posts = await BlogPost.find(filter)
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(parseInt(limit, 10));
+      total = await BlogPost.countDocuments(filter);
+    }
+
+    return res.json({
+      success: true,
+      data: posts,
+      pagination: {
+        page: parseInt(page, 10),
+        limit: parseInt(limit, 10),
+        total,
+        pages: Math.ceil(total / parseInt(limit, 10))
+      }
+    });
+  }
 
   const skip = (parseInt(page, 10) - 1) * parseInt(limit, 10);
   const [posts, total] = await Promise.all([

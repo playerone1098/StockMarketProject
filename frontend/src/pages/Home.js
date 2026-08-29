@@ -478,10 +478,10 @@ export const Home = () => {
             </p>
             <div className="flex flex-nowrap justify-center items-center gap-3 sm:gap-4 overflow-x-auto whitespace-nowrap py-1">
               <Link
-                to="/register"
+                to="/login"
                 className="px-6 sm:px-8 py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm rounded-xl shadow-xl transition transform hover:-translate-y-0.5 shrink-0 whitespace-nowrap"
               >
-                Create Free Account
+                Sign In to Get Started →
               </Link>
               <Link
                 to="/stocks"

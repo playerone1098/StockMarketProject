@@ -20,27 +20,58 @@ const getAll = catchAsync(async (req, res) => {
     filter.$or = [
       { symbol: searchRegex },
       { name: searchRegex },
+      { companyName: searchRegex },
       { sector: searchRegex }
     ];
   }
 
-  const skip = (parseInt(page, 10) - 1) * parseInt(limit, 10);
-  const [stocks, total] = await Promise.all([
+  const limitNum = parseInt(limit, 10);
+  const pageNum = parseInt(page, 10);
+  const skip = (pageNum - 1) * limitNum;
+
+  let [stocks, total] = await Promise.all([
     Stock.find(filter)
       .sort({ symbol: 1 })
       .skip(skip)
-      .limit(parseInt(limit, 10)),
+      .limit(limitNum),
     Stock.countDocuments(filter)
   ]);
+
+  if (search) {
+    const searchLower = search.trim().toLowerCase();
+    stocks.sort((a, b) => {
+      const aSym = (a.symbol || '').toLowerCase();
+      const bSym = (b.symbol || '').toLowerCase();
+      const aName = (a.name || a.companyName || '').toLowerCase();
+      const bName = (b.name || b.companyName || '').toLowerCase();
+
+      const aExact = aSym === searchLower || aName === searchLower;
+      const bExact = bSym === searchLower || bName === searchLower;
+      if (aExact && !bExact) return -1;
+      if (!aExact && bExact) return 1;
+
+      const aStartSym = aSym.startsWith(searchLower);
+      const bStartSym = bSym.startsWith(searchLower);
+      if (aStartSym && !bStartSym) return -1;
+      if (!aStartSym && bStartSym) return 1;
+
+      const aStartName = aName.startsWith(searchLower);
+      const bStartName = bName.startsWith(searchLower);
+      if (aStartName && !bStartName) return -1;
+      if (!aStartName && bStartName) return 1;
+
+      return aSym.localeCompare(bSym);
+    });
+  }
 
   res.json({
     success: true,
     data: stocks,
     pagination: {
-      page: parseInt(page, 10),
-      limit: parseInt(limit, 10),
+      page: pageNum,
+      limit: limitNum,
       total,
-      pages: Math.ceil(total / parseInt(limit, 10))
+      pages: Math.ceil(total / limitNum)
     }
   });
 });
@@ -54,14 +85,26 @@ const getAdminAll = catchAsync(async (req, res) => {
   const filter = {};
   if (sector) filter.sector = sector;
   if (exchange) filter.exchange = exchange;
-  if (search) filter.$text = { $search: search };
+  if (search) {
+    const cleanSearch = search.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const searchRegex = new RegExp(cleanSearch, 'i');
+    filter.$or = [
+      { symbol: searchRegex },
+      { name: searchRegex },
+      { companyName: searchRegex },
+      { sector: searchRegex }
+    ];
+  }
 
-  const skip = (parseInt(page, 10) - 1) * parseInt(limit, 10);
+  const limitNum = parseInt(limit, 10);
+  const pageNum = parseInt(page, 10);
+  const skip = (pageNum - 1) * limitNum;
+
   const [stocks, total] = await Promise.all([
     Stock.find(filter)
       .sort({ symbol: 1 })
       .skip(skip)
-      .limit(parseInt(limit, 10)),
+      .limit(limitNum),
     Stock.countDocuments(filter)
   ]);
 
@@ -69,10 +112,10 @@ const getAdminAll = catchAsync(async (req, res) => {
     success: true,
     data: stocks,
     pagination: {
-      page: parseInt(page, 10),
-      limit: parseInt(limit, 10),
+      page: pageNum,
+      limit: limitNum,
       total,
-      pages: Math.ceil(total / parseInt(limit, 10))
+      pages: Math.ceil(total / limitNum)
     }
   });
 });

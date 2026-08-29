@@ -74,9 +74,9 @@ export const Watchlist = () => {
 
   const handleStockSearch = async (query) => {
     setSearchQuery(query);
-    if (query.trim().length > 0) {
+    if (query.trim().length >= 3) {
       try {
-        const res = await fetchStocks({ search: query.trim(), limit: 6 });
+        const res = await fetchStocks({ search: query.trim(), limit: 15 });
         if (res.success && res.data) {
           const list = Array.isArray(res.data) ? res.data : (res.data.stocks || []);
           setStockSuggestions(list);
@@ -180,13 +180,7 @@ export const Watchlist = () => {
               to="/login"
               className="w-full sm:w-auto px-8 py-3.5 bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-sm rounded-xl shadow-lg shadow-amber-500/25 transition text-center"
             >
-              Sign In to Your Account →
-            </Link>
-            <Link
-              to="/register"
-              className="w-full sm:w-auto px-6 py-3.5 bg-navy-950 hover:bg-navy-800 border border-navy-800 text-gray-200 font-bold text-sm rounded-xl transition text-center"
-            >
-              Create Free Account
+              Sign In to Access Watchlist →
             </Link>
           </div>
         </div>
@@ -265,31 +259,38 @@ export const Watchlist = () => {
               </div>
 
               {searchQuery.trim().length > 0 && (
-                <div className="absolute left-0 right-0 mt-2 bg-navy-900 border border-navy-800 rounded-2xl shadow-2xl overflow-hidden z-30 divide-y divide-navy-800">
-                  {stockSuggestions.length > 0 ? (
+                <div className="absolute left-0 right-0 mt-2 bg-navy-900 border border-navy-800 rounded-2xl shadow-2xl overflow-hidden z-30 divide-y divide-navy-800 max-h-80 overflow-y-auto custom-scrollbar">
+                  {searchQuery.trim().length < 3 ? (
+                    <div className="p-3.5 text-center text-xs text-amber-400 font-semibold flex items-center justify-center gap-2">
+                      <span>ℹ️</span> Type at least 3 characters to search stocks (e.g. REL, TCS, INFY)
+                    </div>
+                  ) : stockSuggestions.length > 0 ? (
                     stockSuggestions.map((s) => (
                       <div
                         key={s._id || s.symbol}
                         onClick={() => handleAddStock(s.symbol)}
-                        className="p-3 hover:bg-navy-800 cursor-pointer flex justify-between items-center transition"
+                        className="p-3.5 hover:bg-navy-800 cursor-pointer flex justify-between items-center transition group"
                       >
                         <div>
-                          <span className="font-extrabold text-white text-sm">{s.symbol}</span>
-                          <span className="text-xs text-gray-400 ml-2">{s.name || s.companyName || s.symbol}</span>
+                          <div className="flex items-center gap-2">
+                            <span className="font-extrabold text-white text-sm group-hover:text-amber-400 transition">{s.symbol}</span>
+                            {s.sector && <span className="text-[10px] text-gray-400 bg-navy-950 px-2 py-0.5 rounded border border-navy-800">{s.sector}</span>}
+                          </div>
+                          <span className="text-xs text-gray-400 block truncate max-w-xs">{s.name || s.companyName || s.symbol}</span>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-3 shrink-0">
                           <span className="text-xs font-bold text-white">
                             ₹{s.currentPrice ? Number(s.currentPrice).toLocaleString('en-IN', { minimumFractionDigits: 2 }) : '0.00'}
                           </span>
-                          <span className="text-xs font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded hover:bg-amber-500/20 transition">
+                          <span className="text-xs font-bold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-lg hover:bg-amber-500/20 transition border border-amber-500/30">
                             + Add
                           </span>
                         </div>
                       </div>
                     ))
                   ) : (
-                    <div className="p-3 text-center text-xs text-gray-400 font-medium">
-                      No stocks found for "{searchQuery}"
+                    <div className="p-4 text-center text-xs text-gray-400 font-medium">
+                      No active stocks found matching "<span className="text-white font-semibold">{searchQuery}</span>"
                     </div>
                   )}
                 </div>

@@ -17,6 +17,7 @@ export const Watchlist = () => {
   const [watchlists, setWatchlists] = useState([]);
   const [selectedWatchlistId, setSelectedWatchlistId] = useState('');
   const [selectedStock, setSelectedStock] = useState(null);
+  const [openNotesForStock, setOpenNotesForStock] = useState(false);
   const [loading, setLoading] = useState(true);
   
   // Search suggest for adding stock
@@ -511,68 +512,70 @@ export const Watchlist = () => {
 
           {/* RIGHT SIDE MAIN PANEL: TRADINGVIEW CHART (Only visible when stock is selected) */}
           {selectedStock && (
-            <div className="flex-1 w-full space-y-4 transition-all duration-500 ease-in-out animate-fadeIn">
-              {/* Selected Stock Info Banner */}
-              <div className="bg-navy-900 border border-navy-800 rounded-3xl p-5 shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center font-black text-base shadow-inner">
-                    {selectedStock.slice(0, 3)}
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-3">
-                      <h2 className="text-2xl font-black text-white tracking-tight">{selectedStock}</h2>
-                      {selectedDetails.sector && (
-                        <span className="text-xs font-bold text-gray-400 bg-navy-950 px-2.5 py-1 rounded-lg border border-navy-800">
-                          {selectedDetails.sector}
+            <div className="flex-1 w-full space-y-3 transition-all duration-500 ease-in-out animate-fadeIn">
+              {/* Compact Action Bar: Stock Symbol, Notes, Fundamental & Close */}
+              <div className="bg-navy-900 border border-navy-800 rounded-2xl px-4 py-3 shadow-xl flex items-center justify-between gap-3 text-xs">
+                <div className="flex items-center gap-3">
+                  <span className="font-black text-base text-white tracking-wide">{selectedStock}</span>
+                  {selectedDetails.companyName && (
+                    <span className="text-xs text-gray-400 font-medium hidden sm:inline truncate max-w-[200px]">
+                      {selectedDetails.companyName}
+                    </span>
+                  )}
+                  {selectedDetails.currentPrice && (
+                    <span className="text-xs font-extrabold text-white bg-navy-950 px-2.5 py-1 rounded-lg border border-navy-800 flex items-center gap-1.5">
+                      <span>₹{Number(selectedDetails.currentPrice).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+                      {selectedDetails.changePercent !== undefined && (
+                        <span className={selectedDetails.changePercent >= 0 ? 'text-emerald-400' : 'text-rose-400'}>
+                          ({selectedDetails.changePercent >= 0 ? '+' : ''}{Number(selectedDetails.changePercent).toFixed(2)}%)
                         </span>
                       )}
-                    </div>
-                    <p className="text-xs text-gray-400 mt-0.5">
-                      {selectedDetails.companyName || selectedStock} • Live Technical Analysis Chart
-                    </p>
-                  </div>
+                    </span>
+                  )}
                 </div>
 
-                <div className="flex flex-wrap items-center gap-4">
-                  {selectedDetails.currentPrice && (
-                    <div className="text-right">
-                      <div className="text-2xl font-black text-white">
-                        ₹{Number(selectedDetails.currentPrice).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
-                      </div>
-                      {selectedDetails.changePercent !== undefined && (
-                        <div className={`text-xs font-extrabold ${selectedDetails.changePercent >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
-                          {selectedDetails.changePercent >= 0 ? '▲ +' : '▼ '}
-                          {Number(selectedDetails.changePercent).toFixed(2)}% (1D)
-                        </div>
-                      )}
-                    </div>
-                  )}
+                <div className="flex items-center gap-2">
+                  {/* Notes Option */}
+                  <button
+                    onClick={() => setOpenNotesForStock((prev) => !prev)}
+                    className="px-3.5 py-1.5 bg-navy-800 hover:bg-navy-700 text-amber-300 border border-navy-700 font-extrabold rounded-xl transition flex items-center gap-1.5 shadow-sm"
+                    title="Add or Edit Technical Analysis Notes"
+                  >
+                    <span>📝</span>
+                    <span>Notes</span>
+                  </button>
 
-                  <div className="flex items-center gap-2">
-                    <Link
-                      to={`/stocks/${selectedStock}`}
-                      className="px-4 py-2 bg-amber-600/20 hover:bg-amber-600/30 text-amber-400 border border-amber-500/40 text-xs font-extrabold rounded-xl transition flex items-center gap-1.5"
-                    >
-                      <span>Full Fundamentals</span>
-                      <span>→</span>
-                    </Link>
+                  {/* Fundamental Option */}
+                  <Link
+                    to={`/stocks/${selectedStock}`}
+                    className="px-3.5 py-1.5 bg-brand-500/20 hover:bg-brand-500/30 text-brand-300 border border-brand-500/40 font-extrabold rounded-xl transition flex items-center gap-1.5 shadow-sm"
+                    title="Open Fundamental Stock Detail Screen"
+                  >
+                    <span>📊</span>
+                    <span>Fundamental</span>
+                  </Link>
 
-                    <button
-                      onClick={() => setSelectedStock(null)}
-                      className="p-2 bg-navy-950 hover:bg-navy-800 text-gray-400 hover:text-white rounded-xl border border-navy-800 transition"
-                      title="Close Chart View"
-                    >
-                      ✕
-                    </button>
-                  </div>
+                  {/* Close Chart View */}
+                  <button
+                    onClick={() => {
+                      setSelectedStock(null);
+                      setOpenNotesForStock(false);
+                    }}
+                    className="p-1.5 bg-navy-950 hover:bg-navy-800 text-gray-400 hover:text-white rounded-xl border border-navy-800 transition"
+                    title="Close Chart View"
+                  >
+                    ✕
+                  </button>
                 </div>
               </div>
 
-              {/* TradingView Chart Component */}
-              <div className="bg-navy-900 border border-navy-800 rounded-3xl p-4 shadow-2xl">
+              {/* Enlarged TradingView Chart Component */}
+              <div className="bg-navy-900 border border-navy-800 rounded-3xl p-3 shadow-2xl">
                 <TradingViewChart
                   symbol={selectedStock}
                   exchange={selectedDetails.exchange || 'NSE'}
+                  height="h-[680px]"
+                  openNotesModal={openNotesForStock}
                 />
               </div>
             </div>

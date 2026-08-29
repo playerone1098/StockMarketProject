@@ -20,7 +20,7 @@ const getDeviceId = () => {
  * key trendlines, price targets, stop loss, and technical notes to local storage & MongoDB
  * so drawings & analysis persist for 1+ years across visits and devices.
  */
-export const TradingViewChart = memo(({ symbol, exchange = 'NSE', isFullscreen = false }) => {
+export const TradingViewChart = memo(({ symbol, exchange = 'NSE', isFullscreen = false, height, openNotesModal }) => {
   const containerRef = useRef(null);
 
   // Persistent Analysis State
@@ -39,6 +39,12 @@ export const TradingViewChart = memo(({ symbol, exchange = 'NSE', isFullscreen =
   const [isModalFullscreen, setIsModalFullscreen] = useState(false);
 
   const deviceId = getDeviceId();
+
+  useEffect(() => {
+    if (openNotesModal !== undefined && openNotesModal !== null) {
+      setShowNotesModal(openNotesModal);
+    }
+  }, [openNotesModal]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -238,7 +244,7 @@ export const TradingViewChart = memo(({ symbol, exchange = 'NSE', isFullscreen =
   };
 
   return (
-    <div className="space-y-4">
+    <div className={`space-y-3 ${height === 'h-full' ? 'h-full flex flex-col' : ''}`}>
       {/* Persistent Analysis Bar */}
       <div className="bg-navy-950 text-white rounded-2xl p-4 border border-navy-800 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs">
         <div className="flex items-center gap-3">
@@ -439,7 +445,7 @@ export const TradingViewChart = memo(({ symbol, exchange = 'NSE', isFullscreen =
       {/* TradingView Embed Canvas Container */}
       <div
         ref={containerRef}
-        className={`w-full ${isFullscreen ? 'h-[85vh]' : 'h-[520px]'} bg-gray-50 rounded-2xl overflow-hidden border border-gray-150 relative shadow-sm`}
+        className={`w-full ${isFullscreen ? 'h-[85vh]' : (height || 'h-[520px]')} bg-gray-50 rounded-2xl overflow-hidden border border-gray-150 relative shadow-sm`}
       />
 
       {/* FULLSCREEN OVERLAY MODAL */}

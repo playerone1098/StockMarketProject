@@ -210,25 +210,27 @@ export const Watchlist = () => {
   }
 
   return (
-    <div className="min-h-screen bg-navy-950 text-white py-6 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <div className={`bg-navy-950 text-white ${selectedStock ? 'h-[calc(100vh-64px)] overflow-hidden p-2.5 flex flex-col' : 'min-h-screen py-6 px-4 sm:px-6 lg:px-8'}`}>
+      <div className={`${selectedStock ? 'w-full flex-1 flex flex-col space-y-2 overflow-hidden min-h-0' : 'max-w-7xl mx-auto space-y-6'}`}>
         
         {/* Header & Controls */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-navy-800 pb-5">
+        <div className={`flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-navy-800 ${selectedStock ? 'pb-2 shrink-0' : 'pb-5'}`}>
           <div>
-            <h1 className="text-3xl font-black tracking-tight text-white flex items-center gap-3">
+            <h1 className={`${selectedStock ? 'text-xl' : 'text-3xl'} font-black tracking-tight text-white flex items-center gap-2`}>
               <span>⭐ Stock Watchlists</span>
             </h1>
-            <p className="text-sm text-gray-400 mt-1">
-              Select any stock to move watchlist to side panel & view live TradingView charts
-            </p>
+            {!selectedStock && (
+              <p className="text-sm text-gray-400 mt-1">
+                Select any stock to move watchlist to side panel & view live TradingView charts
+              </p>
+            )}
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2">
             <select
               value={selectedWatchlistId}
               onChange={(e) => setSelectedWatchlistId(e.target.value)}
-              className="bg-navy-900 border border-navy-800 text-white text-sm font-semibold rounded-xl px-4 py-2.5 focus:outline-none focus:border-amber-500 shadow-md"
+              className="bg-navy-900 border border-navy-800 text-white text-xs sm:text-sm font-semibold rounded-xl px-3 py-1.5 focus:outline-none focus:border-amber-500 shadow-md"
             >
               {watchlists.map(w => (
                 <option key={w._id} value={w._id}>
@@ -239,18 +241,18 @@ export const Watchlist = () => {
 
             <button
               onClick={() => setShowCreateModal(true)}
-              className="px-4 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-sm font-bold rounded-xl shadow-lg shadow-amber-500/20 transition flex items-center gap-2"
+              className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-500 text-white text-xs sm:text-sm font-bold rounded-xl shadow-lg shadow-amber-500/20 transition flex items-center gap-1.5"
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
               </svg>
-              New Watchlist
+              New List
             </button>
 
             {selectedStock && (
               <button
                 onClick={() => setSelectedStock(null)}
-                className="px-4 py-2.5 bg-navy-900 hover:bg-navy-800 border border-navy-700 text-gray-300 hover:text-white text-sm font-semibold rounded-xl transition flex items-center gap-2"
+                className="px-3 py-1.5 bg-navy-900 hover:bg-navy-800 border border-navy-700 text-gray-300 hover:text-white text-xs font-semibold rounded-xl transition flex items-center gap-1.5"
               >
                 <span>📊 Full Table View</span>
               </button>
@@ -259,36 +261,36 @@ export const Watchlist = () => {
         </div>
 
         {/* Dynamic Animated Layout Container */}
-        <div className={`transition-all duration-500 ease-in-out ${selectedStock ? 'flex flex-col lg:flex-row gap-4 items-start' : 'space-y-6'}`}>
+        <div className={`transition-all duration-500 ease-in-out ${selectedStock ? 'flex-1 flex flex-col lg:flex-row gap-2.5 items-stretch overflow-hidden min-h-0' : 'space-y-6'}`}>
           
           {/* Watchlist Panel (Full Width when no stock selected; Left Side Panel when stock is selected) */}
-          <div className={`transition-all duration-500 ease-in-out ${selectedStock ? 'w-full lg:w-72 shrink-0 space-y-3' : 'w-full space-y-6'}`}>
+          <div className={`transition-all duration-500 ease-in-out ${selectedStock ? 'w-full lg:w-72 shrink-0 flex flex-col space-y-2 h-full overflow-hidden min-h-0' : 'w-full space-y-6'}`}>
             
             {/* Add Stock Search Bar */}
-            <div className="relative">
+            <div className="relative shrink-0">
               <div className="relative">
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => handleStockSearch(e.target.value)}
-                  placeholder={selectedStock ? "Add stock to list..." : "Search and add stock (e.g. RELIANCE, TCS, INFY)..."}
-                  className="w-full px-5 py-3 bg-navy-900 border border-navy-800 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 shadow-xl text-sm transition"
+                  placeholder={selectedStock ? "Add stock..." : "Search and add stock (e.g. RELIANCE, TCS)..."}
+                  className="w-full px-4 py-2 bg-navy-900 border border-navy-800 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 shadow-lg text-xs transition"
                 />
-                <div className="absolute right-4 top-3 text-gray-400 text-sm">
+                <div className="absolute right-3 top-2 text-gray-400 text-xs">
                   🔍
                 </div>
               </div>
 
               {searchQuery.trim().length > 0 && (
-                <div className="absolute left-0 right-0 mt-2 bg-navy-900 border border-navy-800 rounded-2xl shadow-2xl overflow-hidden z-30 divide-y divide-navy-800 max-h-80 overflow-y-auto custom-scrollbar">
+                <div className="absolute left-0 right-0 mt-1 bg-navy-900 border border-navy-800 rounded-xl shadow-2xl overflow-hidden z-30 divide-y divide-navy-800 max-h-64 overflow-y-auto custom-scrollbar">
                   {searchQuery.trim().length < 3 ? (
-                    <div className="p-3.5 text-center text-xs text-amber-400 font-semibold flex items-center justify-center gap-2">
-                      <span>ℹ️</span> Type at least 3 characters to search (e.g. REL, TCS, INFY)
+                    <div className="p-3 text-center text-xs text-amber-400 font-semibold flex items-center justify-center gap-1.5">
+                      <span>ℹ️</span> Type 3+ characters to search
                     </div>
                   ) : searchLoading ? (
-                    <div className="p-4 text-center text-xs text-gray-400 font-medium flex items-center justify-center gap-2">
-                      <div className="w-4 h-4 border-2 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
-                      Searching for "{searchQuery}"...
+                    <div className="p-3 text-center text-xs text-gray-400 font-medium flex items-center justify-center gap-2">
+                      <div className="w-3.5 h-3.5 border-2 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
+                      Searching...
                     </div>
                   ) : stockSuggestions.length > 0 ? (
                     stockSuggestions.map((s) => (
@@ -299,28 +301,28 @@ export const Watchlist = () => {
                           e.stopPropagation();
                           handleAddStock(s.symbol);
                         }}
-                        className="p-3.5 hover:bg-navy-800 cursor-pointer flex justify-between items-center transition group"
+                        className="p-3 hover:bg-navy-800 cursor-pointer flex justify-between items-center transition group"
                       >
                         <div>
-                          <div className="flex items-center gap-2">
-                            <span className="font-extrabold text-white text-sm group-hover:text-amber-400 transition">{s.symbol}</span>
-                            {s.sector && <span className="text-[10px] text-gray-400 bg-navy-950 px-2 py-0.5 rounded border border-navy-800">{s.sector}</span>}
+                          <div className="flex items-center gap-1.5">
+                            <span className="font-extrabold text-white text-xs group-hover:text-amber-400 transition">{s.symbol}</span>
+                            {s.sector && <span className="text-[9px] text-gray-400 bg-navy-950 px-1.5 py-0.5 rounded border border-navy-800">{s.sector}</span>}
                           </div>
-                          <span className="text-xs text-gray-400 block truncate max-w-xs">{s.name || s.companyName || s.symbol}</span>
+                          <span className="text-[11px] text-gray-400 block truncate max-w-[140px]">{s.name || s.companyName || s.symbol}</span>
                         </div>
-                        <div className="flex items-center gap-3 shrink-0">
+                        <div className="flex items-center gap-2 shrink-0">
                           <span className="text-xs font-bold text-white">
                             ₹{s.currentPrice ? Number(s.currentPrice).toLocaleString('en-IN', { minimumFractionDigits: 2 }) : '0.00'}
                           </span>
-                          <span className="text-xs font-bold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-lg hover:bg-amber-500/20 transition border border-amber-500/30">
+                          <span className="text-[10px] font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded hover:bg-amber-500/20 transition border border-amber-500/30">
                             + Add
                           </span>
                         </div>
                       </div>
                     ))
                   ) : (
-                    <div className="p-4 text-center text-xs text-gray-400 font-medium">
-                      No stocks found matching "<span className="text-white font-semibold">{searchQuery}</span>"
+                    <div className="p-3 text-center text-xs text-gray-400 font-medium">
+                      No stocks found
                     </div>
                   )}
                 </div>
@@ -328,15 +330,15 @@ export const Watchlist = () => {
             </div>
 
             {/* Watchlist Stock Cards / Table View */}
-            <div className="bg-navy-900 border border-navy-800 rounded-3xl overflow-hidden shadow-2xl transition-all duration-300">
-              <div className="px-5 py-4 border-b border-navy-800 flex justify-between items-center bg-navy-950/40">
-                <h2 className="text-base font-bold text-white flex items-center gap-2">
+            <div className={`bg-navy-900 border border-navy-800 rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 ${selectedStock ? 'flex-1 flex flex-col min-h-0' : ''}`}>
+              <div className="px-4 py-2.5 border-b border-navy-800 flex justify-between items-center bg-navy-950/40 shrink-0">
+                <h2 className="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5">
                   <span>📋</span> {currentWatchlist?.name} ({currentWatchlist?.items?.length || 0})
                 </h2>
                 {currentWatchlist && watchlists.length > 1 && (
                   <button
                     onClick={() => handleDeleteWatchlist(currentWatchlist._id)}
-                    className="text-[11px] text-rose-400 hover:text-rose-300 font-semibold px-2.5 py-1 bg-rose-500/10 rounded-lg transition"
+                    className="text-[10px] text-rose-400 hover:text-rose-300 font-semibold px-2 py-0.5 bg-rose-500/10 rounded transition"
                   >
                     Delete List
                   </button>
@@ -344,14 +346,11 @@ export const Watchlist = () => {
               </div>
 
               {(!currentWatchlist?.items || currentWatchlist.items.length === 0) ? (
-                <div className="p-10 text-center space-y-3">
-                  <div className="w-14 h-14 rounded-2xl bg-navy-950 border border-navy-800 text-gray-500 flex items-center justify-center mx-auto text-2xl">
+                <div className="p-6 text-center space-y-2">
+                  <div className="w-10 h-10 rounded-xl bg-navy-950 border border-navy-800 text-gray-500 flex items-center justify-center mx-auto text-xl">
                     ⭐
                   </div>
-                  <h3 className="text-base font-bold text-white">Watchlist is empty</h3>
-                  <p className="text-xs text-gray-400 max-w-xs mx-auto">
-                    Search above to add stocks like RELIANCE, TCS, INFY, TATAMOTORS.
-                  </p>
+                  <p className="text-xs text-gray-400 font-medium">Your watchlist is currently empty.</p>
                 </div>
               ) : selectedStock ? (
                 /* SIDE PANEL COMPACT STOCK CARDS LIST (When stock is selected) */
@@ -512,10 +511,10 @@ export const Watchlist = () => {
 
           {/* RIGHT SIDE MAIN PANEL: TRADINGVIEW CHART (Only visible when stock is selected) */}
           {selectedStock && (
-            <div className="flex-1 w-full space-y-3 transition-all duration-500 ease-in-out animate-fadeIn">
-              {/* Compact Action Bar: Stock Symbol, Notes, Fundamental & Close */}
-              <div className="bg-navy-900 border border-navy-800 rounded-2xl px-4 py-3 shadow-xl flex items-center justify-between gap-3 text-xs">
-                <div className="flex items-center gap-3">
+            <div className="flex-1 w-full h-full flex flex-col space-y-2 overflow-hidden min-h-0 animate-fadeIn">
+              {/* Compact Action Bar: Stock Symbol, Price, Notes, Fundamental & Close */}
+              <div className="bg-navy-900 border border-navy-800 rounded-2xl px-4 py-2 shadow-xl flex items-center justify-between gap-3 text-xs shrink-0">
+                <div className="flex items-center gap-2.5">
                   <span className="font-black text-base text-white tracking-wide">{selectedStock}</span>
                   {selectedDetails.companyName && (
                     <span className="text-xs text-gray-400 font-medium hidden sm:inline truncate max-w-[200px]">
@@ -569,12 +568,12 @@ export const Watchlist = () => {
                 </div>
               </div>
 
-              {/* Enlarged TradingView Chart Component */}
-              <div className="bg-navy-900 border border-navy-800 rounded-3xl p-3 shadow-2xl">
+              {/* Max-size TradingView Chart Component */}
+              <div className="flex-1 w-full bg-navy-900 border border-navy-800 rounded-2xl p-2 shadow-2xl overflow-hidden min-h-0">
                 <TradingViewChart
                   symbol={selectedStock}
                   exchange={selectedDetails.exchange || 'NSE'}
-                  height="h-[680px]"
+                  height="h-full"
                   openNotesModal={openNotesForStock}
                 />
               </div>

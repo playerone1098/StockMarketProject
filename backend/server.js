@@ -133,8 +133,36 @@ app.get('/api/ws/status', (req, res) => {
   });
 });
 
-// Routes
+// SEO Routes
 app.use('/sitemap.xml', require('./routes/sitemap'));
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain');
+  res.send(`User-agent: *
+Allow: /
+Allow: /stocks
+Allow: /stocks/*
+Allow: /trading-ideas
+Allow: /trading-ideas/*
+Allow: /ipos
+Allow: /ipos/*
+Allow: /blog
+Allow: /blog/*
+Allow: /screener
+Allow: /community
+Allow: /about
+Allow: /faq
+Allow: /contact
+
+Disallow: /admin/
+Disallow: /login
+Disallow: /register
+Disallow: /portfolio
+Disallow: /watchlist
+Disallow: /settings
+
+Sitemap: /sitemap.xml`);
+});
+
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/watchlists', require('./routes/watchlists'));

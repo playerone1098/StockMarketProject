@@ -36,8 +36,19 @@ export const TradingViewChart = memo(({ symbol, exchange = 'NSE', isFullscreen =
   const [newTrendline, setNewTrendline] = useState({ level: '', type: 'support', label: '' });
   const [saveStatus, setSaveStatus] = useState('');
   const [loadingAnalysis, setLoadingAnalysis] = useState(false);
+  const [isModalFullscreen, setIsModalFullscreen] = useState(false);
 
   const deviceId = getDeviceId();
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && isModalFullscreen) {
+        setIsModalFullscreen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isModalFullscreen]);
 
   // Load persistent analysis & drawings on mount or symbol change
   useEffect(() => {
@@ -277,6 +288,16 @@ export const TradingViewChart = memo(({ symbol, exchange = 'NSE', isFullscreen =
             💾 Save Analysis
           </button>
 
+          {!isFullscreen && (
+            <button
+              onClick={() => setIsModalFullscreen(true)}
+              className="px-3.5 py-1.5 bg-brand-500/20 hover:bg-brand-500/30 text-brand-300 font-extrabold rounded-xl border border-brand-500/40 transition flex items-center gap-1.5 shadow-2xs"
+              title="Open Chart in Full Screen"
+            >
+              <span>⤢</span> Fullscreen
+            </button>
+          )}
+
           {analysis.exists && (
             <button
               onClick={handleClearAnalysis}
@@ -420,6 +441,30 @@ export const TradingViewChart = memo(({ symbol, exchange = 'NSE', isFullscreen =
         ref={containerRef}
         className={`w-full ${isFullscreen ? 'h-[85vh]' : 'h-[520px]'} bg-gray-50 rounded-2xl overflow-hidden border border-gray-150 relative shadow-sm`}
       />
+
+      {/* FULLSCREEN OVERLAY MODAL */}
+      {isModalFullscreen && (
+        <div className="fixed inset-0 bg-navy-950/95 backdrop-blur-md z-50 flex flex-col p-4 sm:p-6 overflow-hidden">
+          <div className="flex items-center justify-between text-white pb-3 mb-2 border-b border-navy-800">
+            <div className="flex items-center gap-3">
+              <span className="text-xl sm:text-2xl font-black">{symbol}</span>
+              <span className="text-xs text-gray-300 bg-navy-900 border border-navy-800 px-3 py-1 rounded-full font-semibold">
+                Fullscreen Technical Chart ({exchange})
+              </span>
+            </div>
+            <button
+              onClick={() => setIsModalFullscreen(false)}
+              className="px-4 py-2 bg-navy-800 hover:bg-navy-700 text-white font-extrabold rounded-xl text-xs transition border border-navy-700 flex items-center gap-1.5"
+            >
+              ✕ Exit Full View
+            </button>
+          </div>
+
+          <div className="flex-1 w-full bg-white rounded-2xl overflow-hidden shadow-2xl">
+            <TradingViewChart symbol={symbol} exchange={exchange} isFullscreen={true} />
+          </div>
+        </div>
+      )}
     </div>
   );
 });

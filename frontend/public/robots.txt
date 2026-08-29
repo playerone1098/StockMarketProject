@@ -1,17 +1,27 @@
 User-agent: *
 Allow: /
-Allow: /trading-ideas
-Allow: /ipos
-Allow: /blog
 Allow: /stocks
+Allow: /stocks/*
+Allow: /trading-ideas
+Allow: /trading-ideas/*
+Allow: /ipos
+Allow: /ipos/*
+Allow: /blog
+Allow: /blog/*
+Allow: /screener
+Allow: /community
 Allow: /about
 Allow: /faq
 Allow: /contact
 
-# Block crawler access to administrative and auth routes
+# Block search engine crawlers from private and admin routes
 Disallow: /admin/
 Disallow: /login
 Disallow: /register
+Disallow: /portfolio
+Disallow: /watchlist
+Disallow: /settings
 
-# TODO: Replace with your actual production domain before deploying
-# Sitemap: https://yourdomain.com/sitemap.xml
+# XML Sitemap reference for Google and search engine bots
+Sitemap: /sitemap.xml
+

@@ -179,13 +179,46 @@ export const StockDetail = () => {
     setNewComment('');
   };
 
+  const stockJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FinancialProduct',
+    'name': `${stock.name} (${stock.symbol})`,
+    'symbol': stock.symbol,
+    'description': stock.description || `${stock.name} share price, live market data, chart technicals, and fundamentals on JodhpurTraders.`,
+    'url': window.location.origin + window.location.pathname,
+    'offers': {
+      '@type': 'Offer',
+      'price': stock.currentPrice,
+      'priceCurrency': 'INR'
+    }
+  };
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': window.location.origin },
+      { '@type': 'ListItem', 'position': 2, 'name': 'Stocks', 'item': `${window.location.origin}/stocks` },
+      { '@type': 'ListItem', 'position': 3, 'name': stock.symbol, 'item': window.location.origin + window.location.pathname }
+    ]
+  };
+
   return (
     <>
       <Helmet>
-        <title>{`${stock.symbol} (${stock.name}) Share Price, Persistent Technical Charts & Fundamentals | JodhpurTraders`}</title>
-        <meta name="description" content={`Get live stock price of ${stock.name} (${stock.symbol}), interactive TradingView charts with 1+ year persistent drawing tools, technical analysis notes, price targets, P/E ratio, market cap, and community discussion on JodhpurTraders.`} />
-        <meta property="og:title" content={`${stock.symbol} - ${stock.name} Live Price & Persistent Technical Chart`} />
-        <meta property="og:description" content={`View live price, technical charts with persistent drawings, news, and fundamentals for ${stock.name} on JodhpurTraders.`} />
+        <title>{`${stock.symbol} (${stock.name}) Share Price, Technical Charts & Fundamentals | JodhpurTraders`}</title>
+        <meta name="description" content={`Get live stock price of ${stock.name} (${stock.symbol}), interactive TradingView charts, technical analysis notes, price targets, P/E ratio, market cap, and community discussion on JodhpurTraders.`} />
+        <meta name="keywords" content={`${stock.symbol}, ${stock.name}, ${stock.symbol} share price, ${stock.symbol} stock price, ${stock.sector} stocks, Indian stock market, JodhpurTraders`} />
+        <meta property="og:title" content={`${stock.symbol} - ${stock.name} Live Price & Technical Chart | JodhpurTraders`} />
+        <meta property="og:description" content={`View live price, technical charts, news, and fundamentals for ${stock.name} (${stock.symbol}) on JodhpurTraders.`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={window.location.origin + window.location.pathname} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${stock.symbol} (${stock.name}) Live Price & Technical Chart`} />
+        <meta name="twitter:description" content={`Live price, technical charts, and fundamentals for ${stock.name} on JodhpurTraders.`} />
+        <link rel="canonical" href={window.location.origin + window.location.pathname} />
+        <script type="application/ld+json">{JSON.stringify(stockJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
       </Helmet>
 
       {/* Main Container */}
@@ -569,8 +602,19 @@ export const StockDetail = () => {
             </button>
           </div>
 
-          <div className="flex-1 w-full bg-white rounded-2xl overflow-hidden shadow-2xl">
-            <TradingViewChart symbol={stock.symbol} exchange={stock.exchange || 'NSE'} isFullscreen={true} />
+          <div className="flex-1 w-full bg-white rounded-2xl overflow-hidden shadow-2xl p-2 sm:p-4">
+            {chartType === 'tradingview' ? (
+              <TradingViewChart symbol={stock.symbol} exchange={stock.exchange || 'NSE'} isFullscreen={true} />
+            ) : (
+              <StockChart
+                symbol={stock.symbol}
+                initialPrice={stock.currentPrice}
+                dayChange={stock.dayChange}
+                dayChangePercent={stock.dayChangePercent}
+                isFullscreenModal={true}
+                onCloseFullscreen={() => setIsFullscreen(false)}
+              />
+            )}
           </div>
         </div>
       )}

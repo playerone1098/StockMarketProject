@@ -445,7 +445,7 @@ export const TradingViewChart = memo(({ symbol, exchange = 'NSE', isFullscreen =
       {/* TradingView Embed Canvas Container */}
       <div
         ref={containerRef}
-        className={`w-full ${isFullscreen ? 'h-[85vh]' : (height || 'h-[520px]')} bg-gray-50 rounded-2xl overflow-hidden border border-gray-150 relative shadow-sm`}
+        className={`w-full ${isFullscreen ? 'h-[85vh]' : (height === 'h-full' ? 'flex-1 min-h-[550px]' : (height || 'h-[520px]'))} bg-gray-50 rounded-2xl overflow-hidden border border-gray-150 relative shadow-sm`}
       />
 
       {/* FULLSCREEN OVERLAY MODAL */}

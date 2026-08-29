@@ -199,22 +199,25 @@ const addStockToWatchlist = catchAsync(async (req, res) => {
   // Find stock in database to verify & link reference
   const stock = await Stock.findOne({ symbol: cleanSymbol });
 
-  let watchlist = await Watchlist.findOne({ _id: req.params.id, user: req.user._id });
-  if (!watchlist) {
-    // If id is 'default', get or create default watchlist
-    if (req.params.id === 'default') {
-      watchlist = await Watchlist.findOne({ user: req.user._id, isDefault: true });
-      if (!watchlist) {
-        watchlist = await Watchlist.findOne({ user: req.user._id }).sort({ createdAt: 1 });
-      }
-      if (!watchlist) {
-        watchlist = await Watchlist.create({
-          user: req.user._id,
-          name: 'My Watchlist',
-          isDefault: true
-        });
-      }
-    } else {
+  let watchlist;
+
+  // Handle 'default' ID: find or create the user's default watchlist
+  if (req.params.id === 'default') {
+    watchlist = await Watchlist.findOne({ user: req.user._id, isDefault: true });
+    if (!watchlist) {
+      watchlist = await Watchlist.findOne({ user: req.user._id }).sort({ createdAt: 1 });
+    }
+    if (!watchlist) {
+      watchlist = await Watchlist.create({
+        user: req.user._id,
+        name: 'My Watchlist',
+        isDefault: true,
+        items: []
+      });
+    }
+  } else {
+    watchlist = await Watchlist.findOne({ _id: req.params.id, user: req.user._id });
+    if (!watchlist) {
       throw new ApiError(404, 'Watchlist not found');
     }
   }

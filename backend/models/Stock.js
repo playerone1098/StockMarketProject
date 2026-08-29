@@ -122,5 +122,8 @@ const stockSchema = new mongoose.Schema({
 });
 
 stockSchema.index({ symbol: 'text', name: 'text' });
+stockSchema.index({ symbol: 1 });
+stockSchema.index({ name: 1 });
+stockSchema.index({ isActive: 1, symbol: 1 });
 
 module.exports = mongoose.model('Stock', stockSchema);

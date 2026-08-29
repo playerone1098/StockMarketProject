@@ -72,17 +72,35 @@ export const Watchlist = () => {
   const selectedItem = currentWatchlist?.items?.find(item => item.symbol === selectedStock);
   const selectedDetails = selectedItem?.stockDetails || {};
 
+  const [searchLoading, setSearchLoading] = useState(false);
+
   const handleStockSearch = async (query) => {
     setSearchQuery(query);
     if (query.trim().length >= 3) {
+      setSearchLoading(true);
       try {
         const res = await fetchStocks({ search: query.trim(), limit: 15 });
-        if (res.success && res.data) {
-          const list = Array.isArray(res.data) ? res.data : (res.data.stocks || []);
-          setStockSuggestions(list);
+        // Handle all possible API response shapes
+        let list = [];
+        if (res.success !== undefined) {
+          // Response: { success, data: [...] } or { success, data: { stocks: [...] } }
+          const d = res.data;
+          if (Array.isArray(d)) {
+            list = d;
+          } else if (d && Array.isArray(d.stocks)) {
+            list = d.stocks;
+          } else if (d && Array.isArray(d.data)) {
+            list = d.data;
+          }
+        } else if (Array.isArray(res)) {
+          list = res;
         }
+        setStockSuggestions(list);
       } catch (err) {
         console.error('Error fetching stock suggestions:', err);
+        setStockSuggestions([]);
+      } finally {
+        setSearchLoading(false);
       }
     } else {
       setStockSuggestions([]);
@@ -90,15 +108,17 @@ export const Watchlist = () => {
   };
 
   const handleAddStock = async (symbol) => {
+    if (!symbol) return;
     const targetWatchlistId = currentWatchlist ? currentWatchlist._id : 'default';
     try {
-      await addStockToWatchlist(targetWatchlistId, symbol);
+      const res = await addStockToWatchlist(targetWatchlistId, symbol);
       setSearchQuery('');
       setStockSuggestions([]);
       await loadWatchlists();
       setSelectedStock(symbol);
     } catch (err) {
       console.error('Error adding stock to watchlist:', err);
+      alert('Failed to add stock: ' + (err?.response?.data?.message || err.message));
     }
   };
 
@@ -262,13 +282,22 @@ export const Watchlist = () => {
                 <div className="absolute left-0 right-0 mt-2 bg-navy-900 border border-navy-800 rounded-2xl shadow-2xl overflow-hidden z-30 divide-y divide-navy-800 max-h-80 overflow-y-auto custom-scrollbar">
                   {searchQuery.trim().length < 3 ? (
                     <div className="p-3.5 text-center text-xs text-amber-400 font-semibold flex items-center justify-center gap-2">
-                      <span>ℹ️</span> Type at least 3 characters to search stocks (e.g. REL, TCS, INFY)
+                      <span>ℹ️</span> Type at least 3 characters to search (e.g. REL, TCS, INFY)
+                    </div>
+                  ) : searchLoading ? (
+                    <div className="p-4 text-center text-xs text-gray-400 font-medium flex items-center justify-center gap-2">
+                      <div className="w-4 h-4 border-2 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
+                      Searching for "{searchQuery}"...
                     </div>
                   ) : stockSuggestions.length > 0 ? (
                     stockSuggestions.map((s) => (
                       <div
                         key={s._id || s.symbol}
-                        onClick={() => handleAddStock(s.symbol)}
+                        onMouseDown={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          handleAddStock(s.symbol);
+                        }}
                         className="p-3.5 hover:bg-navy-800 cursor-pointer flex justify-between items-center transition group"
                       >
                         <div>
@@ -290,7 +319,7 @@ export const Watchlist = () => {
                     ))
                   ) : (
                     <div className="p-4 text-center text-xs text-gray-400 font-medium">
-                      No active stocks found matching "<span className="text-white font-semibold">{searchQuery}</span>"
+                      No stocks found matching "<span className="text-white font-semibold">{searchQuery}</span>"
                     </div>
                   )}
                 </div>

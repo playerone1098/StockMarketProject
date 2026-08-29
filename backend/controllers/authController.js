@@ -47,56 +47,32 @@ const createDefaultUserData = async (user) => {
  * Google OAuth Unified Login/Register
  */
 const googleAuth = catchAsync(async (req, res) => {
-  const { credential, userInfo } = req.body;
+  const { credential } = req.body;
+
+  if (!credential) {
+    throw new ApiError(400, 'Google token credential is required for authentication.');
+  }
+
   let googleId, email, name, avatar;
 
-  if (credential) {
-    try {
-      if (googleClientId) {
-        const ticket = await googleClient.verifyIdToken({
-          idToken: credential,
-          audience: googleClientId
-        });
-        const payload = ticket.getPayload();
-        googleId = payload.sub;
-        email = payload.email;
-        name = payload.name || payload.given_name;
-        avatar = payload.picture;
-      } else {
-        // Parse JWT payload without verification if client id isn't set locally yet
-        const base64Url = credential.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map((c) => {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        const payload = JSON.parse(jsonPayload);
-        googleId = payload.sub;
-        email = payload.email;
-        name = payload.name || payload.given_name;
-        avatar = payload.picture;
-      }
-    } catch (err) {
-      console.warn('[Google Auth] Token verification warning:', err.message);
-      if (userInfo) {
-        googleId = userInfo.googleId || userInfo.sub || userInfo.id;
-        email = userInfo.email;
-        name = userInfo.name;
-        avatar = userInfo.picture;
-      } else {
-        throw new ApiError(400, 'Invalid Google login credentials');
-      }
-    }
-  } else if (userInfo) {
-    googleId = userInfo.googleId || userInfo.sub || userInfo.id;
-    email = userInfo.email;
-    name = userInfo.name;
-    avatar = userInfo.picture;
-  } else {
-    throw new ApiError(400, 'Google credentials are required');
+  try {
+    const activeClientId = process.env.GOOGLE_CLIENT_ID || config.googleClientId;
+    const ticket = await googleClient.verifyIdToken({
+      idToken: credential,
+      audience: activeClientId
+    });
+    const payload = ticket.getPayload();
+    googleId = payload.sub;
+    email = payload.email;
+    name = payload.name || payload.given_name;
+    avatar = payload.picture;
+  } catch (err) {
+    console.error('[Google Auth] Token verification error:', err.message);
+    throw new ApiError(401, `Google Authentication failed: ${err.message}`);
   }
 
   if (!googleId && !email) {
-    throw new ApiError(400, 'Unable to retrieve user details from Google');
+    throw new ApiError(400, 'Unable to retrieve user identity from Google token');
   }
 
   // Unified Auth Flow: Find user by googleId or email

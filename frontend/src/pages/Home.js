@@ -255,23 +255,23 @@ export const Home = () => {
             )}
           </div>
 
-          {/* Quick CTA Buttons */}
-          <div className="flex flex-wrap justify-center items-center gap-4">
+          {/* Quick CTA Buttons - Single Line */}
+          <div className="flex flex-nowrap justify-center items-center gap-3 sm:gap-4 overflow-x-auto whitespace-nowrap py-1 max-w-full px-2">
             <Link
               to="/trading-ideas"
-              className="px-7 py-3.5 bg-gradient-to-r from-brand-600 to-emerald-600 hover:from-brand-500 hover:to-emerald-500 text-white rounded-xl text-sm font-bold shadow-lg shadow-brand-500/25 transition-all transform hover:-translate-y-0.5 flex items-center gap-2"
+              className="px-5 sm:px-6 py-3 bg-gradient-to-r from-brand-600 to-emerald-600 hover:from-brand-500 hover:to-emerald-500 text-white rounded-xl text-sm font-bold shadow-lg shadow-brand-500/25 transition-all transform hover:-translate-y-0.5 flex items-center gap-2 shrink-0 whitespace-nowrap"
             >
               <span>🔥 Browse Trading Setups</span>
             </Link>
             <Link
               to="/ipos"
-              className="px-7 py-3.5 bg-slate-800/90 dark:bg-navy-800/90 hover:bg-slate-700 dark:hover:bg-navy-700 text-white border border-slate-700 dark:border-navy-700 rounded-xl text-sm font-bold shadow-md transition-all flex items-center gap-2"
+              className="px-5 sm:px-6 py-3 bg-slate-800/90 dark:bg-navy-800/90 hover:bg-slate-700 dark:hover:bg-navy-700 text-white border border-slate-700 dark:border-navy-700 rounded-xl text-sm font-bold shadow-md transition-all flex items-center gap-2 shrink-0 whitespace-nowrap"
             >
               <span>📊 Track Live IPOs</span>
             </Link>
             <Link
               to="/portfolio"
-              className="px-7 py-3.5 bg-slate-900 dark:bg-navy-900 hover:bg-slate-800 dark:hover:bg-navy-800 text-emerald-400 border border-emerald-500/30 rounded-xl text-sm font-bold shadow-md transition-all flex items-center gap-2"
+              className="px-5 sm:px-6 py-3 bg-slate-900 dark:bg-navy-900 hover:bg-slate-800 dark:hover:bg-navy-800 text-emerald-400 border border-emerald-500/30 rounded-xl text-sm font-bold shadow-md transition-all flex items-center gap-2 shrink-0 whitespace-nowrap"
             >
               <span>📈 Portfolio Tracker</span>
             </Link>
@@ -476,16 +476,16 @@ export const Home = () => {
             <p className="text-emerald-100 text-base mb-8 max-w-xl mx-auto">
               Join thousands of investors using JodhpurTraders to track portfolios, spot high-probability trading setups, and stay ahead of the market.
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex flex-nowrap justify-center items-center gap-3 sm:gap-4 overflow-x-auto whitespace-nowrap py-1">
               <Link
                 to="/register"
-                className="px-8 py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm rounded-xl shadow-xl transition transform hover:-translate-y-0.5"
+                className="px-6 sm:px-8 py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm rounded-xl shadow-xl transition transform hover:-translate-y-0.5 shrink-0 whitespace-nowrap"
               >
                 Create Free Account
               </Link>
               <Link
                 to="/stocks"
-                className="px-8 py-3.5 bg-white/10 hover:bg-white/20 text-white font-bold text-sm rounded-xl backdrop-blur-md border border-white/20 transition"
+                className="px-6 sm:px-8 py-3.5 bg-white/10 hover:bg-white/20 text-white font-bold text-sm rounded-xl backdrop-blur-md border border-white/20 transition shrink-0 whitespace-nowrap"
               >
                 Browse Indian Stocks
               </Link>

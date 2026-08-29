@@ -26,6 +26,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.0",
     "ws": "^8.16.0",
+    "google-auth-library": "^9.6.3",
     "yahoo-finance2": "^4.0.0"
   },
   "devDependencies": {

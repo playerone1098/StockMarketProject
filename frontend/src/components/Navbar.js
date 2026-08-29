@@ -36,16 +36,16 @@ export const Navbar = () => {
 
   return (
     <nav className="bg-white/90 dark:bg-navy-950/90 text-slate-800 dark:text-white sticky top-0 z-50 shadow-sm border-b border-slate-200 dark:border-navy-900 backdrop-blur-md transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center space-x-6">
-            <Link to="/" className="flex items-center space-x-1">
+      <div className="w-full max-w-[1600px] mx-auto px-2 sm:px-4 lg:px-6">
+        <div className="flex justify-between items-center h-16">
+          <div className="flex items-center space-x-4 pl-0">
+            <Link to="/" className="flex items-center space-x-1 pr-2">
               <span className="text-2xl font-black tracking-tight text-brand-600 dark:text-brand-500">Jodhpur</span>
               <span className="text-2xl font-black tracking-tight text-slate-900 dark:text-white">Traders</span>
             </Link>
           </div>
 
-          <div className="hidden md:flex items-center space-x-2 lg:space-x-4">
+          <div className="hidden md:flex items-center space-x-1.5 lg:space-x-3 whitespace-nowrap flex-nowrap">
             <Link to="/stocks" className="text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition">
               Stocks Directory
             </Link>

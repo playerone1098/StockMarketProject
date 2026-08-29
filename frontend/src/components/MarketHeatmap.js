@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const MarketHeatmap = ({ sectors, isLoading, error }) => {
+export const MarketHeatmap = ({ sectors, isLoading, error, onSelectSector }) => {
   if (isLoading) {
     return (
       <div className="bg-navy-900 border border-navy-800 rounded-xl p-8 text-center animate-pulse">
@@ -103,15 +103,25 @@ export const MarketHeatmap = ({ sectors, isLoading, error }) => {
                     Total Cap: {formatMarketCap(sector.totalMarketCap)}
                   </p>
                 </div>
-                <div className={`px-2.5 py-1 rounded-lg text-xs font-bold flex items-center gap-1 border ${
-                  isSectorPositive
-                    ? 'bg-emerald-950/70 text-emerald-400 border-emerald-800/50'
-                    : 'bg-rose-950/70 text-rose-400 border-rose-800/50'
-                }`}>
-                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isSectorPositive ? "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" : "M13 17h8m0 0v-8m0 8l-8-8-4 4-6-6"} />
-                  </svg>
-                  {isSectorPositive ? '+' : ''}{sector.avgChangePercent}%
+                <div className="flex flex-col items-end gap-1">
+                  <div className={`px-2.5 py-1 rounded-lg text-xs font-bold flex items-center gap-1 border ${
+                    isSectorPositive
+                      ? 'bg-emerald-950/70 text-emerald-400 border-emerald-800/50'
+                      : 'bg-rose-950/70 text-rose-400 border-rose-800/50'
+                  }`}>
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isSectorPositive ? "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" : "M13 17h8m0 0v-8m0 8l-8-8-4 4-6-6"} />
+                    </svg>
+                    {isSectorPositive ? '+' : ''}{sector.avgChangePercent}%
+                  </div>
+                  {onSelectSector && (
+                    <button
+                      onClick={() => onSelectSector(sector.name)}
+                      className="text-[10px] text-cyan-400 hover:text-cyan-300 font-semibold hover:underline"
+                    >
+                      Screen Sector →
+                    </button>
+                  )}
                 </div>
               </div>
 

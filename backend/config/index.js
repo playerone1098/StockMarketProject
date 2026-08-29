@@ -20,6 +20,12 @@ const config = {
 
   /** @type {string} Frontend URL for CORS and sitemap */
   frontendUrl: process.env.FRONTEND_URL || 'http://localhost:3000',
+
+  /** @type {string} Google Client ID */
+  googleClientId: process.env.GOOGLE_CLIENT_ID || '817253510812-74npu66qfekfggmbeui8tn8aco9b3fi6.apps.googleusercontent.com',
+
+  /** @type {string} Google Client Secret */
+  googleClientSecret: process.env.GOOGLE_CLIENT_SECRET || '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'
 };
 
 module.exports = config;

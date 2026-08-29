@@ -39,8 +39,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Google OAuth Unified Method (Login & Register)
-  const googleAuth = async (credential, userInfo = null) => {
-    const res = await axios.post('/api/auth/google', { credential, userInfo });
+  const googleAuth = async (credential) => {
+    const res = await axios.post('/api/auth/google', { credential });
     if (res.data.success) {
       setToken(res.data.data.token);
       setUser(res.data.data.user);

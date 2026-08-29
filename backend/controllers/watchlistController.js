@@ -7,7 +7,17 @@ const ApiError = require('../utils/ApiError');
  * Get all watchlists for current user with current stock prices
  */
 const getWatchlists = catchAsync(async (req, res) => {
-  const watchlists = await Watchlist.find({ user: req.user._id }).sort({ createdAt: -1 });
+  let watchlists = await Watchlist.find({ user: req.user._id }).sort({ createdAt: -1 });
+
+  if (watchlists.length === 0) {
+    const defaultWatchlist = await Watchlist.create({
+      user: req.user._id,
+      name: 'My Watchlist',
+      isDefault: true,
+      items: []
+    });
+    watchlists = [defaultWatchlist];
+  }
 
   // Gather all unique stock symbols in user watchlists
   const allSymbols = new Set();
@@ -36,11 +46,11 @@ const getWatchlists = catchAsync(async (req, res) => {
         stockDetails: stockInfo ? {
           id: stockInfo._id,
           symbol: stockInfo.symbol,
-          companyName: stockInfo.companyName,
+          companyName: stockInfo.name || stockInfo.companyName || stockInfo.symbol,
           sector: stockInfo.sector,
           currentPrice: stockInfo.currentPrice,
-          change: stockInfo.change,
-          changePercent: stockInfo.changePercent,
+          change: stockInfo.dayChange,
+          changePercent: stockInfo.dayChangePercent,
           marketCap: stockInfo.marketCap,
           peRatio: stockInfo.peRatio,
           weekHigh52: stockInfo.weekHigh52,

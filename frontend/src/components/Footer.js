@@ -1,8 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { VERSION } from '../version';
 
 export const Footer = () => {
+  const location = useLocation();
+  if (location.pathname === '/watchlist') {
+    return null;
+  }
+
   return (
     <footer className="bg-slate-100 dark:bg-navy-950 text-slate-800 dark:text-white py-12 mt-20 border-t border-slate-200 dark:border-navy-900 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

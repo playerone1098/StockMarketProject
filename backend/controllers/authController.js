@@ -146,6 +146,58 @@ const googleAuth = catchAsync(async (req, res) => {
 });
 
 /**
+ * Email/Password Login (Admin Panel)
+ */
+const login = catchAsync(async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    throw new ApiError(400, 'Email and password are required.');
+  }
+
+  const user = await User.findOne({ email: email.toLowerCase() });
+
+  if (!user) {
+    throw new ApiError(401, 'Invalid email or password.');
+  }
+
+  if (!user.isActive) {
+    throw new ApiError(403, 'Account is deactivated. Please contact support.');
+  }
+
+  if (!user.password) {
+    throw new ApiError(401, 'This account uses Google sign-in. Please log in with Google.');
+  }
+
+  const isMatch = await user.comparePassword(password);
+  if (!isMatch) {
+    throw new ApiError(401, 'Invalid email or password.');
+  }
+
+  user.lastLogin = new Date();
+  await user.save();
+
+  const token = generateToken(user._id);
+
+  res.json({
+    success: true,
+    data: {
+      token,
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+        profile: user.profile,
+        settings: user.settings,
+        authProvider: user.authProvider
+      }
+    },
+    message: 'Login successful!'
+  });
+});
+
+/**
  * Get current authenticated user details.
  */
 const getMe = catchAsync(async (req, res) => {
@@ -223,6 +275,7 @@ const updateProfile = catchAsync(async (req, res) => {
 
 module.exports = {
   googleAuth,
+  login,
   getMe,
   updateProfile
 };

@@ -3,6 +3,9 @@ const router = express.Router();
 const authController = require('../controllers/authController');
 const { auth } = require('../middleware/auth');
 
+// Email/Password login (Admin Panel)
+router.post('/login', authController.login);
+
 // Google OAuth endpoint (Unified Login / Register)
 router.post('/google', authController.googleAuth);
 

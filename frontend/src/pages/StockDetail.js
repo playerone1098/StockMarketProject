@@ -575,8 +575,8 @@ export const StockDetail = () => {
           {/* CARD 5: COMPANY PROFILE & SECTOR CARD */}
           <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-150 space-y-4">
             <h2 className="text-xl font-extrabold text-navy-950">About {stock.name}</h2>
-            <p className="text-xs text-gray-600 leading-relaxed font-medium">
-              {stock.description || `${stock.name} is a leading public enterprise in the ${stock.sector} sector listed on the National Stock Exchange (NSE: ${stock.symbol}) and Bombay Stock Exchange (BSE). The company delivers core capital products, market-leading solutions, and maintains high compliance with Indian financial regulatory authorities.`}
+            <p className="text-xs sm:text-sm text-gray-700 leading-relaxed font-medium whitespace-pre-line">
+              {stock.about || stock.description || `${stock.name} is a leading public enterprise in the ${stock.sector} sector listed on the National Stock Exchange (NSE: ${stock.symbol}) and Bombay Stock Exchange (BSE). The company delivers core capital products, market-leading solutions, and maintains high compliance with Indian financial regulatory authorities.`}
             </p>
             <div className="bg-gray-50 p-4 rounded-2xl border border-gray-150 text-xs text-gray-500 leading-relaxed">
               <strong className="text-navy-950">Regulatory & Market Disclaimer:</strong> Market price updates, fundamentals, and chart technicals presented for {stock.symbol} are provided for educational and research purposes. Always verify prices with your registered broker prior to executing market orders.

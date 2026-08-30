@@ -20,6 +20,7 @@ export const StockForm = () => {
     marketCap: '',
     marketCapLabel: 'Large Cap',
     logoUrl: '',
+    about: '',
     isActive: true
   });
 
@@ -33,6 +34,10 @@ export const StockForm = () => {
   const [aiSuccess, setAiSuccess] = useState('');
   const [aiError, setAiError] = useState('');
   const [aiSource, setAiSource] = useState('');
+
+  // AI About Generator state
+  const [aboutLoading, setAboutLoading] = useState(false);
+  const [aboutMsg, setAboutMsg] = useState('');
 
   useEffect(() => {
     const loadSectors = async () => {
@@ -71,6 +76,7 @@ export const StockForm = () => {
                 marketCap: data.marketCap || '',
                 marketCapLabel: data.marketCapLabel || 'Large Cap',
                 logoUrl: data.logoUrl || '',
+                about: data.about || '',
                 isActive: data.isActive || false
               });
             } else {
@@ -122,17 +128,52 @@ export const StockForm = () => {
           marketCap: data.marketCap || '',
           marketCapLabel: data.marketCapLabel || 'Large Cap',
           logoUrl: data.logoUrl || '',
+          about: data.about || formData.about || '',
           isActive: data.isActive !== undefined ? data.isActive : true
         });
 
         setAiSuccess(response.data.message || `Successfully auto-filled details for ${data.symbol}`);
-        setAiSource(response.data.source || 'Yahoo Finance');
+        setAiSource(response.data.source || 'Yahoo Finance + Gemini AI');
       }
     } catch (err) {
       const msg = err.response?.data?.message || 'AI lookup failed. Please check the symbol and try again.';
       setAiError(msg);
     } finally {
       setAiLoading(false);
+    }
+  };
+
+  /**
+   * Generates AI company About overview
+   */
+  const handleGenerateAbout = async () => {
+    if (!formData.name && !formData.symbol) {
+      alert('Please enter stock symbol or company name first.');
+      return;
+    }
+
+    setAboutLoading(true);
+    setAboutMsg('');
+
+    try {
+      const res = await api.post('/stocks/generate-about', {
+        symbol: formData.symbol,
+        name: formData.name,
+        sector: formData.sector
+      });
+
+      if (res.data.success && res.data.data.about) {
+        setFormData(prev => ({
+          ...prev,
+          about: res.data.data.about
+        }));
+        setAboutMsg('✨ AI company description generated! Review and edit if needed before saving.');
+      }
+    } catch (err) {
+      console.error('Error generating about:', err);
+      alert('Failed to generate AI description. Please try again.');
+    } finally {
+      setAboutLoading(false);
     }
   };
 
@@ -485,7 +526,58 @@ export const StockForm = () => {
           </div>
         </div>
 
-        <label className="flex items-center space-x-2 text-xs font-bold text-navy-950 cursor-pointer">
+        {/* ═══════════════════════════════════════════════════════════════
+            ABOUT COMPANY (AI GENERATED & EDITABLE)
+            ═══════════════════════════════════════════════════════════════ */}
+        <div className="space-y-2 pt-2 border-t border-gray-100">
+          <div className="flex items-center justify-between">
+            <label className="block text-xs font-bold text-navy-950 uppercase tracking-wide">
+              About Company (AI Overview)
+            </label>
+            <button
+              type="button"
+              onClick={handleGenerateAbout}
+              disabled={aboutLoading}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-xl text-xs font-bold transition shadow-xs"
+            >
+              {aboutLoading ? (
+                <>
+                  <svg className="animate-spin h-3.5 w-3.5 text-indigo-600" viewBox="0 0 24 24" fill="none">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                  <span>Generating AI text...</span>
+                </>
+              ) : (
+                <>
+                  <span>✨</span>
+                  <span>{formData.about ? 'Regenerate with AI' : 'Generate About with AI'}</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          <p className="text-[11px] text-gray-500 leading-relaxed">
+            This overview is shown to platform users under the stock detail page. Click <strong>"Generate About with AI"</strong> to create structured details, review/check the generated content, and save.
+          </p>
+
+          {aboutMsg && (
+            <div className="p-3 bg-indigo-50 border border-indigo-150 rounded-xl text-xs font-semibold text-indigo-800">
+              {aboutMsg}
+            </div>
+          )}
+
+          <textarea
+            name="about"
+            rows="6"
+            value={formData.about}
+            onChange={handleChange}
+            placeholder="About Reliance Industries Limited... (Click 'Generate About with AI' to auto-generate structured company details)"
+            className="w-full px-4 py-3 border border-gray-250 rounded-xl text-xs font-medium focus:outline-none focus:border-brand-500 leading-relaxed"
+          ></textarea>
+        </div>
+
+        <label className="flex items-center space-x-2 text-xs font-bold text-navy-950 cursor-pointer pt-2">
           <input
             type="checkbox"
             name="isActive"

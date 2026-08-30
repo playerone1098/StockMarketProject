@@ -41,6 +41,12 @@ router.get('/admin/all', adminAuth, stockController.getAdminAll);
 router.get('/ai-lookup/:symbol', adminAuth, stockController.aiLookup);
 
 /**
+ * @route POST /api/stocks/generate-about
+ * @desc Generate AI About company description (admin)
+ */
+router.post('/generate-about', adminAuth, stockController.generateAbout);
+
+/**
  * @route GET /api/stocks/:symbol
  * @desc Get a single stock by symbol (public)
  */

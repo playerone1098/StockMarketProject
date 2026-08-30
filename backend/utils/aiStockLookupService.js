@@ -59,6 +59,53 @@ const getMarketCapLabel = (marketCapCrores) => {
 };
 
 /**
+ * Generates rich AI description for a company using Gemini API or fallback template.
+ * @param {Object} params - { symbol, name, sector }
+ * @returns {Promise<string>} Rich formatted About text
+ */
+const generateAiAboutCompany = async ({ symbol, name, sector }) => {
+  const cleanSymbol = (symbol || '').trim().toUpperCase();
+  const cleanName = (name || cleanSymbol).trim();
+  const cleanSector = (sector || 'Energy & Power').trim();
+
+  const apiKey = process.env.GEMINI_API_KEY;
+
+  if (apiKey && apiKey !== 'your_free_gemini_api_key_here') {
+    try {
+      const prompt = `Write a professional, structured overview for Indian listed company "${cleanName}" (NSE: ${cleanSymbol}, Sector: ${cleanSector}).
+Requirements:
+- First paragraph MUST start with "About ${cleanName}" and describe it as a leading public enterprise in the ${cleanSector} sector listed on NSE (${cleanSymbol}) and BSE. Mention core products/services and compliance with Indian regulatory authorities.
+- Second paragraph: Describe business operations, market leadership, key operating divisions, and revenue drivers.
+- Third paragraph: Highlight financial stability, market presence, and strategic outlook in India.
+Do not use markdown formatting headers (no # or **), just clear readable paragraphs with line breaks.`;
+
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }]
+        })
+      });
+
+      if (response.ok) {
+        const json = await response.json();
+        const text = json.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (text && text.trim().length > 50) {
+          return text.trim();
+        }
+      }
+    } catch (err) {
+      console.warn('Gemini API call failed, using high quality template:', err.message);
+    }
+  }
+
+  // Fallback high-quality template matching standard structure
+  return `About ${cleanName}\n${cleanName} is a leading public enterprise in the ${cleanSector} sector listed on the National Stock Exchange (NSE: ${cleanSymbol}) and Bombay Stock Exchange (BSE). The company delivers core capital products, market-leading solutions, and maintains high compliance with Indian financial regulatory authorities.\n\n` +
+    `Operations & Business Model:\n${cleanName} operates a robust business framework focused on expanding its market presence in ${cleanSector}. The company delivers specialized solutions, leveraging technology and scale to drive steady revenues across key markets in India and globally.\n\n` +
+    `Market Position & Regulatory Compliance:\nAs a listed corporate entity, ${cleanName} adheres to strict corporate governance standards set by SEBI and Indian stock exchanges. It maintains a strong balance sheet, continuous innovation, and sustainable long-term value creation for shareholders.`;
+};
+
+/**
  * Looks up comprehensive company data from Yahoo Finance for a given stock symbol.
  * Tries NSE first (.NS suffix), then BSE (.BO suffix).
  *
@@ -139,6 +186,9 @@ const lookupCompanyBySymbol = async (symbol) => {
     : null;
   const logoUrl = domain ? `https://logo.clearbit.com/${domain}` : '';
 
+  // Generate AI About Description
+  const about = await generateAiAboutCompany({ symbol: cleanSymbol, name: companyName, sector });
+
   return {
     success: true,
     data: {
@@ -160,9 +210,10 @@ const lookupCompanyBySymbol = async (symbol) => {
       pbRatio: Number(pbRatio.toFixed(2)),
       dividendYield: Number(dividendYield.toFixed(2)),
       logoUrl,
+      about,
       isActive: true
     },
-    source: 'Yahoo Finance',
+    source: 'Yahoo Finance + Gemini AI',
     yahooMeta: {
       sector: yahooSector,
       industry: yahooIndustry,
@@ -172,5 +223,7 @@ const lookupCompanyBySymbol = async (symbol) => {
 };
 
 module.exports = {
-  lookupCompanyBySymbol
+  lookupCompanyBySymbol,
+  generateAiAboutCompany
 };
+

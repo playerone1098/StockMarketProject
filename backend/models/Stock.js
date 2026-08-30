@@ -113,6 +113,11 @@ const stockSchema = new mongoose.Schema({
     type: Number,
     default: 1
   },
+  about: {
+    type: String,
+    trim: true,
+    default: ''
+  },
   isActive: {
     type: Boolean,
     default: true

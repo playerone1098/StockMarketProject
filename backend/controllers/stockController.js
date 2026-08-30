@@ -3,7 +3,7 @@ const Analytics = require('../models/Analytics');
 const catchAsync = require('../utils/catchAsync');
 const ApiError = require('../utils/ApiError');
 const { syncStockPrices } = require('../utils/stockSyncService');
-const { lookupCompanyBySymbol } = require('../utils/aiStockLookupService');
+const { lookupCompanyBySymbol, generateAiAboutCompany } = require('../utils/aiStockLookupService');
 
 /**
  * Get all active stocks with filters and pagination.
@@ -385,6 +385,25 @@ const aiLookup = catchAsync(async (req, res) => {
 });
 
 /**
+ * Generate AI About description for a company (admin).
+ */
+const generateAbout = catchAsync(async (req, res) => {
+  const { symbol, name, sector } = req.body;
+
+  if (!symbol && !name) {
+    throw new ApiError(400, 'Company name or symbol is required to generate description');
+  }
+
+  const aboutText = await generateAiAboutCompany({ symbol, name, sector });
+
+  res.json({
+    success: true,
+    data: { about: aboutText },
+    message: 'AI About company overview generated successfully'
+  });
+});
+
+/**
  * Compute real-time technical indicators for a stock.
  */
 const computeTechnicalMetrics = (stock) => {
@@ -718,6 +737,7 @@ module.exports = {
   remove,
   syncPrices,
   aiLookup,
+  generateAbout,
   runScreener,
   getMarketMovers,
   getMarketHeatmap

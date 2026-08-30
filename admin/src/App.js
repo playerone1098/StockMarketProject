@@ -21,6 +21,7 @@ import { SocialModeration } from './pages/SocialModeration';
 import { Analytics } from './pages/Analytics';
 import { ScreenerPresets } from './pages/ScreenerPresets';
 import { ScreenerPresetForm } from './pages/ScreenerPresetForm';
+import { ChartAnalyses } from './pages/ChartAnalyses';
 
 
 function App() {

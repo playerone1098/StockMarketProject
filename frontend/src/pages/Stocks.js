@@ -107,11 +107,11 @@ export const Stocks = () => {
               placeholder="Search by stock symbol or company name (e.g. RELIANCE, TCS)..."
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl border border-gray-250 text-sm focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500"
+              className="w-full px-4 py-2.5 rounded-xl border border-gray-300 dark:border-navy-700 bg-transparent dark:bg-navy-900 text-navy-950 dark:text-white text-sm focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500"
             />
             <button
               type="submit"
-              className="px-6 py-2.5 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl text-sm transition"
+              className="px-6 py-2.5 bg-transparent border border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400 hover:border-brand-700 dark:hover:border-brand-300 font-bold rounded-xl text-sm transition"
             >
               Search
             </button>
@@ -119,14 +119,14 @@ export const Stocks = () => {
         </div>
 
         {/* Sectors filter pills */}
-        <div className="flex flex-wrap gap-2 mb-8 items-center border-b border-gray-100 pb-5">
+        <div className="flex flex-wrap gap-2 mb-8 items-center border-b border-gray-100 dark:border-navy-800 pb-5">
           <span className="text-xs font-semibold text-gray-400 mr-2">Sectors:</span>
           <button
             onClick={() => handleFilterSector('')}
             className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition ${
               !sectorFilter
-                ? 'bg-brand-500 text-white border-brand-500'
-                : 'bg-white text-navy-800 border-gray-200 hover:bg-navy-50'
+                ? 'bg-transparent text-brand-600 dark:text-brand-400 border-2 border-brand-600 dark:border-brand-400 font-bold'
+                : 'bg-transparent text-navy-800 dark:text-slate-300 border-gray-200 dark:border-navy-700 hover:border-gray-400'
             }`}
           >
             All Sectors
@@ -137,8 +137,8 @@ export const Stocks = () => {
               onClick={() => handleFilterSector(sec.name)}
               className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition ${
                 sectorFilter === sec.name
-                  ? 'bg-brand-500 text-white border-brand-500'
-                  : 'bg-white text-navy-800 border-gray-200 hover:bg-navy-50'
+                  ? 'bg-transparent text-brand-600 dark:text-brand-400 border-2 border-brand-600 dark:border-brand-400 font-bold'
+                  : 'bg-transparent text-navy-800 dark:text-slate-300 border-gray-200 dark:border-navy-700 hover:border-gray-400'
               }`}
             >
               {sec.name}
@@ -152,11 +152,11 @@ export const Stocks = () => {
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-600"></div>
           </div>
         ) : stocks.length === 0 ? (
-          <div className="text-center py-16 bg-gray-50 rounded-2xl border border-gray-100">
+          <div className="text-center py-16 bg-white dark:bg-navy-900 rounded-2xl border border-gray-200 dark:border-navy-800">
             <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <h3 className="mt-4 text-sm font-semibold text-navy-950">No stocks found</h3>
+            <h3 className="mt-4 text-sm font-semibold text-navy-950 dark:text-white">No stocks found</h3>
             <p className="mt-2 text-xs text-gray-500">We couldn't find any stock symbols matching your filter criteria.</p>
           </div>
         ) : (
@@ -173,9 +173,9 @@ export const Stocks = () => {
                 <button
                   onClick={() => handlePageChange(page - 1)}
                   disabled={page === 1}
-                  className="px-3 py-2 rounded-lg text-sm border font-semibold border-gray-200 text-navy-900 bg-white hover:bg-gray-50 disabled:opacity-50 transition"
+                  className="px-3 py-2 rounded-lg text-sm border font-semibold border-gray-300 dark:border-navy-700 text-navy-900 dark:text-slate-200 bg-transparent hover:border-gray-400 disabled:opacity-50 transition"
                 >
-                  ◀ Previous
+                  Previous
                 </button>
                 {[...Array(totalPages)].map((_, i) => (
                   <button
@@ -183,8 +183,8 @@ export const Stocks = () => {
                     onClick={() => handlePageChange(i + 1)}
                     className={`w-9 h-9 rounded-lg text-sm font-bold border transition ${
                       page === i + 1
-                        ? 'bg-brand-500 text-white border-brand-500'
-                        : 'border-gray-200 text-navy-900 bg-white hover:bg-gray-50'
+                        ? 'border-2 border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400 bg-transparent'
+                        : 'border-gray-300 dark:border-navy-700 text-navy-900 dark:text-slate-300 bg-transparent hover:border-gray-400'
                     }`}
                   >
                     {i + 1}
@@ -193,9 +193,9 @@ export const Stocks = () => {
                 <button
                   onClick={() => handlePageChange(page + 1)}
                   disabled={page === totalPages}
-                  className="px-3 py-2 rounded-lg text-sm border font-semibold border-gray-200 text-navy-900 bg-white hover:bg-gray-50 disabled:opacity-50 transition"
+                  className="px-3 py-2 rounded-lg text-sm border font-semibold border-gray-300 dark:border-navy-700 text-navy-900 dark:text-slate-200 bg-transparent hover:border-gray-400 disabled:opacity-50 transition"
                 >
-                  Next ▶
+                  Next
                 </button>
               </div>
             )}
@@ -205,12 +205,12 @@ export const Stocks = () => {
         {/* Stock Detail Modal */}
         {selectedStock && (
           <div className="fixed inset-0 bg-navy-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-            <div className="bg-white rounded-3xl max-w-3xl w-full p-6 md:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto space-y-6">
+            <div className="bg-white dark:bg-navy-900 border border-gray-200 dark:border-navy-800 rounded-3xl max-w-3xl w-full p-6 md:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto space-y-6">
               <button
                 onClick={() => setSelectedStock(null)}
-                className="absolute top-6 right-6 w-9 h-9 bg-gray-100 hover:bg-gray-200 text-navy-950 font-bold rounded-full flex items-center justify-center transition"
+                className="absolute top-6 right-6 px-3 py-1 bg-transparent border border-gray-300 dark:border-navy-700 hover:border-gray-400 text-xs font-bold text-navy-950 dark:text-white rounded-lg transition"
               >
-                ✕
+                Close
               </button>
 
               {/* Company Header */}
@@ -239,8 +239,8 @@ export const Stocks = () => {
 
               {/* Key Financial Metrics */}
               <div>
-                <h3 className="text-sm font-extrabold text-navy-950 uppercase tracking-wider mb-3">Key Financial Metrics</h3>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-gray-50 p-4 rounded-2xl border border-gray-150 text-xs">
+                <h3 className="text-sm font-extrabold text-navy-950 dark:text-white uppercase tracking-wider mb-3">Key Financial Metrics</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-white dark:bg-navy-950 p-4 rounded-2xl border border-gray-200 dark:border-navy-800 text-xs">
                   <div>
                     <span className="text-gray-400 font-medium block">P/E Ratio</span>
                     <span className="font-extrabold text-navy-950 text-sm mt-0.5 block">{selectedStock.peRatio || '28.5'}x</span>

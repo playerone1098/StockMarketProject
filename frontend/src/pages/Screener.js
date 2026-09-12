@@ -186,25 +186,25 @@ export const Screener = () => {
   // Preset Shortcuts for Technicals & Fundamentals
   const quickTechnicalPresets = [
     {
-      title: '⚡ Golden Cross Breakouts',
+      title: 'Golden Cross Breakouts',
       filters: { maFilter: 'goldenCross', near52wHigh: true },
       sortBy: 'dayChangePercent',
       sortOrder: 'desc'
     },
     {
-      title: '🛡️ Oversold Rebound (RSI < 30)',
+      title: 'Oversold Rebound (RSI < 30)',
       filters: { rsiFilter: 'oversold' },
       sortBy: 'rsi',
       sortOrder: 'asc'
     },
     {
-      title: '🚀 Bullish Momentum (RSI > 50)',
+      title: 'Bullish Momentum (RSI > 50)',
       filters: { rsiFilter: 'bullish', technicalSignal: 'BUY' },
       sortBy: 'dayChangePercent',
       sortOrder: 'desc'
     },
     {
-      title: '💎 Deep Value (P/E < 15 & Div > 2%)',
+      title: 'Deep Value (P/E < 15 & Div > 2%)',
       filters: { maxPe: 15, minDividend: 2 },
       sortBy: 'peRatio',
       sortOrder: 'asc'
@@ -310,7 +310,7 @@ export const Screener = () => {
   };
 
   return (
-    <div className="min-h-screen bg-navy-950 text-slate-100 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-white dark:bg-navy-950 text-navy-950 dark:text-slate-100 py-8 px-4 sm:px-6 lg:px-8">
       <Helmet>
         <title>Stock Screener & Technical Analysis Suite | JodhpurTraders</title>
         <meta
@@ -322,62 +322,61 @@ export const Screener = () => {
 
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Header / Hero Banner */}
-        <div className="relative overflow-hidden bg-gradient-to-r from-navy-900 via-navy-850 to-indigo-950 border border-navy-800 rounded-3xl p-6 sm:p-10 shadow-2xl">
-          <div className="absolute top-0 right-0 -mt-10 -mr-10 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="relative overflow-hidden bg-white dark:bg-navy-900 border border-gray-200 dark:border-navy-800 rounded-3xl p-6 sm:p-10 shadow-xl">
           <div className="relative z-10 space-y-4 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold uppercase tracking-wider">
-              ⚡ Professional Market Screener & Technical Suite
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 text-xs font-semibold uppercase tracking-wider">
+              Professional Market Screener & Technical Suite
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white">
-              Stock Screener <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">& Technical Analysis</span>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-navy-950 dark:text-white">
+              Stock Screener & Technical Analysis
             </h1>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+            <p className="text-gray-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
               Scan NSE & BSE listings using fundamental and technical filters. Explore RSI signals, Moving Average crossovers, Top Gainers & Losers, and real-time Sector Heatmaps.
             </p>
           </div>
 
           {/* View Switcher Navigation Tabs */}
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-navy-800/80 pt-6">
-            <div className="flex flex-wrap items-center gap-2 bg-navy-950/90 p-1.5 rounded-2xl border border-navy-800">
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-gray-200 dark:border-navy-800/80 pt-6">
+            <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-2xl border border-gray-200 dark:border-navy-800 bg-gray-50 dark:bg-navy-950/90">
               <button
                 onClick={() => setActiveView('table')}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                className={`px-4 py-2.5 rounded-xl text-xs font-bold border transition-all ${
                   activeView === 'table'
-                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-navy-900'
+                    ? 'border-2 border-cyan-600 dark:border-cyan-400 text-cyan-600 dark:text-cyan-400 bg-transparent'
+                    : 'border-transparent text-gray-700 dark:text-slate-400 hover:text-navy-950 dark:hover:text-slate-200 bg-transparent'
                 }`}
               >
-                📋 Screener Table
+                Screener Table
               </button>
               <button
                 onClick={() => setActiveView('technical')}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                className={`px-4 py-2.5 rounded-xl text-xs font-bold border transition-all ${
                   activeView === 'technical'
-                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-navy-900'
+                    ? 'border-2 border-cyan-600 dark:border-cyan-400 text-cyan-600 dark:text-cyan-400 bg-transparent'
+                    : 'border-transparent text-gray-700 dark:text-slate-400 hover:text-navy-950 dark:hover:text-slate-200 bg-transparent'
                 }`}
               >
-                📈 Technical Analysis
+                Technical Analysis
               </button>
               <button
                 onClick={() => setActiveView('movers')}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                className={`px-4 py-2.5 rounded-xl text-xs font-bold border transition-all ${
                   activeView === 'movers'
-                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-navy-900'
+                    ? 'border-2 border-cyan-600 dark:border-cyan-400 text-cyan-600 dark:text-cyan-400 bg-transparent'
+                    : 'border-transparent text-gray-700 dark:text-slate-400 hover:text-navy-950 dark:hover:text-slate-200 bg-transparent'
                 }`}
               >
-                ⚡ Top Gainers & Movers
+                Top Gainers & Movers
               </button>
               <button
                 onClick={() => setActiveView('heatmap')}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                className={`px-4 py-2.5 rounded-xl text-xs font-bold border transition-all ${
                   activeView === 'heatmap'
-                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-navy-900'
+                    ? 'border-2 border-cyan-600 dark:border-cyan-400 text-cyan-600 dark:text-cyan-400 bg-transparent'
+                    : 'border-transparent text-gray-700 dark:text-slate-400 hover:text-navy-950 dark:hover:text-slate-200 bg-transparent'
                 }`}
               >
-                📊 Sector Heatmap
+                Sector Heatmap
               </button>
             </div>
 
@@ -385,9 +384,9 @@ export const Screener = () => {
               <button
                 onClick={exportToCSV}
                 disabled={stocks.length === 0}
-                className="hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-xl bg-navy-900 border border-navy-700 text-slate-300 hover:text-white hover:border-cyan-500/50 text-xs font-semibold transition-all disabled:opacity-50"
+                className="hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-xl bg-transparent border border-gray-300 dark:border-navy-700 text-navy-950 dark:text-slate-300 hover:border-cyan-500 text-xs font-semibold transition-all disabled:opacity-50"
               >
-                📥 Export CSV
+                Export CSV
               </button>
             )}
           </div>
@@ -399,13 +398,13 @@ export const Screener = () => {
             {/* Quick Presets Bar */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-                  🔍 Screener Presets & Technical Strategies
+                <span className="text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                  Screener Presets & Technical Strategies
                 </span>
                 {(activePresetSlug || search || sector || rsiFilter || maFilter || technicalSignal) && (
                   <button
                     onClick={resetFilters}
-                    className="text-xs text-rose-400 hover:text-rose-300 font-medium flex items-center gap-1"
+                    className="text-xs text-rose-600 dark:text-rose-400 hover:border-rose-700 font-semibold border border-rose-600 dark:border-rose-400 px-2.5 py-1 rounded-lg bg-transparent transition-colors"
                   >
                     Clear All Filters
                   </button>
@@ -420,13 +419,13 @@ export const Screener = () => {
                     <button
                       key={preset.slug}
                       onClick={() => applyPreset(preset)}
-                      className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-200 border flex items-center gap-1.5 ${
+                      className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-200 border ${
                         isActive
-                          ? 'bg-cyan-500/20 border-cyan-500 text-cyan-300 shadow-md shadow-cyan-500/10'
-                          : 'bg-navy-900 border-navy-800 text-slate-300 hover:border-navy-700 hover:text-white'
+                          ? 'border-2 border-cyan-600 dark:border-cyan-400 text-cyan-600 dark:text-cyan-300 bg-transparent'
+                          : 'border-gray-300 dark:border-navy-800 text-gray-700 dark:text-slate-300 hover:border-gray-400 dark:hover:border-navy-700 bg-transparent'
                       }`}
                     >
-                      ✨ {preset.title}
+                      {preset.title}
                     </button>
                   );
                 })}
@@ -446,7 +445,7 @@ export const Screener = () => {
                       if (preset.sortBy) setSortBy(preset.sortBy);
                       if (preset.sortOrder) setSortOrder(preset.sortOrder);
                     }}
-                    className="px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-200 border bg-indigo-950/60 border-indigo-800/60 text-indigo-200 hover:border-cyan-500/50 hover:text-white"
+                    className="px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-200 border border-gray-300 dark:border-indigo-800/60 text-indigo-700 dark:text-indigo-200 hover:border-cyan-500 bg-transparent"
                   >
                     {preset.title}
                   </button>
@@ -455,11 +454,11 @@ export const Screener = () => {
             </div>
 
             {/* Comprehensive Filter Panel */}
-            <div className="bg-navy-900 border border-navy-800 rounded-2xl p-6 shadow-xl space-y-6">
-              <div className="flex items-center justify-between border-b border-navy-800 pb-4">
+            <div className="bg-white dark:bg-navy-900 border border-gray-200 dark:border-navy-800 rounded-2xl p-6 shadow-xl space-y-6">
+              <div className="flex items-center justify-between border-b border-gray-200 dark:border-navy-800 pb-4">
                 <div className="flex items-center gap-3">
-                  <h2 className="font-bold text-slate-200 text-base">Custom Screener & Technical Filters</h2>
-                  <span className="text-xs bg-navy-950 text-slate-400 px-3 py-1 rounded-full border border-navy-800 font-mono">
+                  <h2 className="font-bold text-navy-950 dark:text-slate-200 text-base">Custom Screener & Technical Filters</h2>
+                  <span className="text-xs bg-gray-100 dark:bg-navy-950 text-gray-600 dark:text-slate-400 px-3 py-1 rounded-full border border-gray-200 dark:border-navy-800 font-mono">
                     {pagination.total} Stocks Match
                   </span>
                 </div>
@@ -467,15 +466,15 @@ export const Screener = () => {
                 <div className="flex items-center gap-3">
                   <button
                     onClick={resetFilters}
-                    className="text-xs text-slate-400 hover:text-slate-200 flex items-center gap-1 px-3 py-1.5 rounded-lg border border-navy-800 hover:bg-navy-850 transition-colors"
+                    className="text-xs text-gray-700 dark:text-slate-400 hover:border-gray-400 px-3 py-1.5 rounded-lg border border-gray-300 dark:border-navy-800 bg-transparent transition-colors font-semibold"
                   >
                     Reset
                   </button>
                   <button
                     onClick={() => setIsFilterPanelOpen(!isFilterPanelOpen)}
-                    className="p-1.5 text-slate-400 hover:text-slate-200 rounded-lg border border-navy-800 text-xs font-bold"
+                    className="px-3 py-1.5 text-gray-700 dark:text-slate-400 hover:border-gray-400 rounded-lg border border-gray-300 dark:border-navy-800 text-xs font-bold bg-transparent transition-colors"
                   >
-                    {isFilterPanelOpen ? 'Collapse ▲' : 'Expand Filters ▼'}
+                    {isFilterPanelOpen ? 'Collapse Filters' : 'Expand Filters'}
                   </button>
                 </div>
               </div>
@@ -486,23 +485,23 @@ export const Screener = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {/* Search Input */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1.5">Search Symbol or Company</label>
+                      <label className="block text-xs font-semibold text-gray-600 dark:text-slate-400 mb-1.5">Search Symbol or Company</label>
                       <input
                         type="text"
                         placeholder="e.g. RELIANCE, TCS, INFY..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="w-full bg-navy-950 border border-navy-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500"
+                        className="w-full bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl px-3 py-2 text-xs text-navy-950 dark:text-slate-200 focus:outline-none focus:border-cyan-500"
                       />
                     </div>
 
                     {/* Sector Dropdown */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1.5">Sector</label>
+                      <label className="block text-xs font-semibold text-gray-600 dark:text-slate-400 mb-1.5">Sector</label>
                       <select
                         value={sector}
                         onChange={(e) => setSector(e.target.value)}
-                        className="w-full bg-navy-950 border border-navy-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500"
+                        className="w-full bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl px-3 py-2 text-xs text-navy-950 dark:text-slate-200 focus:outline-none focus:border-cyan-500"
                       >
                         <option value="">All Sectors</option>
                         {sectors.map(s => (
@@ -513,12 +512,12 @@ export const Screener = () => {
 
                     {/* Sort By Field */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1.5">Sort Results By</label>
+                      <label className="block text-xs font-semibold text-gray-600 dark:text-slate-400 mb-1.5">Sort Results By</label>
                       <div className="flex items-center gap-2">
                         <select
                           value={sortBy}
                           onChange={(e) => setSortBy(e.target.value)}
-                          className="w-full bg-navy-950 border border-navy-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500"
+                          className="w-full bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl px-3 py-2 text-xs text-navy-950 dark:text-slate-200 focus:outline-none focus:border-cyan-500"
                         >
                           <option value="marketCap">Market Cap</option>
                           <option value="currentPrice">Stock Price</option>
@@ -530,119 +529,119 @@ export const Screener = () => {
                         </select>
                         <button
                           onClick={() => setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc')}
-                          className="px-2.5 py-2 bg-navy-950 border border-navy-800 rounded-xl text-slate-300 hover:text-cyan-400 text-xs font-bold"
+                          className="px-3 py-2 bg-transparent border border-gray-300 dark:border-navy-800 rounded-xl text-gray-700 dark:text-slate-300 hover:border-cyan-500 text-xs font-bold whitespace-nowrap"
                         >
-                          {sortOrder === 'asc' ? 'ASC ▲' : 'DESC ▼'}
+                          {sortOrder === 'asc' ? 'Ascending' : 'Descending'}
                         </button>
                       </div>
                     </div>
 
                     {/* Technical Rating Signal */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1.5">Technical Signal</label>
+                      <label className="block text-xs font-semibold text-gray-600 dark:text-slate-400 mb-1.5">Technical Signal</label>
                       <select
                         value={technicalSignal}
                         onChange={(e) => setTechnicalSignal(e.target.value)}
-                        className="w-full bg-navy-950 border border-navy-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500"
+                        className="w-full bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl px-3 py-2 text-xs text-navy-950 dark:text-slate-200 focus:outline-none focus:border-cyan-500"
                       >
                         <option value="">All Technical Signals</option>
-                        <option value="STRONG_BUY">🚀 Strong Buy</option>
-                        <option value="BUY">🟢 Buy</option>
-                        <option value="NEUTRAL">⚪ Neutral</option>
-                        <option value="SELL">🔴 Sell</option>
-                        <option value="STRONG_SELL">⚠️ Strong Sell</option>
+                        <option value="STRONG_BUY">Strong Buy</option>
+                        <option value="BUY">Buy</option>
+                        <option value="NEUTRAL">Neutral</option>
+                        <option value="SELL">Sell</option>
+                        <option value="STRONG_SELL">Strong Sell</option>
                       </select>
                     </div>
                   </div>
 
                   {/* Row 2: Fundamental Metrics (Market Cap, PE, PB, Dividend) */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 border-t border-navy-800/60 pt-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 border-t border-gray-200 dark:border-navy-800/60 pt-4">
                     {/* Market Cap */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1.5">Market Cap (₹ Cr)</label>
+                      <label className="block text-xs font-semibold text-gray-600 dark:text-slate-400 mb-1.5">Market Cap (₹ Cr)</label>
                       <div className="grid grid-cols-2 gap-2">
                         <input
                           type="number"
                           placeholder="Min Cr"
                           value={minMarketCap}
                           onChange={(e) => setMinMarketCap(e.target.value)}
-                          className="w-full bg-navy-950 border border-navy-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500"
+                          className="w-full bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl px-3 py-2 text-xs text-navy-950 dark:text-slate-200 focus:outline-none focus:border-cyan-500"
                         />
                         <input
                           type="number"
                           placeholder="Max Cr"
                           value={maxMarketCap}
                           onChange={(e) => setMaxMarketCap(e.target.value)}
-                          className="w-full bg-navy-950 border border-navy-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500"
+                          className="w-full bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl px-3 py-2 text-xs text-navy-950 dark:text-slate-200 focus:outline-none focus:border-cyan-500"
                         />
                       </div>
                     </div>
 
                     {/* P/E Ratio */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1.5">P/E Ratio Range</label>
+                      <label className="block text-xs font-semibold text-gray-600 dark:text-slate-400 mb-1.5">P/E Ratio Range</label>
                       <div className="grid grid-cols-2 gap-2">
                         <input
                           type="number"
                           placeholder="Min PE"
                           value={minPe}
                           onChange={(e) => setMinPe(e.target.value)}
-                          className="w-full bg-navy-950 border border-navy-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500"
+                          className="w-full bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl px-3 py-2 text-xs text-navy-950 dark:text-slate-200 focus:outline-none focus:border-cyan-500"
                         />
                         <input
                           type="number"
                           placeholder="Max PE"
                           value={maxPe}
                           onChange={(e) => setMaxPe(e.target.value)}
-                          className="w-full bg-navy-950 border border-navy-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500"
+                          className="w-full bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl px-3 py-2 text-xs text-navy-950 dark:text-slate-200 focus:outline-none focus:border-cyan-500"
                         />
                       </div>
                     </div>
 
                     {/* P/B Ratio */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1.5">P/B Ratio Range</label>
+                      <label className="block text-xs font-semibold text-gray-600 dark:text-slate-400 mb-1.5">P/B Ratio Range</label>
                       <div className="grid grid-cols-2 gap-2">
                         <input
                           type="number"
                           placeholder="Min PB"
                           value={minPb}
                           onChange={(e) => setMinPb(e.target.value)}
-                          className="w-full bg-navy-950 border border-navy-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500"
+                          className="w-full bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl px-3 py-2 text-xs text-navy-950 dark:text-slate-200 focus:outline-none focus:border-cyan-500"
                         />
                         <input
                           type="number"
                           placeholder="Max PB"
                           value={maxPb}
                           onChange={(e) => setMaxPb(e.target.value)}
-                          className="w-full bg-navy-950 border border-navy-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500"
+                          className="w-full bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl px-3 py-2 text-xs text-navy-950 dark:text-slate-200 focus:outline-none focus:border-cyan-500"
                         />
                       </div>
                     </div>
 
                     {/* Dividend Yield */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1.5">Min Dividend Yield (%)</label>
+                      <label className="block text-xs font-semibold text-gray-600 dark:text-slate-400 mb-1.5">Min Dividend Yield (%)</label>
                       <input
                         type="number"
                         step="0.5"
                         placeholder="e.g. 2.0%"
                         value={minDividend}
                         onChange={(e) => setMinDividend(e.target.value)}
-                        className="w-full bg-navy-950 border border-navy-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500"
+                        className="w-full bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl px-3 py-2 text-xs text-navy-950 dark:text-slate-200 focus:outline-none focus:border-cyan-500"
                       />
                     </div>
                   </div>
 
                   {/* Row 3: Technical Analysis Indicators & Price Change */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 border-t border-navy-800/60 pt-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 border-t border-gray-200 dark:border-navy-800/60 pt-4">
                     {/* RSI Indicator Condition */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1.5">RSI (14) Filter</label>
+                      <label className="block text-xs font-semibold text-gray-600 dark:text-slate-400 mb-1.5">RSI (14) Filter</label>
                       <select
                         value={rsiFilter}
                         onChange={(e) => setRsiFilter(e.target.value)}
-                        className="w-full bg-navy-950 border border-navy-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500"
+                        className="w-full bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl px-3 py-2 text-xs text-navy-950 dark:text-slate-200 focus:outline-none focus:border-cyan-500"
                       >
                         <option value="">All RSI Levels</option>
                         <option value="bullish">Bullish Momentum (50 - 70)</option>
@@ -654,44 +653,44 @@ export const Screener = () => {
 
                     {/* Moving Average Alignment */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1.5">Moving Average Alignment</label>
+                      <label className="block text-xs font-semibold text-gray-600 dark:text-slate-400 mb-1.5">Moving Average Alignment</label>
                       <select
                         value={maFilter}
                         onChange={(e) => setMaFilter(e.target.value)}
-                        className="w-full bg-navy-950 border border-navy-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500"
+                        className="w-full bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl px-3 py-2 text-xs text-navy-950 dark:text-slate-200 focus:outline-none focus:border-cyan-500"
                       >
                         <option value="">All MA Conditions</option>
                         <option value="above20">Price &gt; 20 EMA</option>
                         <option value="above50">Price &gt; 50 SMA</option>
                         <option value="above200">Price &gt; 200 SMA</option>
-                        <option value="goldenCross">✨ Golden Alignment (Above 20/50/200)</option>
+                        <option value="goldenCross">Golden Alignment (Above 20/50/200)</option>
                       </select>
                     </div>
 
                     {/* Stock Price Range */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1.5">Stock Price Range (₹)</label>
+                      <label className="block text-xs font-semibold text-gray-600 dark:text-slate-400 mb-1.5">Stock Price Range (₹)</label>
                       <div className="grid grid-cols-2 gap-2">
                         <input
                           type="number"
                           placeholder="Min ₹"
                           value={minPrice}
                           onChange={(e) => setMinPrice(e.target.value)}
-                          className="w-full bg-navy-950 border border-navy-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500"
+                          className="w-full bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl px-3 py-2 text-xs text-navy-950 dark:text-slate-200 focus:outline-none focus:border-cyan-500"
                         />
                         <input
                           type="number"
                           placeholder="Max ₹"
                           value={maxPrice}
                           onChange={(e) => setMaxPrice(e.target.value)}
-                          className="w-full bg-navy-950 border border-navy-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500"
+                          className="w-full bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl px-3 py-2 text-xs text-navy-950 dark:text-slate-200 focus:outline-none focus:border-cyan-500"
                         />
                       </div>
                     </div>
 
                     {/* 52-Week High / Low Proximity Checkboxes */}
                     <div className="flex flex-col justify-end gap-2">
-                      <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-300">
+                      <label className="flex items-center gap-2 cursor-pointer text-xs text-navy-950 dark:text-slate-300">
                         <input
                           type="checkbox"
                           checked={near52wHigh}
@@ -699,12 +698,12 @@ export const Screener = () => {
                             setNear52wHigh(e.target.checked);
                             if (e.target.checked) setNear52wLow(false);
                           }}
-                          className="rounded border-navy-800 bg-navy-950 text-cyan-500 focus:ring-cyan-500"
+                          className="rounded border-gray-300 dark:border-navy-800 text-cyan-600 focus:ring-cyan-500"
                         />
                         Near 52W High (Within 5%)
                       </label>
 
-                      <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-300">
+                      <label className="flex items-center gap-2 cursor-pointer text-xs text-navy-950 dark:text-slate-300">
                         <input
                           type="checkbox"
                           checked={near52wLow}
@@ -712,7 +711,7 @@ export const Screener = () => {
                             setNear52wLow(e.target.checked);
                             if (e.target.checked) setNear52wHigh(false);
                           }}
-                          className="rounded border-navy-800 bg-navy-950 text-cyan-500 focus:ring-cyan-500"
+                          className="rounded border-gray-300 dark:border-navy-800 text-cyan-600 focus:ring-cyan-500"
                         />
                         Near 52W Low (Within 5%)
                       </label>
@@ -723,21 +722,21 @@ export const Screener = () => {
             </div>
 
             {/* Results Table Section */}
-            <div className="bg-navy-900 border border-navy-800 rounded-2xl p-6 shadow-xl space-y-4">
+            <div className="bg-white dark:bg-navy-900 border border-gray-200 dark:border-navy-800 rounded-2xl p-6 shadow-xl space-y-4">
               {isLoading ? (
                 <div className="py-16 text-center space-y-3">
                   <div className="w-10 h-10 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
-                  <p className="text-xs text-slate-400 font-medium">Running stock screener & technical calculations...</p>
+                  <p className="text-xs text-gray-500 dark:text-slate-400 font-medium">Running stock screener & technical calculations...</p>
                 </div>
               ) : error ? (
-                <div className="py-12 text-center text-rose-400 text-sm font-semibold">{error}</div>
+                <div className="py-12 text-center text-rose-500 text-sm font-semibold">{error}</div>
               ) : stocks.length === 0 ? (
                 <div className="py-16 text-center space-y-3">
-                  <p className="text-base font-semibold text-slate-300">No stocks match these screening criteria</p>
-                  <p className="text-xs text-slate-400">Try broadening your search or clearing active filters.</p>
+                  <p className="text-base font-semibold text-navy-950 dark:text-slate-300">No stocks match these screening criteria</p>
+                  <p className="text-xs text-gray-500 dark:text-slate-400">Try broadening your search or clearing active filters.</p>
                   <button
                     onClick={resetFilters}
-                    className="mt-2 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-500/20 text-cyan-300 text-xs font-bold border border-cyan-500/30 hover:bg-cyan-500/30"
+                    className="mt-2 inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-cyan-600 dark:border-cyan-400 text-cyan-600 dark:text-cyan-300 text-xs font-bold hover:border-cyan-700 bg-transparent transition-colors"
                   >
                     Reset All Filters
                   </button>
@@ -748,7 +747,7 @@ export const Screener = () => {
                   <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                       <thead>
-                        <tr className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 border-b border-navy-800">
+                        <tr className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-slate-400 border-b border-gray-200 dark:border-navy-800">
                           <th className="pb-3 pl-2">#</th>
                           <th className="pb-3 cursor-pointer" onClick={() => handleSort('symbol')}>
                             Company {sortBy === 'symbol' && (sortOrder === 'asc' ? '▲' : '▼')}
@@ -772,56 +771,56 @@ export const Screener = () => {
                           <th className="pb-3 pr-2 text-right">Details</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-navy-800/60 text-sm">
+                      <tbody className="divide-y divide-gray-100 dark:divide-navy-800/60 text-sm">
                         {stocks.map((stock, idx) => {
                           const isPositive = stock.dayChangePercent >= 0;
                           const rank = (pagination.page - 1) * pagination.limit + idx + 1;
                           const signal = stock.technicals?.signal || 'NEUTRAL';
                           return (
-                            <tr key={stock._id || stock.symbol} className="hover:bg-navy-800/50 transition-colors group">
-                              <td className="py-3.5 pl-2 text-xs font-mono text-slate-500">{rank}</td>
+                            <tr key={stock._id || stock.symbol} className="hover:bg-gray-50 dark:hover:bg-navy-800/50 transition-colors group">
+                              <td className="py-3.5 pl-2 text-xs font-mono text-gray-400 dark:text-slate-500">{rank}</td>
                               <td className="py-3.5">
                                 <Link to={`/stocks/${stock.symbol}`} className="flex items-center gap-3">
-                                  <div className="w-9 h-9 rounded-xl bg-navy-800 border border-navy-700 flex items-center justify-center font-bold text-xs text-cyan-400 group-hover:border-cyan-500 transition-colors">
+                                  <div className="w-9 h-9 rounded-xl bg-gray-100 dark:bg-navy-800 border border-gray-200 dark:border-navy-700 flex items-center justify-center font-bold text-xs text-cyan-600 dark:text-cyan-400 group-hover:border-cyan-500 transition-colors">
                                     {stock.symbol.slice(0, 3)}
                                   </div>
                                   <div>
-                                    <div className="font-bold text-slate-100 group-hover:text-cyan-400 transition-colors flex items-center gap-2">
+                                    <div className="font-bold text-navy-950 dark:text-slate-100 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors flex items-center gap-2">
                                       {stock.symbol}
-                                      <span className="text-[10px] bg-navy-800 px-1.5 py-0.5 rounded text-slate-400 font-normal">
+                                      <span className="text-[10px] bg-gray-100 dark:bg-navy-800 px-1.5 py-0.5 rounded text-gray-500 dark:text-slate-400 font-normal">
                                         {stock.exchange || 'NSE'}
                                       </span>
                                     </div>
-                                    <div className="text-xs text-slate-400 truncate max-w-[160px] sm:max-w-[240px]">
+                                    <div className="text-xs text-gray-500 dark:text-slate-400 truncate max-w-[160px] sm:max-w-[240px]">
                                       {stock.name} • {stock.sector}
                                     </div>
                                   </div>
                                 </Link>
                               </td>
 
-                              <td className="py-3.5 text-right font-semibold text-slate-100">
+                              <td className="py-3.5 text-right font-semibold text-navy-950 dark:text-slate-100">
                                 ₹{Number(stock.currentPrice).toLocaleString('en-IN')}
                               </td>
 
                               <td className="py-3.5 text-right font-semibold">
                                 <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold ${
                                   isPositive
-                                    ? 'bg-emerald-950/70 text-emerald-400 border border-emerald-800/50'
-                                    : 'bg-rose-950/70 text-rose-400 border border-rose-800/50'
+                                    ? 'bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/50'
+                                    : 'bg-rose-50 dark:bg-rose-950/70 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-800/50'
                                 }`}>
                                   {isPositive ? '+' : ''}{stock.dayChangePercent?.toFixed(2)}%
                                 </span>
                               </td>
 
-                              <td className="py-3.5 text-right text-xs font-medium text-slate-300 hidden md:table-cell">
+                              <td className="py-3.5 text-right text-xs font-medium text-gray-600 dark:text-slate-300 hidden md:table-cell">
                                 ₹{Number(stock.marketCap || 0).toLocaleString('en-IN')} Cr
                               </td>
 
-                              <td className="py-3.5 text-right text-xs font-medium text-slate-300 hidden lg:table-cell">
+                              <td className="py-3.5 text-right text-xs font-medium text-gray-600 dark:text-slate-300 hidden lg:table-cell">
                                 {stock.peRatio ? stock.peRatio.toFixed(2) : '-'}
                               </td>
 
-                              <td className="py-3.5 text-right text-xs font-medium text-slate-300 hidden lg:table-cell">
+                              <td className="py-3.5 text-right text-xs font-medium text-gray-600 dark:text-slate-300 hidden lg:table-cell">
                                 {stock.dividendYield ? `${stock.dividendYield.toFixed(2)}%` : '-'}
                               </td>
 
@@ -834,9 +833,9 @@ export const Screener = () => {
                               <td className="py-3.5 pr-2 text-right">
                                 <Link
                                   to={`/stocks/${stock.symbol}`}
-                                  className="inline-flex items-center gap-1 text-xs font-semibold text-cyan-400 hover:text-cyan-300 hover:underline"
+                                  className="inline-flex items-center px-2.5 py-1 rounded-lg border border-cyan-600 dark:border-cyan-400 text-cyan-600 dark:text-cyan-400 text-xs font-semibold hover:border-cyan-700 bg-transparent transition-colors"
                                 >
-                                  Analyze →
+                                  Analyze
                                 </Link>
                               </td>
                             </tr>
@@ -848,22 +847,22 @@ export const Screener = () => {
 
                   {/* Pagination */}
                   {pagination.pages > 1 && (
-                    <div className="flex items-center justify-between pt-4 border-t border-navy-800">
-                      <span className="text-xs text-slate-400">
+                    <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-navy-800">
+                      <span className="text-xs text-gray-500 dark:text-slate-400">
                         Page {pagination.page} of {pagination.pages} ({pagination.total} total)
                       </span>
                       <div className="flex items-center gap-2">
                         <button
                           disabled={pagination.page <= 1}
                           onClick={() => loadScreenerResults(pagination.page - 1)}
-                          className="px-3 py-1.5 rounded-lg bg-navy-950 border border-navy-800 text-xs font-semibold text-slate-300 hover:text-white disabled:opacity-40"
+                          className="px-3 py-1.5 rounded-lg bg-transparent border border-gray-300 dark:border-navy-800 text-xs font-semibold text-gray-700 dark:text-slate-300 hover:border-gray-400 dark:hover:border-navy-600 disabled:opacity-40 transition-colors"
                         >
                           Previous
                         </button>
                         <button
                           disabled={pagination.page >= pagination.pages}
                           onClick={() => loadScreenerResults(pagination.page + 1)}
-                          className="px-3 py-1.5 rounded-lg bg-navy-950 border border-navy-800 text-xs font-semibold text-slate-300 hover:text-white disabled:opacity-40"
+                          className="px-3 py-1.5 rounded-lg bg-transparent border border-gray-300 dark:border-navy-800 text-xs font-semibold text-gray-700 dark:text-slate-300 hover:border-gray-400 dark:hover:border-navy-600 disabled:opacity-40 transition-colors"
                         >
                           Next
                         </button>
@@ -877,7 +876,7 @@ export const Screener = () => {
                   <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                       <thead>
-                        <tr className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 border-b border-navy-800">
+                        <tr className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-slate-400 border-b border-gray-200 dark:border-navy-800">
                           <th className="pb-3 pl-2">Stock</th>
                           <th className="pb-3 text-right">Price</th>
                           <th className="pb-3 cursor-pointer text-center" onClick={() => handleSort('rsi')}>
@@ -890,22 +889,22 @@ export const Screener = () => {
                           <th className="pb-3 pr-2 text-right">Chart</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-navy-800/60 text-sm">
+                      <tbody className="divide-y divide-gray-100 dark:divide-navy-800/60 text-sm">
                         {stocks.map((stock) => {
                           const isPositive = stock.dayChangePercent >= 0;
                           const t = stock.technicals || {};
                           return (
-                            <tr key={stock._id || stock.symbol} className="hover:bg-navy-800/50 transition-colors group">
+                            <tr key={stock._id || stock.symbol} className="hover:bg-gray-50 dark:hover:bg-navy-800/50 transition-colors group">
                               <td className="py-3.5 pl-2">
                                 <Link to={`/stocks/${stock.symbol}`} className="flex items-center gap-3">
-                                  <div className="w-9 h-9 rounded-xl bg-navy-800 border border-navy-700 flex items-center justify-center font-bold text-xs text-cyan-400 group-hover:border-cyan-500 transition-colors">
+                                  <div className="w-9 h-9 rounded-xl bg-gray-100 dark:bg-navy-800 border border-gray-200 dark:border-navy-700 flex items-center justify-center font-bold text-xs text-cyan-600 dark:text-cyan-400 group-hover:border-cyan-500 transition-colors">
                                     {stock.symbol.slice(0, 3)}
                                   </div>
                                   <div>
-                                    <div className="font-bold text-slate-100 group-hover:text-cyan-400 transition-colors flex items-center gap-2">
+                                    <div className="font-bold text-navy-950 dark:text-slate-100 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors flex items-center gap-2">
                                       {stock.symbol}
                                     </div>
-                                    <div className="text-xs text-slate-400 truncate max-w-[140px]">
+                                    <div className="text-xs text-gray-500 dark:text-slate-400 truncate max-w-[140px]">
                                       {stock.sector}
                                     </div>
                                   </div>
@@ -913,10 +912,10 @@ export const Screener = () => {
                               </td>
 
                               <td className="py-3.5 text-right">
-                                <div className="font-semibold text-slate-100">
+                                <div className="font-semibold text-navy-950 dark:text-slate-100">
                                   ₹{Number(stock.currentPrice).toLocaleString('en-IN')}
                                 </div>
-                                <div className={`text-[11px] font-bold ${isPositive ? 'text-emerald-400' : 'text-rose-400'}`}>
+                                <div className={`text-[11px] font-bold ${isPositive ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                                   {isPositive ? '+' : ''}{stock.dayChangePercent?.toFixed(2)}%
                                 </div>
                               </td>
@@ -926,7 +925,7 @@ export const Screener = () => {
                                 <span className={`inline-block px-2.5 py-1 rounded-lg text-xs font-mono font-bold border ${getRsiBadgeColor(t.rsi)}`}>
                                   {t.rsi ? t.rsi : '-'}
                                 </span>
-                                <div className="text-[9px] text-slate-400 mt-0.5">
+                                <div className="text-[9px] text-gray-400 dark:text-slate-400 mt-0.5">
                                   {t.rsi >= 70 ? 'Overbought' : t.rsi <= 30 ? 'Oversold' : t.rsi >= 50 ? 'Bullish' : 'Bearish'}
                                 </div>
                               </td>
@@ -934,13 +933,13 @@ export const Screener = () => {
                               {/* Moving Averages */}
                               <td className="py-3.5 text-center hidden md:table-cell">
                                 <div className="flex items-center justify-center gap-1">
-                                  <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${t.aboveEma20 ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' : 'bg-rose-950 text-rose-400 border border-rose-800'}`}>
+                                  <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${t.aboveEma20 ? 'bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800' : 'bg-rose-50 dark:bg-rose-950 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-800'}`}>
                                     20E {t.aboveEma20 ? '▲' : '▼'}
                                   </span>
-                                  <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${t.aboveSma50 ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' : 'bg-rose-950 text-rose-400 border border-rose-800'}`}>
+                                  <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${t.aboveSma50 ? 'bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800' : 'bg-rose-50 dark:bg-rose-950 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-800'}`}>
                                     50S {t.aboveSma50 ? '▲' : '▼'}
                                   </span>
-                                  <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${t.aboveSma200 ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' : 'bg-rose-950 text-rose-400 border border-rose-800'}`}>
+                                  <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${t.aboveSma200 ? 'bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800' : 'bg-rose-50 dark:bg-rose-950 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-800'}`}>
                                     200S {t.aboveSma200 ? '▲' : '▼'}
                                   </span>
                                 </div>
@@ -948,10 +947,10 @@ export const Screener = () => {
 
                               {/* MACD */}
                               <td className="py-3.5 text-center hidden lg:table-cell">
-                                <span className={`text-xs font-semibold ${t.macdHist >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                                <span className={`text-xs font-semibold ${t.macdHist >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                                   {t.macdSignal || 'Neutral'}
                                 </span>
-                                <div className="text-[10px] font-mono text-slate-400">
+                                <div className="text-[10px] font-mono text-gray-400 dark:text-slate-400">
                                   Hist: {t.macdHist}
                                 </div>
                               </td>
@@ -959,13 +958,13 @@ export const Screener = () => {
                               {/* 52W Range bar */}
                               <td className="py-3.5 text-center hidden lg:table-cell">
                                 <div className="w-28 mx-auto space-y-1">
-                                  <div className="h-1.5 w-full bg-navy-950 rounded-full overflow-hidden border border-navy-800">
+                                  <div className="h-1.5 w-full bg-gray-100 dark:bg-navy-950 rounded-full overflow-hidden border border-gray-200 dark:border-navy-800">
                                     <div
                                       className="h-full bg-gradient-to-r from-rose-500 via-yellow-500 to-emerald-500"
                                       style={{ width: `${t.range52Position || 50}%` }}
                                     ></div>
                                   </div>
-                                  <div className="text-[10px] text-slate-400 flex justify-between font-mono">
+                                  <div className="text-[10px] text-gray-500 dark:text-slate-400 flex justify-between font-mono">
                                     <span>₹{stock.weekLow52}</span>
                                     <span>{t.range52Position}%</span>
                                     <span>₹{stock.weekHigh52}</span>
@@ -983,9 +982,9 @@ export const Screener = () => {
                               <td className="py-3.5 pr-2 text-right">
                                 <Link
                                   to={`/stocks/${stock.symbol}`}
-                                  className="inline-flex items-center gap-1 text-xs font-semibold text-cyan-400 hover:text-cyan-300 hover:underline"
+                                  className="inline-flex items-center px-2.5 py-1 rounded-lg border border-cyan-600 dark:border-cyan-400 text-cyan-600 dark:text-cyan-400 text-xs font-semibold hover:border-cyan-700 bg-transparent transition-colors"
                                 >
-                                  View Chart →
+                                  View Chart
                                 </Link>
                               </td>
                             </tr>
@@ -997,22 +996,22 @@ export const Screener = () => {
 
                   {/* Pagination */}
                   {pagination.pages > 1 && (
-                    <div className="flex items-center justify-between pt-4 border-t border-navy-800">
-                      <span className="text-xs text-slate-400">
+                    <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-navy-800">
+                      <span className="text-xs text-gray-500 dark:text-slate-400">
                         Page {pagination.page} of {pagination.pages} ({pagination.total} total)
                       </span>
                       <div className="flex items-center gap-2">
                         <button
                           disabled={pagination.page <= 1}
                           onClick={() => loadScreenerResults(pagination.page - 1)}
-                          className="px-3 py-1.5 rounded-lg bg-navy-950 border border-navy-800 text-xs font-semibold text-slate-300 hover:text-white disabled:opacity-40"
+                          className="px-3 py-1.5 rounded-lg bg-transparent border border-gray-300 dark:border-navy-800 text-xs font-semibold text-gray-700 dark:text-slate-300 hover:border-gray-400 dark:hover:border-navy-600 disabled:opacity-40 transition-colors"
                         >
                           Previous
                         </button>
                         <button
                           disabled={pagination.page >= pagination.pages}
                           onClick={() => loadScreenerResults(pagination.page + 1)}
-                          className="px-3 py-1.5 rounded-lg bg-navy-950 border border-navy-800 text-xs font-semibold text-slate-300 hover:text-white disabled:opacity-40"
+                          className="px-3 py-1.5 rounded-lg bg-transparent border border-gray-300 dark:border-navy-800 text-xs font-semibold text-gray-700 dark:text-slate-300 hover:border-gray-400 dark:hover:border-navy-600 disabled:opacity-40 transition-colors"
                         >
                           Next
                         </button>

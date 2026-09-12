@@ -49,8 +49,8 @@ export const Navbar = () => {
             <Link to="/stocks" className="text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition">
               Stocks Directory
             </Link>
-            <Link to="/screener" className="text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 px-3 py-2 rounded-md text-sm font-semibold transition flex items-center gap-1">
-              ⚡ Screener
+            <Link to="/screener" className="text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 px-3 py-2 rounded-md text-sm font-semibold transition">
+              Screener
             </Link>
             <Link to="/trading-ideas" className="text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition">
               Trading Ideas
@@ -61,23 +61,17 @@ export const Navbar = () => {
             <Link to="/blog" className="text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition">
               Blog
             </Link>
-            <Link to="/community" className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 px-3 py-2 rounded-md text-sm font-semibold transition flex items-center gap-1">
-              💬 Community
+            <Link to="/community" className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 px-3 py-2 rounded-md text-sm font-semibold transition">
+              Community
             </Link>
 
             {/* Portfolio & Watchlist links for logged in user */}
             {isAuthenticated && (
               <>
-                <Link to="/portfolio" className="text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 px-3 py-2 rounded-md text-sm font-semibold transition flex items-center gap-1.5">
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 30.5V3m0 0L6 8.5M11 3l5 5.5M2 13h18M2 18h18" />
-                  </svg>
+                <Link to="/portfolio" className="text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 px-3 py-2 rounded-md text-sm font-semibold transition">
                   Portfolio
                 </Link>
-                <Link to="/watchlist" className="text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 px-3 py-2 rounded-md text-sm font-semibold transition flex items-center gap-1.5">
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-                  </svg>
+                <Link to="/watchlist" className="text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 px-3 py-2 rounded-md text-sm font-semibold transition">
                   Watchlist
                 </Link>
               </>
@@ -90,14 +84,6 @@ export const Navbar = () => {
                 className="flex items-center text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white px-3 py-2 rounded-md text-sm font-semibold focus:outline-none transition"
               >
                 <span>Sectors</span>
-                <svg
-                  className={`ml-1.5 h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? 'transform rotate-180' : ''}`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                </svg>
               </button>
 
               {isDropdownOpen && (
@@ -124,10 +110,10 @@ export const Navbar = () => {
             {/* Theme Switcher Button */}
             <button
               onClick={toggleTheme}
-              className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-navy-800 text-xs font-bold text-slate-700 dark:text-gray-300 bg-slate-100 hover:bg-slate-200 dark:bg-navy-900 dark:hover:bg-navy-800 transition-all active:scale-95 flex items-center gap-1.5"
+              className="px-3 py-1.5 rounded-xl border border-slate-300 dark:border-navy-700 text-xs font-bold text-slate-700 dark:text-gray-300 hover:border-slate-500 dark:hover:border-navy-500 transition-all active:scale-95 bg-transparent"
               title="Toggle Light / Dark Mode"
             >
-              {theme === 'dark' ? '[LIGHT ☀️]' : '[DARK 🌙]'}
+              {theme === 'dark' ? 'Light' : 'Dark'}
             </button>
 
             {/* Auth Buttons / User Menu */}
@@ -135,15 +121,12 @@ export const Navbar = () => {
               <div className="relative ml-2">
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200 dark:bg-navy-900 dark:hover:bg-navy-800 border border-slate-200 dark:border-navy-800 text-slate-900 dark:text-white px-3 py-1.5 rounded-full text-sm font-semibold transition focus:outline-none"
+                  className="flex items-center space-x-2 border border-slate-300 dark:border-navy-700 text-slate-900 dark:text-white px-3 py-1.5 rounded-full text-sm font-semibold transition bg-transparent hover:border-slate-500 dark:hover:border-navy-500 focus:outline-none"
                 >
-                  <div className="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-xs">
+                  <div className="w-7 h-7 rounded-full border border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold text-xs bg-transparent">
                     {user?.username ? user.username.charAt(0).toUpperCase() : 'U'}
                   </div>
                   <span className="max-w-[100px] truncate">{user?.username}</span>
-                  <svg className="w-4 h-4 text-slate-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
                 </button>
 
                 {isUserMenuOpen && (
@@ -154,7 +137,7 @@ export const Navbar = () => {
                         <p className="font-semibold text-slate-900 dark:text-white truncate">{user?.username}</p>
                         <p className="text-xs text-slate-500 dark:text-gray-400 truncate">{user?.email}</p>
                         {isAdmin && (
-                          <span className="inline-block mt-1 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-brand-500/20 text-brand-600 dark:text-brand-400 rounded-md">
+                          <span className="inline-block mt-1 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider border border-brand-500/40 text-brand-600 dark:text-brand-400 rounded-md">
                             Admin
                           </span>
                         )}
@@ -163,23 +146,23 @@ export const Navbar = () => {
                       <Link
                         to="/portfolio"
                         onClick={() => setIsUserMenuOpen(false)}
-                        className="flex items-center gap-2.5 px-4 py-2 text-slate-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-navy-800 hover:text-slate-900 dark:hover:text-white transition"
+                        className="flex items-center px-4 py-2 text-slate-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-navy-800 hover:text-slate-900 dark:hover:text-white transition font-medium"
                       >
-                        📊 Portfolio Tracker
+                        Portfolio Tracker
                       </Link>
                       <Link
                         to="/watchlist"
                         onClick={() => setIsUserMenuOpen(false)}
-                        className="flex items-center gap-2.5 px-4 py-2 text-slate-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-navy-800 hover:text-slate-900 dark:hover:text-white transition"
+                        className="flex items-center px-4 py-2 text-slate-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-navy-800 hover:text-slate-900 dark:hover:text-white transition font-medium"
                       >
-                        ⭐ My Watchlist
+                        My Watchlist
                       </Link>
                       <Link
                         to="/settings"
                         onClick={() => setIsUserMenuOpen(false)}
-                        className="flex items-center gap-2.5 px-4 py-2 text-slate-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-navy-800 hover:text-slate-900 dark:hover:text-white transition"
+                        className="flex items-center px-4 py-2 text-slate-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-navy-800 hover:text-slate-900 dark:hover:text-white transition font-medium"
                       >
-                        ⚙️ Account Settings
+                        Account Settings
                       </Link>
 
                       {isAdmin && (
@@ -188,17 +171,17 @@ export const Navbar = () => {
                           target="_blank"
                           rel="noreferrer"
                           onClick={() => setIsUserMenuOpen(false)}
-                          className="flex items-center gap-2.5 px-4 py-2 text-purple-600 dark:text-purple-400 hover:bg-slate-100 dark:hover:bg-navy-800 transition font-medium border-t border-slate-100 dark:border-navy-800"
+                          className="flex items-center px-4 py-2 text-purple-600 dark:text-purple-400 hover:bg-slate-100 dark:hover:bg-navy-800 transition font-medium border-t border-slate-100 dark:border-navy-800"
                         >
-                          🛡️ Admin Console
+                          Admin Console
                         </a>
                       )}
 
                       <button
                         onClick={handleLogout}
-                        className="w-full text-left flex items-center gap-2.5 px-4 py-2 text-rose-600 dark:text-rose-400 hover:bg-slate-100 dark:hover:bg-navy-800 transition font-medium border-t border-slate-100 dark:border-navy-800 mt-1"
+                        className="w-full text-left px-4 py-2 text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 transition font-medium border-t border-slate-100 dark:border-navy-800 mt-1 bg-transparent"
                       >
-                        🚪 Sign Out
+                        Sign Out
                       </button>
                     </div>
                   </>
@@ -208,7 +191,7 @@ export const Navbar = () => {
               <div className="flex items-center space-x-2 ml-2">
                 <Link
                   to="/login"
-                  className="bg-brand-600 hover:bg-brand-500 text-white px-4 py-1.5 rounded-lg text-sm font-semibold transition shadow-md hover:shadow-brand-500/20"
+                  className="border border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400 hover:border-brand-700 dark:hover:border-brand-300 px-4 py-1.5 rounded-lg text-sm font-semibold transition bg-transparent"
                 >
                   Sign In
                 </Link>
@@ -220,21 +203,15 @@ export const Navbar = () => {
           <div className="md:hidden flex items-center space-x-2">
             <button
               onClick={toggleTheme}
-              className="px-2.5 py-1 rounded-lg border border-slate-200 dark:border-navy-800 text-[11px] font-bold text-slate-700 dark:text-gray-300 bg-slate-100 dark:bg-navy-900"
+              className="px-2.5 py-1 rounded-lg border border-slate-300 dark:border-navy-700 text-[11px] font-bold text-slate-700 dark:text-gray-300 bg-transparent hover:border-slate-500"
             >
-              {theme === 'dark' ? '☀️' : '🌙'}
+              {theme === 'dark' ? 'Light' : 'Dark'}
             </button>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-slate-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white p-2 focus:outline-none"
+              className="px-3 py-1 rounded-lg border border-slate-300 dark:border-navy-700 text-slate-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white text-xs font-bold transition bg-transparent focus:outline-none"
             >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                {isMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
+              {isMenuOpen ? 'Close' : 'Menu'}
             </button>
           </div>
         </div>
@@ -258,21 +235,21 @@ export const Navbar = () => {
                   onClick={() => setIsMenuOpen(false)}
                   className="block text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 px-3 py-2 rounded-md text-base font-semibold"
                 >
-                  📊 Portfolio Tracker
+                  Portfolio Tracker
                 </Link>
                 <Link
                   to="/watchlist"
                   onClick={() => setIsMenuOpen(false)}
                   className="block text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 px-3 py-2 rounded-md text-base font-semibold"
                 >
-                  ⭐ My Watchlist
+                  My Watchlist
                 </Link>
                 <Link
                   to="/settings"
                   onClick={() => setIsMenuOpen(false)}
                   className="block text-slate-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white px-3 py-2 rounded-md text-base font-semibold"
                 >
-                  ⚙️ Settings
+                  Settings
                 </Link>
               </>
             ) : null}
@@ -289,7 +266,7 @@ export const Navbar = () => {
               onClick={() => setIsMenuOpen(false)}
               className="block text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 px-3 py-2 rounded-md text-base font-semibold"
             >
-              ⚡ Screener & Heatmap
+              Screener & Heatmap
             </Link>
             <Link
               to="/trading-ideas"
@@ -317,7 +294,7 @@ export const Navbar = () => {
               onClick={() => setIsMenuOpen(false)}
               className="block text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 px-3 py-2 rounded-md text-base font-semibold"
             >
-              💬 Community
+              Community
             </Link>
 
             {isAuthenticated ? (
@@ -327,16 +304,16 @@ export const Navbar = () => {
                   setIsMenuOpen(false);
                   navigate('/login');
                 }}
-                className="w-full text-left text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 px-3 py-2 rounded-md text-base font-semibold pt-3 border-t border-slate-200 dark:border-navy-800"
+                className="w-full text-left text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 px-3 py-2 rounded-md text-base font-semibold pt-3 border-t border-slate-200 dark:border-navy-800 bg-transparent"
               >
-                🚪 Sign Out
+                Sign Out
               </button>
             ) : (
               <div className="pt-2 flex flex-col space-y-2 px-3">
                 <Link
                   to="/login"
                   onClick={() => setIsMenuOpen(false)}
-                  className="w-full text-center bg-brand-600 hover:bg-brand-500 text-white py-2 rounded-lg text-sm font-semibold shadow-md"
+                  className="w-full text-center border border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400 hover:border-brand-700 dark:hover:border-brand-300 py-2 rounded-lg text-sm font-semibold bg-transparent transition"
                 >
                   Sign In
                 </Link>

@@ -68,26 +68,26 @@ export const IPOs = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-extrabold text-navy-950">IPO Tracker & Board</h1>
+          <h1 className="text-3xl font-extrabold text-navy-950 dark:text-white">IPO Tracker & Board</h1>
           <p className="text-gray-500 text-sm mt-1">Monitor upcoming capital listings, active subscription windows, and performance metrics ({totalItems} IPOs found)</p>
         </div>
 
         {/* Status Filter Buttons */}
-        <div className="flex flex-wrap gap-2 mb-8 border-b border-gray-100 pb-5">
+        <div className="flex flex-wrap gap-2 mb-8 border-b border-gray-100 dark:border-navy-800 pb-5">
           {[
             { label: 'All Listings', value: '' },
-            { label: '🟢 Open Today', value: 'open' },
-            { label: '🔵 Upcoming Issues', value: 'upcoming' },
-            { label: '🔴 Closed Issues', value: 'closed' },
-            { label: '⚫ Already Listed', value: 'listed' }
+            { label: 'Open Today', value: 'open' },
+            { label: 'Upcoming Issues', value: 'upcoming' },
+            { label: 'Closed Issues', value: 'closed' },
+            { label: 'Already Listed', value: 'listed' }
           ].map((btn) => (
             <button
               key={btn.value}
               onClick={() => handleFilterStatus(btn.value)}
               className={`px-4 py-2 rounded-xl text-xs font-bold border transition ${
                 statusFilter === btn.value
-                  ? 'bg-navy-900 text-white border-navy-900 shadow-sm'
-                  : 'bg-white text-navy-800 border-gray-250 hover:bg-navy-50'
+                  ? 'bg-transparent text-brand-600 dark:text-brand-400 border-2 border-brand-600 dark:border-brand-400'
+                  : 'bg-transparent text-navy-800 dark:text-slate-300 border-gray-300 dark:border-navy-700 hover:border-gray-400'
               }`}
             >
               {btn.label}
@@ -101,11 +101,11 @@ export const IPOs = () => {
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-600"></div>
           </div>
         ) : ipos.length === 0 ? (
-          <div className="text-center py-16 bg-gray-50 rounded-2xl border border-gray-100">
+          <div className="text-center py-16 bg-white dark:bg-navy-900 rounded-2xl border border-gray-200 dark:border-navy-800">
             <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
             </svg>
-            <h3 className="mt-4 text-sm font-semibold text-navy-950">No IPOs found</h3>
+            <h3 className="mt-4 text-sm font-semibold text-navy-950 dark:text-white">No IPOs found</h3>
             <p className="mt-2 text-xs text-gray-500">There are no IPO updates matching this listing category right now.</p>
           </div>
         ) : (
@@ -122,9 +122,9 @@ export const IPOs = () => {
                 <button
                   onClick={() => handlePageChange(page - 1)}
                   disabled={page === 1}
-                  className="px-3 py-2 rounded-lg text-sm border font-semibold border-gray-200 text-navy-900 bg-white hover:bg-gray-50 disabled:opacity-50 transition"
+                  className="px-3 py-2 rounded-lg text-sm border font-semibold border-gray-300 dark:border-navy-700 text-navy-900 dark:text-slate-200 bg-transparent hover:border-gray-400 disabled:opacity-50 transition"
                 >
-                  ◀ Previous
+                  Previous
                 </button>
                 {[...Array(totalPages)].map((_, i) => (
                   <button
@@ -132,8 +132,8 @@ export const IPOs = () => {
                     onClick={() => handlePageChange(i + 1)}
                     className={`w-9 h-9 rounded-lg text-sm font-bold border transition ${
                       page === i + 1
-                        ? 'bg-brand-500 text-white border-brand-500'
-                        : 'border-gray-200 text-navy-900 bg-white hover:bg-gray-50'
+                        ? 'border-2 border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400 bg-transparent'
+                        : 'border-gray-300 dark:border-navy-700 text-navy-900 dark:text-slate-300 bg-transparent hover:border-gray-400'
                     }`}
                   >
                     {i + 1}
@@ -142,9 +142,9 @@ export const IPOs = () => {
                 <button
                   onClick={() => handlePageChange(page + 1)}
                   disabled={page === totalPages}
-                  className="px-3 py-2 rounded-lg text-sm border font-semibold border-gray-200 text-navy-900 bg-white hover:bg-gray-50 disabled:opacity-50 transition"
+                  className="px-3 py-2 rounded-lg text-sm border font-semibold border-gray-300 dark:border-navy-700 text-navy-900 dark:text-slate-200 bg-transparent hover:border-gray-400 disabled:opacity-50 transition"
                 >
-                  Next ▶
+                  Next
                 </button>
               </div>
             )}

@@ -130,8 +130,8 @@ export const StockChart = ({ symbol, initialPrice, dayChange, dayChangePercent, 
                   onClick={() => setTimeframe(tf)}
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
                     timeframe === tf
-                      ? 'bg-navy-950 text-white shadow-sm'
-                      : 'text-gray-600 hover:text-navy-950 hover:bg-gray-200/60'
+                      ? 'border-2 border-slate-900 dark:border-white text-slate-900 dark:text-white bg-transparent'
+                      : 'border border-transparent text-gray-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white bg-transparent hover:border-slate-300'
                   }`}
                 >
                   {tf}
@@ -141,10 +141,10 @@ export const StockChart = ({ symbol, initialPrice, dayChange, dayChangePercent, 
 
             <button
               onClick={() => setIsFullscreen(true)}
-              className="px-3.5 py-1.5 rounded-2xl text-xs font-extrabold bg-brand-50 hover:bg-brand-100 text-brand-600 border border-brand-200 transition flex items-center gap-1.5 shadow-2xs"
+              className="px-3.5 py-1.5 rounded-2xl text-xs font-extrabold border border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400 hover:border-brand-700 dark:hover:border-brand-300 bg-transparent transition"
               title="Open Chart in Full Screen"
             >
-              <span>⤢</span> Fullscreen
+              Fullscreen
             </button>
           </div>
         </div>
@@ -310,8 +310,8 @@ export const StockChart = ({ symbol, initialPrice, dayChange, dayChangePercent, 
                     onClick={() => setTimeframe(tf)}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
                       timeframe === tf
-                        ? 'bg-brand-500 text-white shadow-sm'
-                        : 'text-gray-400 hover:text-white hover:bg-navy-800'
+                        ? 'border-2 border-brand-400 text-brand-400 bg-transparent'
+                        : 'border border-transparent text-gray-400 hover:text-white bg-transparent hover:border-navy-700'
                     }`}
                   >
                     {tf}
@@ -324,9 +324,9 @@ export const StockChart = ({ symbol, initialPrice, dayChange, dayChangePercent, 
                   setIsFullscreen(false);
                   if (onCloseFullscreen) onCloseFullscreen();
                 }}
-                className="px-4 py-2 bg-navy-800 hover:bg-navy-700 text-white font-extrabold rounded-xl text-xs transition border border-navy-700 flex items-center gap-1.5"
+                className="px-4 py-2 border border-slate-600 hover:border-slate-400 text-white font-extrabold rounded-xl text-xs transition bg-transparent"
               >
-                ✕ Exit Fullscreen
+                Exit Fullscreen
               </button>
             </div>
           </div>

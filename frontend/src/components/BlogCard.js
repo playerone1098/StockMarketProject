@@ -59,7 +59,7 @@ export const BlogCard = ({ blog }) => {
           to={`/blog/${blog.slug}`}
           className="text-xs font-bold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 flex items-center transition"
         >
-          Read Article →
+          Read Article
         </Link>
       </div>
     </div>

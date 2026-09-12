@@ -76,7 +76,7 @@ export const IPOCard = ({ ipo }) => {
 
         <Link 
           to={`/ipos/${ipo.slug}`}
-          className="block text-center w-full py-2.5 bg-slate-900 hover:bg-slate-800 dark:bg-navy-800 dark:hover:bg-navy-700 text-white text-xs font-bold rounded-xl transition duration-150"
+          className="block text-center w-full py-2.5 border border-slate-300 dark:border-navy-700 text-slate-800 dark:text-gray-200 hover:border-brand-500 dark:hover:border-brand-400 hover:text-brand-600 dark:hover:text-brand-400 text-xs font-bold rounded-xl bg-transparent transition duration-150"
         >
           View IPO Details
         </Link>

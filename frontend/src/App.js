@@ -37,7 +37,7 @@ function AppContent() {
   }, [location.pathname, location.search]);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-navy-950 text-slate-900 dark:text-white transition-colors duration-200 flex flex-col justify-between">
+    <div className="min-h-screen bg-white dark:bg-navy-950 text-slate-900 dark:text-white transition-colors duration-200 flex flex-col justify-between">
       <div>
         <Navbar />
         <main className="pb-12">

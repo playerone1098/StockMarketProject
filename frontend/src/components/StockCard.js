@@ -44,7 +44,7 @@ export const StockCard = ({ stock, onClick }) => {
         </div>
         <div className="text-right">
           <span className="block text-slate-400 dark:text-gray-400">Charts & Details</span>
-          <span className="font-bold text-brand-600 dark:text-brand-400 group-hover:underline">View Chart →</span>
+          <span className="font-bold text-brand-600 dark:text-brand-400 group-hover:underline">View Chart</span>
         </div>
       </div>
     </div>

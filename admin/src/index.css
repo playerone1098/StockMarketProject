@@ -32,15 +32,15 @@ code {
 /* Design System Utilities — Admin Panel */
 @layer components {
   .btn-text-primary {
-    @apply inline-flex items-center justify-center font-semibold text-sm px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition-all duration-200 active:scale-95 min-h-[44px];
+    @apply inline-flex items-center justify-center font-semibold text-sm px-4 py-2.5 rounded-xl border border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 hover:border-blue-700 dark:hover:border-blue-300 bg-transparent transition-all duration-200 active:scale-95 min-h-[44px];
   }
 
   .btn-text-outline {
-    @apply inline-flex items-center justify-center font-medium text-sm px-4 py-2 rounded-xl border border-slate-300 dark:border-zinc-800 text-slate-800 dark:text-zinc-200 bg-white dark:bg-zinc-900 hover:bg-slate-100 dark:hover:bg-zinc-800 transition-all duration-200 active:scale-95 min-h-[44px];
+    @apply inline-flex items-center justify-center font-medium text-sm px-4 py-2 rounded-xl border border-slate-300 dark:border-zinc-700 text-slate-800 dark:text-zinc-200 hover:border-slate-500 dark:hover:border-zinc-500 bg-transparent transition-all duration-200 active:scale-95 min-h-[44px];
   }
 
   .btn-text-danger {
-    @apply inline-flex items-center justify-center font-semibold text-xs px-3 py-1.5 rounded-lg text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 bg-red-50 dark:bg-red-500/10 hover:bg-red-100 dark:hover:bg-red-500/20 border border-red-200 dark:border-red-500/30 transition-all duration-150 min-h-[36px];
+    @apply inline-flex items-center justify-center font-semibold text-xs px-3 py-1.5 rounded-lg text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 border border-red-500/50 dark:border-red-400/50 hover:border-red-600 dark:hover:border-red-400 bg-transparent transition-all duration-150 min-h-[36px];
   }
 
   .responsive-table-wrapper {

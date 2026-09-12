@@ -154,7 +154,7 @@ export const Home = () => {
     return (
       <>
         {helmet}
-        <div className="flex flex-col justify-center items-center h-96 bg-slate-50 dark:bg-navy-950 text-slate-900 dark:text-white transition-colors duration-200">
+        <div className="flex flex-col justify-center items-center h-96 bg-white dark:bg-navy-950 text-slate-900 dark:text-white transition-colors duration-200">
           <div className="animate-spin rounded-full h-14 w-14 border-4 border-brand-500 border-t-transparent mb-4"></div>
           <p className="text-slate-600 dark:text-gray-400 font-semibold text-sm">Fetching Live JodhpurTraders Data...</p>
         </div>
@@ -167,14 +167,14 @@ export const Home = () => {
       {helmet}
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-slate-900 via-slate-950 to-navy-950 dark:from-navy-950 dark:via-navy-900 dark:to-navy-950 text-white py-16 md:py-24 relative overflow-hidden transition-colors duration-200">
+      <section className="bg-white dark:bg-navy-950 text-navy-950 dark:text-white py-16 md:py-24 relative overflow-hidden transition-colors duration-200 border-b border-gray-100 dark:border-navy-800">
         {/* Glowing Background Orbs */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-brand-500/15 rounded-full blur-[120px] pointer-events-none"></div>
-        <div className="absolute top-1/3 right-10 w-[300px] h-[300px] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-brand-500/10 dark:bg-brand-500/15 rounded-full blur-[120px] pointer-events-none"></div>
+        <div className="absolute top-1/3 right-10 w-[300px] h-[300px] bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-[100px] pointer-events-none"></div>
         
         <div className="max-w-5xl mx-auto px-4 relative z-10 text-center">
           
-          <div className="inline-flex items-center gap-2 bg-slate-800/80 dark:bg-navy-800/80 backdrop-blur-md border border-brand-500/30 px-4 py-1.5 rounded-full text-xs font-bold text-brand-300 shadow-inner mb-6">
+          <div className="inline-flex items-center gap-2 bg-brand-50 dark:bg-navy-800/80 backdrop-blur-md border border-brand-500/30 px-4 py-1.5 rounded-full text-xs font-bold text-brand-700 dark:text-brand-300 shadow-inner mb-6">
             <span className="flex h-2 w-2 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
@@ -184,25 +184,25 @@ export const Home = () => {
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-6 leading-[1.15]">
             Master the Stock Market with <br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-brand-300 via-brand-400 to-emerald-200">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-brand-600 via-brand-500 to-emerald-600 dark:from-brand-300 dark:via-brand-400 dark:to-emerald-200">
               Intelligent Edge & Signals
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed font-normal">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed font-normal">
             Discover research-backed trading setups, track upcoming NSE/BSE IPOs, run interactive candlestick charts, and manage your portfolio seamlessly.
           </p>
 
           {/* Benchmark Indices Component */}
-          <div className="mb-10 max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl border border-slate-800 dark:border-navy-800">
+          <div className="mb-10 max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-sm border border-gray-200 dark:border-navy-800">
             <MarketIndicesBar />
           </div>
 
           {/* Interactive Live Stock Search Input */}
           <div className="max-w-2xl mx-auto mb-10 relative">
             <form onSubmit={handleSearchSubmit} className="relative flex items-center">
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 text-lg">
-                🔍
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 text-xs font-bold uppercase tracking-wider">
+                Search
               </div>
               <input
                 type="text"
@@ -210,14 +210,13 @@ export const Home = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={() => searchQuery.trim() && setShowDropdown(true)}
                 placeholder="Search any stock in database (e.g. TCS, RELIANCE, TATAMOTORS, HDFCBANK)..."
-                className="w-full pl-12 pr-28 py-4 bg-slate-900/90 dark:bg-navy-900/90 border border-slate-700/80 dark:border-navy-700/80 focus:border-brand-500 rounded-2xl text-white placeholder-gray-400 text-sm shadow-2xl focus:outline-none focus:ring-2 focus:ring-brand-500/30 transition-all backdrop-blur-xl"
+                className="w-full pl-20 pr-28 py-4 bg-white dark:bg-navy-900/90 border border-gray-300 dark:border-navy-700/80 focus:border-brand-500 rounded-2xl text-navy-950 dark:text-white placeholder-gray-400 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-500/30 transition-all backdrop-blur-xl"
               />
               <button
                 type="submit"
-                className="absolute right-2 px-5 py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5"
+                className="absolute right-2 px-5 py-2.5 border border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-300 hover:border-brand-700 dark:hover:border-brand-200 font-bold text-xs rounded-xl bg-transparent transition-all"
               >
-                <span>Search</span>
-                <span>→</span>
+                Search
               </button>
             </form>
 
@@ -259,21 +258,21 @@ export const Home = () => {
           <div className="flex flex-nowrap justify-center items-center gap-3 sm:gap-4 overflow-x-auto whitespace-nowrap py-1 max-w-full px-2">
             <Link
               to="/trading-ideas"
-              className="px-5 sm:px-6 py-3 bg-gradient-to-r from-brand-600 to-emerald-600 hover:from-brand-500 hover:to-emerald-500 text-white rounded-xl text-sm font-bold shadow-lg shadow-brand-500/25 transition-all transform hover:-translate-y-0.5 flex items-center gap-2 shrink-0 whitespace-nowrap"
+              className="px-5 sm:px-6 py-3 border border-brand-400 text-brand-300 hover:border-brand-300 hover:text-white rounded-xl text-sm font-bold bg-transparent transition-all shrink-0 whitespace-nowrap"
             >
-              <span>🔥 Browse Trading Setups</span>
+              Browse Trading Setups
             </Link>
             <Link
               to="/ipos"
-              className="px-5 sm:px-6 py-3 bg-slate-800/90 dark:bg-navy-800/90 hover:bg-slate-700 dark:hover:bg-navy-700 text-white border border-slate-700 dark:border-navy-700 rounded-xl text-sm font-bold shadow-md transition-all flex items-center gap-2 shrink-0 whitespace-nowrap"
+              className="px-5 sm:px-6 py-3 border border-slate-600 hover:border-slate-400 text-white rounded-xl text-sm font-bold bg-transparent transition-all shrink-0 whitespace-nowrap"
             >
-              <span>📊 Track Live IPOs</span>
+              Track Live IPOs
             </Link>
             <Link
               to="/portfolio"
-              className="px-5 sm:px-6 py-3 bg-slate-900 dark:bg-navy-900 hover:bg-slate-800 dark:hover:bg-navy-800 text-emerald-400 border border-emerald-500/30 rounded-xl text-sm font-bold shadow-md transition-all flex items-center gap-2 shrink-0 whitespace-nowrap"
+              className="px-5 sm:px-6 py-3 border border-emerald-500/40 hover:border-emerald-400 text-emerald-400 rounded-xl text-sm font-bold bg-transparent transition-all shrink-0 whitespace-nowrap"
             >
-              <span>📈 Portfolio Tracker</span>
+              Portfolio Tracker
             </Link>
           </div>
 
@@ -288,26 +287,26 @@ export const Home = () => {
           <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center relative z-10">
-            <div className="p-4 bg-slate-50 dark:bg-navy-950/60 rounded-2xl border border-slate-200 dark:border-navy-800">
-              <div className="text-2xl mb-1">📈</div>
+            <div className="p-4 bg-white dark:bg-navy-950/60 rounded-2xl border border-slate-200 dark:border-navy-800">
+              <div className="w-10 h-10 mx-auto mb-2 rounded-xl border border-brand-500/30 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold text-xs">ST</div>
               <div className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">{stats.stocks}</div>
               <div className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider mt-1">Stocks Tracked</div>
             </div>
             
-            <div className="p-4 bg-slate-50 dark:bg-navy-950/60 rounded-2xl border border-slate-200 dark:border-navy-800">
-              <div className="text-2xl mb-1">💡</div>
+            <div className="p-4 bg-white dark:bg-navy-950/60 rounded-2xl border border-slate-200 dark:border-navy-800">
+              <div className="w-10 h-10 mx-auto mb-2 rounded-xl border border-brand-500/30 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold text-xs">TI</div>
               <div className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">{stats.ideas}</div>
               <div className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider mt-1">Trading Ideas</div>
             </div>
             
-            <div className="p-4 bg-slate-50 dark:bg-navy-950/60 rounded-2xl border border-slate-200 dark:border-navy-800">
-              <div className="text-2xl mb-1">🚀</div>
+            <div className="p-4 bg-white dark:bg-navy-950/60 rounded-2xl border border-slate-200 dark:border-navy-800">
+              <div className="w-10 h-10 mx-auto mb-2 rounded-xl border border-brand-500/30 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold text-xs">IP</div>
               <div className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">{stats.ipos}</div>
               <div className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider mt-1">Active IPOs</div>
             </div>
             
-            <div className="p-4 bg-slate-50 dark:bg-navy-950/60 rounded-2xl border border-slate-200 dark:border-navy-800">
-              <div className="text-2xl mb-1">📚</div>
+            <div className="p-4 bg-white dark:bg-navy-950/60 rounded-2xl border border-slate-200 dark:border-navy-800">
+              <div className="w-10 h-10 mx-auto mb-2 rounded-xl border border-brand-500/30 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold text-xs">RB</div>
               <div className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">{stats.blogs}</div>
               <div className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider mt-1">Research Blogs</div>
             </div>
@@ -319,33 +318,33 @@ export const Home = () => {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
             <div>
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/30 text-brand-700 dark:text-brand-400 text-xs font-bold uppercase mb-2">
-                <span>🔥 High Conviction Signals ({featuredIdeas.length})</span>
+                <span>High Conviction Signals ({featuredIdeas.length})</span>
               </div>
               <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Featured Trading Setups</h2>
               <p className="text-slate-600 dark:text-gray-400 text-sm mt-1">Institutional technical & fundamental recommendations from active database</p>
             </div>
 
-            <div className="flex items-center space-x-2 bg-slate-100 dark:bg-navy-900 p-1 rounded-xl text-xs font-bold border border-slate-200 dark:border-navy-800">
+            <div className="flex items-center space-x-2 bg-transparent p-1 rounded-xl text-xs font-bold">
               <button
                 onClick={() => setIdeaFilter('all')}
-                className={`px-3 py-1.5 rounded-lg transition ${ideaFilter === 'all' ? 'bg-white dark:bg-navy-800 text-slate-900 dark:text-white shadow-sm' : 'text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'}`}
+                className={`px-3 py-1.5 rounded-lg transition ${ideaFilter === 'all' ? 'border-2 border-brand-600 text-brand-600 dark:border-brand-400 dark:text-brand-400 font-bold bg-transparent' : 'border border-transparent text-slate-600 dark:text-gray-400 hover:border-slate-300 dark:hover:border-navy-700 bg-transparent'}`}
               >
                 All ({featuredIdeas.length})
               </button>
               <button
                 onClick={() => setIdeaFilter('buy')}
-                className={`px-3 py-1.5 rounded-lg transition ${ideaFilter === 'buy' ? 'bg-white dark:bg-navy-800 text-emerald-600 dark:text-emerald-400 shadow-sm' : 'text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'}`}
+                className={`px-3 py-1.5 rounded-lg transition ${ideaFilter === 'buy' ? 'border-2 border-emerald-600 text-emerald-600 dark:border-emerald-400 dark:text-emerald-400 font-bold bg-transparent' : 'border border-transparent text-slate-600 dark:text-gray-400 hover:border-slate-300 dark:hover:border-navy-700 bg-transparent'}`}
               >
                 Buy Calls
               </button>
               <button
                 onClick={() => setIdeaFilter('short')}
-                className={`px-3 py-1.5 rounded-lg transition ${ideaFilter === 'short' ? 'bg-white dark:bg-navy-800 text-slate-900 dark:text-white shadow-sm' : 'text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'}`}
+                className={`px-3 py-1.5 rounded-lg transition ${ideaFilter === 'short' ? 'border-2 border-brand-600 text-brand-600 dark:border-brand-400 dark:text-brand-400 font-bold bg-transparent' : 'border border-transparent text-slate-600 dark:text-gray-400 hover:border-slate-300 dark:hover:border-navy-700 bg-transparent'}`}
               >
                 Short Term
               </button>
-              <Link to="/trading-ideas" className="px-3 py-1.5 text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-extrabold ml-2">
-                View All →
+              <Link to="/trading-ideas" className="px-3 py-1.5 border border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400 hover:border-brand-700 font-bold rounded-lg ml-2 bg-transparent">
+                View All
               </Link>
             </div>
           </div>
@@ -371,9 +370,9 @@ export const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-slate-50 dark:bg-navy-950 p-6 rounded-2xl border border-slate-200 dark:border-navy-800 shadow-sm hover:shadow-md transition">
-              <div className="w-12 h-12 rounded-xl bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xl font-bold mb-4">
-                🎯
+            <div className="bg-white dark:bg-navy-950 p-6 rounded-2xl border border-slate-200 dark:border-navy-800 shadow-sm hover:shadow-md transition">
+              <div className="w-12 h-12 rounded-xl border border-brand-500/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-black mb-4">
+                RS
               </div>
               <h3 className="font-bold text-slate-900 dark:text-white text-base mb-2">Research Signals</h3>
               <p className="text-xs text-slate-600 dark:text-gray-400 leading-relaxed">
@@ -381,9 +380,9 @@ export const Home = () => {
               </p>
             </div>
 
-            <div className="bg-slate-50 dark:bg-navy-950 p-6 rounded-2xl border border-slate-200 dark:border-navy-800 shadow-sm hover:shadow-md transition">
-              <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl font-bold mb-4">
-                📈
+            <div className="bg-white dark:bg-navy-950 p-6 rounded-2xl border border-slate-200 dark:border-navy-800 shadow-sm hover:shadow-md transition">
+              <div className="w-12 h-12 rounded-xl border border-brand-500/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-black mb-4">
+                IC
               </div>
               <h3 className="font-bold text-slate-900 dark:text-white text-base mb-2">Interactive Charts</h3>
               <p className="text-xs text-slate-600 dark:text-gray-400 leading-relaxed">
@@ -391,9 +390,9 @@ export const Home = () => {
               </p>
             </div>
 
-            <div className="bg-slate-50 dark:bg-navy-950 p-6 rounded-2xl border border-slate-200 dark:border-navy-800 shadow-sm hover:shadow-md transition">
-              <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl font-bold mb-4">
-                📂
+            <div className="bg-white dark:bg-navy-950 p-6 rounded-2xl border border-slate-200 dark:border-navy-800 shadow-sm hover:shadow-md transition">
+              <div className="w-12 h-12 rounded-xl border border-brand-500/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-black mb-4">
+                SI
               </div>
               <h3 className="font-bold text-slate-900 dark:text-white text-base mb-2">Statement Import</h3>
               <p className="text-xs text-slate-600 dark:text-gray-400 leading-relaxed">
@@ -401,9 +400,9 @@ export const Home = () => {
               </p>
             </div>
 
-            <div className="bg-slate-50 dark:bg-navy-950 p-6 rounded-2xl border border-slate-200 dark:border-navy-800 shadow-sm hover:shadow-md transition">
-              <div className="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl font-bold mb-4">
-                ⭐
+            <div className="bg-white dark:bg-navy-950 p-6 rounded-2xl border border-slate-200 dark:border-navy-800 shadow-sm hover:shadow-md transition">
+              <div className="w-12 h-12 rounded-xl border border-brand-500/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-black mb-4">
+                SW
               </div>
               <h3 className="font-bold text-slate-900 dark:text-white text-base mb-2">Smart Watchlists</h3>
               <p className="text-xs text-slate-600 dark:text-gray-400 leading-relaxed">
@@ -414,25 +413,25 @@ export const Home = () => {
         </section>
 
         {/* Live IPO Tracker Section */}
-        <section className="bg-slate-900 dark:bg-navy-950 rounded-3xl p-8 text-white border border-slate-800 dark:border-navy-800 shadow-xl relative overflow-hidden">
+        <section className="bg-white dark:bg-navy-950 rounded-3xl p-8 text-navy-950 dark:text-white border border-gray-200 dark:border-navy-800 shadow-sm relative overflow-hidden">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase mb-2">
-                <span>🚀 Primary Market Tracker ({activeIpos.length} Active)</span>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase mb-2">
+                <span>Primary Market Tracker ({activeIpos.length} Active)</span>
               </div>
-              <h2 className="text-3xl font-extrabold text-white">Active & Upcoming IPOs</h2>
-              <p className="text-gray-300 dark:text-gray-400 text-sm mt-1">Track subscription status, price bands, and listing dates from database</p>
+              <h2 className="text-3xl font-extrabold text-navy-950 dark:text-white">Active & Upcoming IPOs</h2>
+              <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">Track subscription status, price bands, and listing dates from database</p>
             </div>
             <Link 
               to="/ipos" 
-              className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs rounded-xl transition shadow-md"
+              className="px-5 py-2.5 border border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-300 hover:border-brand-700 dark:hover:border-brand-200 font-bold text-xs rounded-xl transition bg-transparent"
             >
-              Explore Full IPO Board →
+              Explore Full IPO Board
             </Link>
           </div>
 
           {activeIpos.length === 0 ? (
-            <div className="bg-slate-800 dark:bg-navy-900 rounded-2xl p-8 text-center text-gray-300 dark:text-gray-400 border border-slate-700 dark:border-navy-800">
+            <div className="bg-white dark:bg-navy-900 rounded-2xl p-8 text-center text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-navy-800">
               No open IPO subscription windows in database right now.
             </div>
           ) : (
@@ -452,7 +451,7 @@ export const Home = () => {
               <p className="text-slate-600 dark:text-gray-400 text-sm mt-1">Deep dives into stock valuation, technical analysis, and market trends ({featuredBlogs.length} articles)</p>
             </div>
             <Link to="/blog" className="text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-bold text-sm transition">
-              Read All Guides →
+              Read All Guides
             </Link>
           </div>
 
@@ -479,13 +478,13 @@ export const Home = () => {
             <div className="flex flex-nowrap justify-center items-center gap-3 sm:gap-4 overflow-x-auto whitespace-nowrap py-1">
               <Link
                 to="/login"
-                className="px-6 sm:px-8 py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm rounded-xl shadow-xl transition transform hover:-translate-y-0.5 shrink-0 whitespace-nowrap"
+                className="px-6 sm:px-8 py-3.5 bg-transparent border border-white text-white hover:bg-white hover:text-navy-950 font-bold text-sm rounded-xl transition shrink-0 whitespace-nowrap"
               >
-                Sign In to Get Started →
+                Sign In to Get Started
               </Link>
               <Link
                 to="/stocks"
-                className="px-6 sm:px-8 py-3.5 bg-white/10 hover:bg-white/20 text-white font-bold text-sm rounded-xl backdrop-blur-md border border-white/20 transition shrink-0 whitespace-nowrap"
+                className="px-6 sm:px-8 py-3.5 bg-transparent border border-white text-white hover:bg-white hover:text-navy-950 font-bold text-sm rounded-xl transition shrink-0 whitespace-nowrap"
               >
                 Browse Indian Stocks
               </Link>

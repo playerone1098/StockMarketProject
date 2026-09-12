@@ -46,33 +46,34 @@
 
 ## 3. Standardized Text Component Guidelines
 
-### A. Text Buttons & Interactive Actions (Icon-Free)
+### A. Text Buttons & Interactive Actions (Border & Text Only, Zero Icons, Zero Emojis)
+- **Rules**: Buttons in light and dark mode must only have borders and text. No solid filled backgrounds, no gradients, no icons (SVGs or Lucide), and no emojis.
 
-1. **Primary Text Button (Solid Pill / Card)**
+1. **Primary Text Button (Border & Text Only)**
    ```jsx
-   <button className="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-4 py-2.5 rounded-xl shadow-sm transition-all duration-200 active:scale-95 text-sm inline-flex items-center justify-center">
-     Explore Market Data →
+   <button className="border border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400 hover:border-brand-700 dark:hover:border-brand-300 font-semibold px-4 py-2.5 rounded-xl bg-transparent transition-all duration-200 active:scale-95 text-sm inline-flex items-center justify-center min-h-[44px]">
+     Explore Market Data
    </button>
    ```
 
 2. **Secondary Outlined Text Button**
    ```jsx
-   <button className="border border-navy-200 hover:border-navy-400 text-navy-800 font-medium px-4 py-2 rounded-xl bg-white hover:bg-navy-50 transition-all text-sm inline-flex items-center justify-center">
-     Filter Results [All]
+   <button className="border border-slate-300 dark:border-navy-700 hover:border-slate-500 dark:hover:border-navy-500 text-slate-800 dark:text-gray-200 font-medium px-4 py-2 rounded-xl bg-transparent transition-all text-sm inline-flex items-center justify-center min-h-[44px]">
+     Filter Results
    </button>
    ```
 
-3. **Inline Link Text Button (Card Action)**
+3. **Inline Link Text (Card Action)**
    ```jsx
-   <span className="text-xs font-bold text-brand-600 group-hover:text-brand-700 group-hover:underline inline-flex items-center gap-1">
-     View Details →
+   <span className="text-xs font-bold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 hover:underline inline-flex items-center">
+     View Details
    </span>
    ```
 
 4. **Danger / Caution Text Button**
    ```jsx
-   <button className="text-xs font-bold text-red-600 hover:text-red-800 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg transition border border-red-200">
-     [Delete Post]
+   <button className="text-xs font-bold text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 border border-red-500/50 dark:border-red-400/50 hover:border-red-600 px-3 py-1.5 rounded-lg transition bg-transparent min-h-[36px]">
+     Delete Post
    </button>
    ```
 

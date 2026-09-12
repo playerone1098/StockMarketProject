@@ -212,7 +212,7 @@ export const Community = () => {
         setAuthorName('');
         setModalError('');
         setShowCreateModal(false);
-        showToast('🎉 Your insight has been published to the community feed!');
+        showToast('Your insight has been published to the community feed!');
         loadFeed();
       } else {
         setModalError(res.message || 'Failed to publish post. Please try again.');
@@ -227,7 +227,7 @@ export const Community = () => {
 
   const handleLike = async (postId) => {
     if (!isAuthenticated) {
-      showToast('🔒 Sign in required to like posts');
+      showToast('Sign in required to like posts');
       navigate('/login', { state: { from: '/community' } });
       return;
     }
@@ -256,7 +256,7 @@ export const Community = () => {
 
   const handleAddComment = async (postId) => {
     if (!isAuthenticated) {
-      showToast('🔒 Sign in required to post comments');
+      showToast('Sign in required to post comments');
       navigate('/login', { state: { from: '/community' } });
       return;
     }
@@ -292,7 +292,7 @@ export const Community = () => {
     try {
       const res = await reportSocialPost(postId, { reason: 'Inappropriate or spam content' });
       if (res.success) {
-        showToast('⚠️ Post reported to moderators for review.');
+        showToast('Post reported to moderators for review.');
       }
     } catch (err) {
       console.error('Report error:', err);
@@ -318,7 +318,7 @@ export const Community = () => {
   const overallBullishRatio = Math.round((bullishCount / totalWithSentiment) * 100);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-white dark:bg-navy-950 text-navy-950 dark:text-slate-100 py-8 px-4 sm:px-6 lg:px-8">
       <Helmet>
         <title>Trader Community & Stock Social Feed | JodhpurTraders</title>
         <meta
@@ -333,16 +333,16 @@ export const Community = () => {
 
       {/* Header Banner */}
       <div className="max-w-7xl mx-auto mb-8">
-        <div className="relative overflow-hidden bg-gradient-to-r from-indigo-900 via-slate-900 to-purple-950 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl">
+        <div className="relative overflow-hidden bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-xl">
           <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold mb-3">
-                <Sparkles size={14} /> LIVE TRADER COMMUNITY
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-600 dark:text-indigo-400 text-xs font-semibold mb-3">
+                LIVE TRADER COMMUNITY
               </div>
-              <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              <h1 className="text-3xl sm:text-4xl font-extrabold text-navy-950 dark:text-white tracking-tight">
                 Stock Market Social Hub
               </h1>
-              <p className="text-slate-300 mt-2 text-sm sm:text-base max-w-2xl leading-relaxed">
+              <p className="text-gray-600 dark:text-slate-300 mt-2 text-sm sm:text-base max-w-2xl leading-relaxed">
                 Connect with Indian retail investors and equity analysts. Share technical charts, price targets, and discuss live setups for NSE/BSE stocks.
               </p>
             </div>
@@ -350,44 +350,43 @@ export const Community = () => {
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
               <button
                 onClick={handleOpenCreateModal}
-                className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition-all flex items-center justify-center gap-2"
+                className="px-6 py-3 bg-transparent border border-indigo-600 dark:border-indigo-400 text-indigo-600 dark:text-indigo-400 hover:border-indigo-700 font-bold rounded-xl transition-all"
               >
-
-                <Users size={18} /> Share Insight / Post
+                Share Insight / Post
               </button>
             </div>
           </div>
 
           {/* Sentiment Meter Bar */}
-          <div className="mt-8 pt-6 border-t border-slate-800/80 grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-slate-900/80 p-4 rounded-xl border border-slate-800 flex items-center justify-between">
+          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-slate-800/80 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 dark:bg-slate-900/80 p-4 rounded-xl border border-gray-200 dark:border-slate-800 flex items-center justify-between">
               <div>
-                <div className="text-xs text-slate-400 font-semibold uppercase tracking-wider">Community Sentiment</div>
-                <div className="text-lg font-bold text-emerald-400 mt-0.5">{overallBullishRatio}% Bullish</div>
+                <div className="text-xs text-gray-500 dark:text-slate-400 font-semibold uppercase tracking-wider">Community Sentiment</div>
+                <div className="text-lg font-bold text-emerald-600 dark:text-emerald-400 mt-0.5">{overallBullishRatio}% Bullish</div>
               </div>
-              <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+              <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
                 <TrendingUp size={24} />
               </div>
             </div>
 
-            <div className="bg-slate-900/80 p-4 rounded-xl border border-slate-800 flex items-center justify-between">
+            <div className="bg-gray-50 dark:bg-slate-900/80 p-4 rounded-xl border border-gray-200 dark:border-slate-800 flex items-center justify-between">
               <div>
-                <div className="text-xs text-slate-400 font-semibold uppercase tracking-wider">Active Discussions</div>
-                <div className="text-lg font-bold text-indigo-400 mt-0.5">{posts.length} Live Threads</div>
+                <div className="text-xs text-gray-500 dark:text-slate-400 font-semibold uppercase tracking-wider">Active Discussions</div>
+                <div className="text-lg font-bold text-indigo-600 dark:text-indigo-400 mt-0.5">{posts.length} Live Threads</div>
               </div>
-              <div className="w-12 h-12 rounded-full bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
+              <div className="w-12 h-12 rounded-full bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
                 <MessageSquare size={24} />
               </div>
             </div>
 
-            <div className="bg-slate-900/80 p-4 rounded-xl border border-slate-800 flex items-center justify-between">
+            <div className="bg-gray-50 dark:bg-slate-900/80 p-4 rounded-xl border border-gray-200 dark:border-slate-800 flex items-center justify-between">
               <div>
-                <div className="text-xs text-slate-400 font-semibold uppercase tracking-wider">Top Tagged Stock</div>
-                <div className="text-lg font-bold text-amber-400 mt-0.5">
+                <div className="text-xs text-gray-500 dark:text-slate-400 font-semibold uppercase tracking-wider">Top Tagged Stock</div>
+                <div className="text-lg font-bold text-amber-600 dark:text-amber-400 mt-0.5">
                   {trending.length > 0 ? `$${trending[0].stock}` : '$RELIANCE'}
                 </div>
               </div>
-              <div className="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 font-bold text-sm">
+              <div className="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-600 dark:text-amber-400 font-bold text-sm">
                 NSE
               </div>
             </div>
@@ -397,8 +396,8 @@ export const Community = () => {
 
       {/* Toast notification */}
       {notification && (
-        <div className="fixed bottom-6 right-6 z-50 bg-indigo-600 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-2 border border-indigo-400 animate-bounce text-sm font-semibold">
-          <CheckCircle size={18} /> {notification}
+        <div className="fixed bottom-6 right-6 z-50 bg-white dark:bg-slate-900 text-navy-950 dark:text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-2 border border-indigo-400 text-sm font-semibold">
+          {notification}
         </div>
       )}
 
@@ -409,89 +408,87 @@ export const Community = () => {
         <div className="lg:col-span-3 space-y-6">
           
           {/* Controls Bar: Filters & Search */}
-          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+          <div className="bg-white dark:bg-slate-900/80 border border-gray-200 dark:border-slate-800 rounded-xl p-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
             
             {/* Filter Pills */}
             <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0">
               <button
                 onClick={() => { setActiveFilter('all'); setSelectedStock(''); }}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap border transition-colors ${
                   activeFilter === 'all' && !selectedStock
-                    ? 'bg-indigo-600 text-white shadow'
-                    : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                    ? 'border-2 border-indigo-600 dark:border-indigo-400 text-indigo-600 dark:text-indigo-400 bg-transparent'
+                    : 'border-gray-300 dark:border-slate-700 text-gray-700 dark:text-slate-400 bg-transparent hover:border-gray-400'
                 }`}
               >
                 All Posts
               </button>
               <button
                 onClick={() => { setActiveFilter('BULLISH'); setSelectedStock(''); }}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap flex items-center gap-1 transition-colors ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap border transition-colors ${
                   activeFilter === 'BULLISH'
-                    ? 'bg-emerald-600 text-white shadow'
-                    : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                    ? 'border-2 border-emerald-600 dark:border-emerald-400 text-emerald-600 dark:text-emerald-400 bg-transparent'
+                    : 'border-gray-300 dark:border-slate-700 text-gray-700 dark:text-slate-400 bg-transparent hover:border-gray-400'
                 }`}
               >
-                <TrendingUp size={14} /> Bullish Setups
+                Bullish Setups
               </button>
               <button
                 onClick={() => { setActiveFilter('BEARISH'); setSelectedStock(''); }}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap flex items-center gap-1 transition-colors ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap border transition-colors ${
                   activeFilter === 'BEARISH'
-                    ? 'bg-rose-600 text-white shadow'
-                    : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                    ? 'border-2 border-rose-600 dark:border-rose-400 text-rose-600 dark:text-rose-400 bg-transparent'
+                    : 'border-gray-300 dark:border-slate-700 text-gray-700 dark:text-slate-400 bg-transparent hover:border-gray-400'
                 }`}
               >
-                <TrendingDown size={14} /> Bearish Warning
+                Bearish Warning
               </button>
               <button
                 onClick={() => { setActiveFilter('popular'); setSelectedStock(''); }}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap border transition-colors ${
                   activeFilter === 'popular'
-                    ? 'bg-amber-600 text-white shadow'
-                    : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                    ? 'border-2 border-amber-600 dark:border-amber-400 text-amber-600 dark:text-amber-400 bg-transparent'
+                    : 'border-gray-300 dark:border-slate-700 text-gray-700 dark:text-slate-400 bg-transparent hover:border-gray-400'
                 }`}
               >
-                🔥 Popular
+                Popular
               </button>
             </div>
 
             {/* Search Input */}
             <div className="relative">
-              <Search className="absolute left-3 top-2.5 text-slate-500" size={16} />
               <input
                 type="text"
                 placeholder="Search stock, keyword, author..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full md:w-64 bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500"
+                className="w-full md:w-64 bg-transparent border border-gray-300 dark:border-slate-800 rounded-lg px-3 py-1.5 text-xs text-navy-950 dark:text-slate-200 focus:outline-none focus:border-indigo-500"
               />
             </div>
           </div>
 
           {/* Active Stock Filter Chip */}
           {selectedStock && (
-            <div className="flex items-center gap-2 bg-indigo-950/60 border border-indigo-800/60 text-indigo-300 px-3 py-1.5 rounded-lg text-xs">
+            <div className="flex items-center gap-2 bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800/60 text-indigo-700 dark:text-indigo-300 px-3 py-1.5 rounded-lg text-xs">
               <span>Filtering for <strong>${selectedStock}</strong></span>
-              <button onClick={() => setSelectedStock('')} className="hover:text-white font-bold ml-2">✕</button>
+              <button onClick={() => setSelectedStock('')} className="border border-indigo-400 hover:border-indigo-600 px-1.5 py-0.5 rounded text-[10px] font-bold ml-2">Clear</button>
             </div>
           )}
 
           {/* Feed List */}
           {loading ? (
-            <div className="text-center py-16 bg-slate-900/40 rounded-xl border border-slate-900">
+            <div className="text-center py-16 bg-white dark:bg-slate-900/40 rounded-xl border border-gray-200 dark:border-slate-900">
               <div className="animate-spin inline-block w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full mb-3"></div>
-              <p className="text-slate-400 text-sm">Fetching live community posts...</p>
+              <p className="text-gray-500 dark:text-slate-400 text-sm">Fetching live community posts...</p>
             </div>
           ) : posts.length === 0 ? (
-            <div className="text-center py-16 bg-slate-900/40 rounded-xl border border-slate-800/60">
+            <div className="text-center py-16 bg-white dark:bg-slate-900/40 rounded-xl border border-gray-200 dark:border-slate-800/60">
               <AlertCircle className="mx-auto text-slate-500 mb-3" size={32} />
-              <h3 className="text-lg font-semibold text-slate-300">No discussions match your filter</h3>
-              <p className="text-slate-500 text-xs mt-1">Be the first to share an insight for this criteria!</p>
+              <h3 className="text-lg font-semibold text-navy-950 dark:text-slate-300">No discussions match your filter</h3>
+              <p className="text-gray-500 dark:text-slate-500 text-xs mt-1">Be the first to share an insight for this criteria!</p>
               <button
                 onClick={handleOpenCreateModal}
-                className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg text-xs font-semibold"
+                className="mt-4 px-4 py-2 bg-transparent border border-indigo-600 dark:border-indigo-400 text-indigo-600 dark:text-indigo-400 hover:border-indigo-700 rounded-lg text-xs font-semibold"
               >
-
                 Create Post
               </button>
             </div>
@@ -500,29 +497,29 @@ export const Community = () => {
               {posts.map((post) => (
                 <div
                   key={post._id}
-                  className={`bg-slate-900/70 border ${
-                    post.isPinned ? 'border-indigo-500/50 shadow-indigo-500/10' : 'border-slate-800/80'
-                  } rounded-2xl p-5 hover:border-slate-700 transition-all shadow-xl backdrop-blur-sm`}
+                  className={`bg-white dark:bg-slate-900/70 border ${
+                    post.isPinned ? 'border-indigo-500/50 shadow-indigo-500/10' : 'border-gray-200 dark:border-slate-800/80'
+                  } rounded-2xl p-5 hover:border-indigo-500/40 dark:hover:border-slate-700 transition-all shadow-xl`}
                 >
                   {/* Post Top Row */}
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 flex items-center justify-center font-bold text-white text-sm shadow-md">
+                      <div className="w-10 h-10 rounded-full border border-indigo-500/30 flex items-center justify-center font-bold text-indigo-600 dark:text-white text-sm shadow-md">
                         {post.authorName ? post.authorName.charAt(0).toUpperCase() : 'T'}
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="font-bold text-slate-100 text-sm">{post.authorName}</span>
-                          <span className="text-xs px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 font-medium border border-indigo-500/20">
+                          <span className="font-bold text-navy-950 dark:text-slate-100 text-sm">{post.authorName}</span>
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-medium border border-indigo-500/20">
                             {post.authorRole || 'Trader'}
                           </span>
                           {post.isPinned && (
-                            <span className="text-xs font-bold text-amber-400 flex items-center gap-1 bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/30">
-                              <Pin size={12} /> Pinned
+                            <span className="text-xs font-bold text-amber-600 dark:text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/30">
+                              Pinned
                             </span>
                           )}
                         </div>
-                        <span className="text-[11px] text-slate-500 mt-0.5 block">
+                        <span className="text-[11px] text-gray-400 dark:text-slate-500 mt-0.5 block">
                           {new Date(post.createdAt).toLocaleDateString(undefined, {
                             month: 'short',
                             day: 'numeric',
@@ -538,25 +535,25 @@ export const Community = () => {
                       {post.taggedStock && (
                         <button
                           onClick={() => setSelectedStock(post.taggedStock)}
-                          className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-indigo-300 font-bold text-xs border border-indigo-500/30 transition-colors"
+                          className="px-2.5 py-1 rounded bg-transparent hover:border-indigo-600 text-indigo-600 dark:text-indigo-300 font-bold text-xs border border-indigo-500/40 transition-colors"
                         >
                           ${post.taggedStock}
                         </button>
                       )}
 
                       {post.sentiment === 'BULLISH' && (
-                        <span className="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 font-bold text-xs border border-emerald-500/30 flex items-center gap-1">
-                          <TrendingUp size={14} /> BULLISH
+                        <span className="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs border border-emerald-500/30">
+                          BULLISH
                         </span>
                       )}
                       {post.sentiment === 'BEARISH' && (
-                        <span className="px-2.5 py-1 rounded bg-rose-500/20 text-rose-400 font-bold text-xs border border-rose-500/30 flex items-center gap-1">
-                          <TrendingDown size={14} /> BEARISH
+                        <span className="px-2.5 py-1 rounded bg-rose-500/10 text-rose-600 dark:text-rose-400 font-bold text-xs border border-rose-500/30">
+                          BEARISH
                         </span>
                       )}
                       {post.sentiment === 'NEUTRAL' && (
-                        <span className="px-2.5 py-1 rounded bg-slate-500/20 text-slate-400 font-bold text-xs border border-slate-500/30 flex items-center gap-1">
-                          <Minus size={14} /> NEUTRAL
+                        <span className="px-2.5 py-1 rounded bg-slate-500/10 text-slate-600 dark:text-slate-400 font-bold text-xs border border-slate-500/30">
+                          NEUTRAL
                         </span>
                       )}
                     </div>
@@ -564,21 +561,21 @@ export const Community = () => {
 
                   {/* Post Content */}
                   <div className="mt-4">
-                    <p className="text-slate-200 text-sm leading-relaxed whitespace-pre-line">
+                    <p className="text-gray-800 dark:text-slate-200 text-sm leading-relaxed whitespace-pre-line">
                       {post.content}
                     </p>
 
                     {/* Details bar (Target price, Timeframe) */}
                     {(post.targetPrice || post.timeframe) && (
-                      <div className="mt-3 flex flex-wrap items-center gap-3 text-xs bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/60">
+                      <div className="mt-3 flex flex-wrap items-center gap-3 text-xs bg-gray-50 dark:bg-slate-950/60 p-2.5 rounded-lg border border-gray-200 dark:border-slate-800/60">
                         {post.targetPrice && (
-                          <span className="text-slate-300">
-                            Target Price: <strong className="text-emerald-400">₹{post.targetPrice}</strong>
+                          <span className="text-gray-600 dark:text-slate-300">
+                            Target Price: <strong className="text-emerald-600 dark:text-emerald-400">₹{post.targetPrice}</strong>
                           </span>
                         )}
                         {post.timeframe && (
-                          <span className="text-slate-400 border-l border-slate-800 pl-3">
-                            Horizon: <strong className="text-indigo-300">{post.timeframe}</strong>
+                          <span className="text-gray-500 dark:text-slate-400 border-l border-gray-200 dark:border-slate-800 pl-3">
+                            Horizon: <strong className="text-indigo-600 dark:text-indigo-300">{post.timeframe}</strong>
                           </span>
                         )}
                       </div>
@@ -586,14 +583,13 @@ export const Community = () => {
                   </div>
 
                   {/* Action Buttons Footer */}
-                  <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
-                    <div className="flex items-center gap-6">
+                  <div className="mt-4 pt-3 border-t border-gray-200 dark:border-slate-800/80 flex items-center justify-between text-xs text-gray-500 dark:text-slate-400">
+                    <div className="flex items-center gap-3">
                       <button
                         onClick={() => handleLike(post._id)}
-                        className="flex items-center gap-1.5 hover:text-indigo-400 transition-colors font-medium"
+                        className="px-3 py-1.5 bg-transparent border border-gray-300 dark:border-slate-700 hover:border-indigo-500 text-navy-950 dark:text-slate-300 rounded-lg transition font-medium text-xs"
                       >
-                        <ThumbsUp size={15} />
-                        <span>{post.likeCount} Likes</span>
+                        {post.likeCount} Likes
                       </button>
 
                       <button
@@ -601,32 +597,31 @@ export const Community = () => {
                           ...prev,
                           [post._id]: prev[post._id] ? null : []
                         }))}
-                        className="flex items-center gap-1.5 hover:text-indigo-400 transition-colors font-medium"
+                        className="px-3 py-1.5 bg-transparent border border-gray-300 dark:border-slate-700 hover:border-indigo-500 text-navy-950 dark:text-slate-300 rounded-lg transition font-medium text-xs"
                       >
-                        <MessageSquare size={15} />
-                        <span>{post.commentsCount} Comments</span>
+                        {post.commentsCount} Comments
                       </button>
                     </div>
 
                     <div className="flex items-center gap-3">
                       <button
                         onClick={() => handleReport(post._id)}
-                        className="hover:text-rose-400 transition-colors flex items-center gap-1"
+                        className="px-2.5 py-1 bg-transparent border border-gray-300 dark:border-slate-700 hover:border-rose-500 text-gray-500 hover:text-rose-600 dark:hover:text-rose-400 rounded-lg transition text-xs font-semibold"
                         title="Report post"
                       >
-                        <Flag size={13} />
+                        Report
                       </button>
                     </div>
                   </div>
 
                   {/* Inline Comments Drawer */}
                   {expandedComments[post._id] !== undefined && (
-                    <div className="mt-4 pt-4 border-t border-slate-800 bg-slate-950/50 rounded-xl p-4">
+                    <div className="mt-4 pt-4 border-t border-gray-200 dark:border-slate-800 bg-gray-50 dark:bg-slate-950/50 rounded-xl p-4">
                       {expandedComments[post._id] && expandedComments[post._id].length > 0 && (
                         <div className="space-y-2 mb-3">
                           {expandedComments[post._id].map((c, idx) => (
-                            <div key={idx} className="bg-slate-900/80 p-2.5 rounded-lg text-xs text-slate-300 border border-slate-800/60">
-                              <span className="font-bold text-indigo-400 mr-2">{c.authorName}:</span>
+                            <div key={idx} className="bg-white dark:bg-slate-900/80 p-2.5 rounded-lg text-xs text-gray-700 dark:text-slate-300 border border-gray-200 dark:border-slate-800/60">
+                              <span className="font-bold text-indigo-600 dark:text-indigo-400 mr-2">{c.authorName}:</span>
                               {c.content}
                             </div>
                           ))}
@@ -639,13 +634,13 @@ export const Community = () => {
                           placeholder="Write a reply..."
                           value={commentInputs[post._id] || ''}
                           onChange={(e) => setCommentInputs({ ...commentInputs, [post._id]: e.target.value })}
-                          className="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                          className="flex-1 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-navy-950 dark:text-white focus:outline-none focus:border-indigo-500"
                         />
                         <button
                           onClick={() => handleAddComment(post._id)}
-                          className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-lg flex items-center gap-1 shadow"
+                          className="px-4 py-2 bg-transparent border border-indigo-600 dark:border-indigo-400 text-indigo-600 dark:text-indigo-400 hover:border-indigo-700 text-xs font-semibold rounded-lg"
                         >
-                          <Send size={12} /> Comment
+                          Comment
                         </button>
                       </div>
                     </div>
@@ -662,27 +657,26 @@ export const Community = () => {
         <div className="space-y-6">
           
           {/* Trending Tickers Card */}
-          <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-xl backdrop-blur-sm">
-            <h3 className="text-base font-bold text-white mb-4 flex items-center gap-2 border-b border-slate-800 pb-3">
-              <TrendingUp className="text-emerald-400" size={18} />
+          <div className="bg-white dark:bg-slate-900/80 border border-gray-200 dark:border-slate-800 rounded-2xl p-5 shadow-xl">
+            <h3 className="text-base font-bold text-navy-950 dark:text-white mb-4 border-b border-gray-200 dark:border-slate-800 pb-3">
               Trending Stock Discussions
             </h3>
 
             {trending.length === 0 ? (
-              <p className="text-xs text-slate-500">No trending tickers yet.</p>
+              <p className="text-xs text-gray-400 dark:text-slate-500">No trending tickers yet.</p>
             ) : (
               <div className="space-y-3">
                 {trending.map((item, i) => (
                   <button
                     key={i}
                     onClick={() => setSelectedStock(item.stock)}
-                    className="w-full flex items-center justify-between p-2.5 rounded-xl bg-slate-950/60 border border-slate-800/80 hover:border-indigo-500/50 transition-all text-left group"
+                    className="w-full flex items-center justify-between p-2.5 rounded-xl bg-transparent border border-gray-200 dark:border-slate-800/80 hover:border-indigo-500 transition-all text-left group"
                   >
                     <div>
-                      <div className="text-sm font-bold text-indigo-300 group-hover:text-indigo-200">
+                      <div className="text-sm font-bold text-indigo-600 dark:text-indigo-300 group-hover:text-indigo-700 dark:group-hover:text-indigo-200">
                         ${item.stock}
                       </div>
-                      <div className="text-[11px] text-slate-400 mt-0.5">
+                      <div className="text-[11px] text-gray-500 dark:text-slate-400 mt-0.5">
                         {item.postCount} {item.postCount === 1 ? 'post' : 'posts'}
                       </div>
                     </div>
@@ -690,8 +684,8 @@ export const Community = () => {
                     <div className="text-right">
                       <span className={`text-xs font-bold px-2 py-0.5 rounded ${
                         item.sentiment === 'BULLISH'
-                          ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                          : 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+                          ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
+                          : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/30'
                       }`}>
                         {item.bullishPercentage}% Bullish
                       </span>
@@ -703,9 +697,9 @@ export const Community = () => {
           </div>
 
           {/* Guidelines Box */}
-          <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-5 text-xs text-slate-400 space-y-2">
-            <h4 className="font-bold text-slate-200 text-sm mb-2 flex items-center gap-2">
-              <AlertCircle className="text-amber-400" size={16} /> Community Guidelines
+          <div className="bg-white dark:bg-slate-900/60 border border-gray-200 dark:border-slate-800/80 rounded-2xl p-5 text-xs text-gray-600 dark:text-slate-400 space-y-2">
+            <h4 className="font-bold text-navy-950 dark:text-slate-200 text-sm mb-2">
+              Community Guidelines
             </h4>
             <p>• Share genuine educational & technical stock analysis.</p>
             <p>• Tag stock symbols accurately (e.g. RELIANCE, TATAMOTORS).</p>
@@ -720,21 +714,21 @@ export const Community = () => {
       {/* Create Post Modal */}
       {showCreateModal && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 w-full max-w-lg shadow-2xl relative">
+          <div className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-2xl p-6 w-full max-w-lg shadow-2xl relative">
             <button
               onClick={() => setShowCreateModal(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-white font-bold"
+              className="absolute top-4 right-4 px-2.5 py-1 bg-transparent border border-gray-300 dark:border-slate-700 hover:border-gray-400 text-gray-700 dark:text-slate-400 text-xs font-bold rounded-lg transition"
             >
-              ✕
+              Close
             </button>
             
-            <h3 className="text-xl font-bold text-white mb-1 flex items-center gap-2">
-              <Sparkles className="text-indigo-400" size={20} /> Publish Trader Insight
+            <h3 className="text-xl font-bold text-navy-950 dark:text-white mb-1">
+              Publish Trader Insight
             </h3>
-            <p className="text-xs text-slate-400 mb-4">Share your technical chart, price target, or news analysis with the community.</p>
+            <p className="text-xs text-gray-500 dark:text-slate-400 mb-4">Share your technical chart, price target, or news analysis with the community.</p>
 
             {modalError && (
-              <div className="mb-4 p-3 bg-rose-500/10 border border-rose-500/30 rounded-xl text-rose-400 text-xs flex items-center gap-2">
+              <div className="mb-4 p-3 bg-rose-500/10 border border-rose-500/30 rounded-xl text-rose-600 dark:text-rose-400 text-xs flex items-center gap-2">
                 <AlertCircle size={16} className="shrink-0" />
                 <span>{modalError}</span>
               </div>
@@ -742,56 +736,56 @@ export const Community = () => {
 
             <form onSubmit={handleCreatePost} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Your Name / Alias</label>
+                <label className="block text-xs font-semibold text-gray-700 dark:text-slate-300 mb-1">Your Name / Alias</label>
                 <input
                   type="text"
                   placeholder="e.g. Market_Explorer"
                   value={authorName}
                   onChange={(e) => setAuthorName(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-transparent border border-gray-300 dark:border-slate-800 rounded-lg p-2.5 text-xs text-navy-950 dark:text-white focus:outline-none focus:border-indigo-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Tagged Stock Ticker (Optional)</label>
+                <label className="block text-xs font-semibold text-gray-700 dark:text-slate-300 mb-1">Tagged Stock Ticker (Optional)</label>
                 <input
                   type="text"
                   placeholder="e.g. RELIANCE, TATAMOTORS, NIFTY50"
                   value={taggedStock}
                   onChange={(e) => setTaggedStock(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500 uppercase"
+                  className="w-full bg-transparent border border-gray-300 dark:border-slate-800 rounded-lg p-2.5 text-xs text-navy-950 dark:text-white focus:outline-none focus:border-indigo-500 uppercase"
                 />
               </div>
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-xs text-slate-400 mb-1">Sentiment</label>
+                  <label className="block text-xs text-gray-600 dark:text-slate-400 mb-1">Sentiment</label>
                   <select
                     value={sentiment}
                     onChange={(e) => setSentiment(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 text-xs text-white rounded-lg p-2 focus:outline-none focus:border-indigo-500"
+                    className="w-full bg-white dark:bg-slate-950 border border-gray-300 dark:border-slate-800 text-xs text-navy-950 dark:text-white rounded-lg p-2 focus:outline-none focus:border-indigo-500"
                   >
-                    <option value="BULLISH">🚀 Bullish</option>
-                    <option value="BEARISH">📉 Bearish</option>
-                    <option value="NEUTRAL">⚖️ Neutral</option>
+                    <option value="BULLISH">Bullish</option>
+                    <option value="BEARISH">Bearish</option>
+                    <option value="NEUTRAL">Neutral</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs text-slate-400 mb-1">Target Price (₹)</label>
+                  <label className="block text-xs text-gray-600 dark:text-slate-400 mb-1">Target Price (₹)</label>
                   <input
                     type="number"
                     placeholder="e.g. 3200"
                     value={targetPrice}
                     onChange={(e) => setTargetPrice(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 text-xs text-white rounded-lg p-2 focus:outline-none focus:border-indigo-500"
+                    className="w-full bg-transparent border border-gray-300 dark:border-slate-800 text-xs text-navy-950 dark:text-white rounded-lg p-2 focus:outline-none focus:border-indigo-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-slate-400 mb-1">Timeframe</label>
+                  <label className="block text-xs text-gray-600 dark:text-slate-400 mb-1">Timeframe</label>
                   <select
                     value={timeframe}
                     onChange={(e) => setTimeframe(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 text-xs text-white rounded-lg p-2 focus:outline-none focus:border-indigo-500"
+                    className="w-full bg-white dark:bg-slate-950 border border-gray-300 dark:border-slate-800 text-xs text-navy-950 dark:text-white rounded-lg p-2 focus:outline-none focus:border-indigo-500"
                   >
                     <option value="Intraday">Intraday</option>
                     <option value="Short Term">Short Term</option>
@@ -802,14 +796,14 @@ export const Community = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Post Content *</label>
+                <label className="block text-xs font-semibold text-gray-700 dark:text-slate-300 mb-1">Post Content *</label>
                 <textarea
                   rows={4}
                   required
                   placeholder="Explain your technical rationale, key resistance levels, catalyst, or news..."
                   value={postContent}
                   onChange={(e) => setPostContent(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-transparent border border-gray-300 dark:border-slate-800 rounded-lg p-3 text-xs text-navy-950 dark:text-white focus:outline-none focus:border-indigo-500"
                 />
               </div>
 
@@ -817,14 +811,14 @@ export const Community = () => {
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 font-semibold rounded-lg"
+                  className="px-4 py-2 bg-transparent border border-gray-300 dark:border-slate-700 hover:border-gray-400 text-xs text-gray-700 dark:text-slate-300 font-semibold rounded-lg transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={publishing}
-                  className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-xs text-white font-bold rounded-lg shadow-lg shadow-indigo-600/30 flex items-center gap-1"
+                  className="px-5 py-2 bg-transparent border border-indigo-600 dark:border-indigo-400 hover:border-indigo-700 text-xs text-indigo-600 dark:text-indigo-400 font-bold rounded-lg transition"
                 >
                   {publishing ? 'Publishing...' : 'Publish Post'}
                 </button>

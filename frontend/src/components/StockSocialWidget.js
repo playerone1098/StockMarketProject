@@ -129,75 +129,74 @@ const StockSocialWidget = ({ symbol }) => {
 
   const getSentimentBadge = (sent) => {
     if (sent === 'BULLISH') {
-      return <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">🚀 BULLISH</span>;
+      return <span className="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/30">BULLISH</span>;
     }
     if (sent === 'BEARISH') {
-      return <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30">📉 BEARISH</span>;
+      return <span className="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded bg-rose-50 dark:bg-rose-500/20 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-500/30">BEARISH</span>;
     }
-    return <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded bg-slate-500/20 text-slate-400 border border-slate-500/30">⚖️ NEUTRAL</span>;
+    return <span className="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded bg-gray-100 dark:bg-slate-500/20 text-gray-700 dark:text-slate-400 border border-gray-200 dark:border-slate-500/30">NEUTRAL</span>;
   };
 
   return (
-    <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5 mt-8 shadow-xl backdrop-blur-md">
-      <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
+    <div className="bg-white dark:bg-navy-900 border border-gray-200 dark:border-navy-800 rounded-3xl p-6 sm:p-8 shadow-sm">
+      <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200 dark:border-navy-800">
         <div>
-          <h3 className="text-xl font-bold text-white flex items-center gap-2">
-            💬 Community Sentiment & Discussions ({symbol})
+          <h3 className="text-xl font-bold text-navy-950 dark:text-white">
+            Community Sentiment & Discussions ({symbol})
           </h3>
-          <p className="text-sm text-slate-400 mt-1">See what traders and investors are forecasting for {symbol}</p>
+          <p className="text-sm text-gray-500 dark:text-slate-400 mt-1">See what traders and investors are forecasting for {symbol}</p>
         </div>
         <button
           onClick={handleOpenCreateModal}
-          className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm rounded-lg transition-colors shadow-lg shadow-indigo-600/20"
+          className="px-4 py-2 border border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400 hover:border-brand-700 dark:hover:border-brand-300 font-bold text-sm rounded-xl transition-colors bg-transparent"
         >
-
-          + Post Insight
+          Post Insight
         </button>
       </div>
 
       {showCreateModal && (
-        <div className="mb-6 p-4 bg-slate-800/80 border border-indigo-500/30 rounded-lg shadow-inner">
+        <div className="mb-6 p-5 bg-white dark:bg-navy-850 border border-gray-200 dark:border-navy-700 rounded-2xl shadow-inner">
           <form onSubmit={handleCreatePost}>
             <div className="mb-3">
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Your Analysis / Thesis</label>
+              <label className="block text-xs font-semibold text-gray-700 dark:text-slate-300 mb-1">Your Analysis / Thesis</label>
               <textarea
                 rows={3}
                 value={newPostContent}
                 onChange={(e) => setNewPostContent(e.target.value)}
                 placeholder={`Share your technical setup or news update for ${symbol}...`}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+                className="w-full bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-700 rounded-xl p-2.5 text-sm text-navy-950 dark:text-white focus:outline-none focus:border-brand-500"
                 required
               />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
               <div>
-                <label className="block text-xs text-slate-400 mb-1">Sentiment</label>
+                <label className="block text-xs text-gray-600 dark:text-slate-400 mb-1">Sentiment</label>
                 <select
                   value={sentiment}
                   onChange={(e) => setSentiment(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded p-2 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-700 text-navy-950 dark:text-slate-200 text-xs rounded-xl p-2.5 focus:outline-none focus:border-brand-500"
                 >
-                  <option value="BULLISH">🚀 Bullish</option>
-                  <option value="BEARISH">📉 Bearish</option>
-                  <option value="NEUTRAL">⚖️ Neutral</option>
+                  <option value="BULLISH">Bullish</option>
+                  <option value="BEARISH">Bearish</option>
+                  <option value="NEUTRAL">Neutral</option>
                 </select>
               </div>
               <div>
-                <label className="block text-xs text-slate-400 mb-1">Target Price (₹)</label>
+                <label className="block text-xs text-gray-600 dark:text-slate-400 mb-1">Target Price (₹)</label>
                 <input
                   type="number"
                   placeholder="e.g. 3200"
                   value={targetPrice}
                   onChange={(e) => setTargetPrice(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded p-2 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-700 text-navy-950 dark:text-slate-200 text-xs rounded-xl p-2.5 focus:outline-none focus:border-brand-500"
                 />
               </div>
               <div>
-                <label className="block text-xs text-slate-400 mb-1">Timeframe</label>
+                <label className="block text-xs text-gray-600 dark:text-slate-400 mb-1">Timeframe</label>
                 <select
                   value={timeframe}
                   onChange={(e) => setTimeframe(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded p-2 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-700 text-navy-950 dark:text-slate-200 text-xs rounded-xl p-2.5 focus:outline-none focus:border-brand-500"
                 >
                   <option value="Intraday">Intraday</option>
                   <option value="Short Term">Short Term</option>
@@ -210,13 +209,13 @@ const StockSocialWidget = ({ symbol }) => {
               <button
                 type="button"
                 onClick={() => setShowCreateModal(false)}
-                className="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-xs text-slate-300 rounded"
+                className="px-4 py-2 border border-gray-300 dark:border-slate-600 hover:border-gray-400 text-xs font-semibold text-gray-700 dark:text-slate-300 rounded-xl bg-transparent"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white rounded"
+                className="px-4 py-2 border border-brand-600 dark:border-brand-400 hover:border-brand-700 text-xs font-bold text-brand-600 dark:text-brand-400 rounded-xl bg-transparent"
               >
                 Publish Post
               </button>
@@ -226,69 +225,68 @@ const StockSocialWidget = ({ symbol }) => {
       )}
 
       {loading ? (
-        <div className="text-center py-8 text-slate-400 text-sm">Loading community discussions...</div>
+        <div className="text-center py-8 text-gray-500 dark:text-slate-400 text-sm">Loading community discussions...</div>
       ) : posts.length === 0 ? (
-        <div className="text-center py-8 border border-dashed border-slate-800 rounded-lg">
-          <p className="text-slate-400 text-sm mb-3">No posts yet for {symbol}. Be the first to share an insight!</p>
+        <div className="text-center py-8 border border-dashed border-gray-200 dark:border-slate-800 rounded-2xl">
+          <p className="text-gray-500 dark:text-slate-400 text-sm mb-3">No posts yet for {symbol}. Be the first to share an insight!</p>
           <button
             onClick={handleOpenCreateModal}
-            className="px-4 py-2 bg-indigo-600/80 hover:bg-indigo-600 text-white text-xs font-semibold rounded-lg"
+            className="px-4 py-2 border border-brand-600 dark:border-brand-400 hover:border-brand-700 text-brand-600 dark:text-brand-400 text-xs font-bold rounded-xl bg-transparent"
           >
-
             Create Discussion Post
           </button>
         </div>
       ) : (
         <div className="space-y-4">
           {posts.map((post) => (
-            <div key={post._id} className="bg-slate-800/40 border border-slate-800/80 rounded-lg p-4 hover:border-slate-700 transition-all">
+            <div key={post._id} className="bg-white dark:bg-navy-800/40 border border-gray-200 dark:border-navy-800/80 rounded-2xl p-5 hover:border-gray-300 dark:hover:border-slate-700 transition-all">
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center font-bold text-white text-xs shadow">
+                  <div className="w-8 h-8 rounded-full border border-gray-300 dark:border-navy-700 bg-white dark:bg-navy-800 flex items-center justify-center font-bold text-brand-600 dark:text-brand-400 text-xs shadow">
                     {post.authorName ? post.authorName.charAt(0).toUpperCase() : 'T'}
                   </div>
                   <div>
-                    <span className="text-sm font-semibold text-slate-200">{post.authorName}</span>
-                    <span className="text-xs text-indigo-400 ml-2 font-medium">({post.authorRole})</span>
+                    <span className="text-sm font-semibold text-navy-950 dark:text-slate-200">{post.authorName}</span>
+                    <span className="text-xs text-brand-600 dark:text-brand-400 ml-2 font-medium">({post.authorRole})</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
                   {getSentimentBadge(post.sentiment)}
                   {post.targetPrice && (
-                    <span className="text-xs font-medium px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+                    <span className="text-xs font-medium px-2 py-0.5 rounded border border-gray-200 dark:border-navy-700 text-gray-700 dark:text-slate-300">
                       Target: ₹{post.targetPrice}
                     </span>
                   )}
                 </div>
               </div>
 
-              <p className="text-slate-300 text-sm my-3 leading-relaxed">{post.content}</p>
+              <p className="text-gray-700 dark:text-slate-300 text-sm my-3 leading-relaxed">{post.content}</p>
 
-              <div className="flex items-center justify-between pt-2 border-t border-slate-800 text-xs text-slate-400">
+              <div className="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-slate-800 text-xs text-gray-500 dark:text-slate-400">
                 <div className="flex items-center gap-4">
                   <button
                     onClick={() => handleLike(post._id)}
-                    className="flex items-center gap-1.5 hover:text-indigo-400 transition-colors"
+                    className="px-2.5 py-1 rounded-lg border border-gray-300 dark:border-slate-700 text-gray-700 dark:text-slate-300 hover:border-brand-500 dark:hover:border-brand-400 transition-colors text-xs font-semibold bg-transparent"
                   >
-                    👍 <span>{post.likeCount} Likes</span>
+                    <span>{post.likeCount} Likes</span>
                   </button>
                   <button
                     onClick={() => setActiveCommentPostId(activeCommentPostId === post._id ? null : post._id)}
-                    className="flex items-center gap-1.5 hover:text-indigo-400 transition-colors"
+                    className="px-2.5 py-1 rounded-lg border border-gray-300 dark:border-slate-700 text-gray-700 dark:text-slate-300 hover:border-brand-500 dark:hover:border-brand-400 transition-colors text-xs font-semibold bg-transparent"
                   >
-                    💬 <span>{post.commentsCount} Comments</span>
+                    <span>{post.commentsCount} Comments</span>
                   </button>
                 </div>
                 <span>{new Date(post.createdAt).toLocaleDateString()}</span>
               </div>
 
               {activeCommentPostId === post._id && (
-                <div className="mt-3 pt-3 border-t border-slate-800/60 bg-slate-900/40 rounded p-3">
+                <div className="mt-3 pt-3 border-t border-gray-100 dark:border-slate-800/60 bg-gray-50 dark:bg-slate-900/40 rounded-xl p-3">
                   {postComments[post._id] && postComments[post._id].length > 0 && (
                     <div className="space-y-2 mb-3 max-h-40 overflow-y-auto pr-1">
                       {postComments[post._id].map((c, i) => (
-                        <div key={i} className="text-xs bg-slate-800/80 p-2 rounded text-slate-300">
-                          <span className="font-semibold text-indigo-300 mr-2">{c.authorName}:</span>
+                        <div key={i} className="text-xs bg-white dark:bg-slate-800/80 border border-gray-200 dark:border-transparent p-2 rounded-lg text-gray-700 dark:text-slate-300">
+                          <span className="font-semibold text-brand-600 dark:text-indigo-300 mr-2">{c.authorName}:</span>
                           {c.content}
                         </div>
                       ))}
@@ -301,11 +299,11 @@ const StockSocialWidget = ({ symbol }) => {
                       placeholder="Add a comment..."
                       value={commentInput}
                       onChange={(e) => setCommentInput(e.target.value)}
-                      className="flex-1 bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500"
+                      className="flex-1 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-navy-950 dark:text-white focus:outline-none focus:border-brand-500"
                     />
                     <button
                       onClick={() => handleAddComment(post._id)}
-                      className="px-3 py-1.5 bg-indigo-600 text-white rounded text-xs hover:bg-indigo-500 flex items-center gap-1"
+                      className="px-3 py-1.5 border border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400 hover:border-brand-700 rounded-lg text-xs font-bold bg-transparent"
                     >
                       Post
                     </button>

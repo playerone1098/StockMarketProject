@@ -73,9 +73,9 @@ export const IdeaCard = ({ idea }) => {
         </div>
         <Link 
           to={`/trading-ideas/${idea.slug}`}
-          className="text-brand-600 dark:text-brand-400 font-bold hover:text-brand-700 dark:hover:text-brand-300 flex items-center group-hover:translate-x-1 transition-transform"
+          className="text-brand-600 dark:text-brand-400 font-bold hover:text-brand-700 dark:hover:text-brand-300 flex items-center transition"
         >
-          View Analysis →
+          View Analysis
         </Link>
       </div>
     </div>

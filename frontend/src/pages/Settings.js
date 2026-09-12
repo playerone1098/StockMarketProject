@@ -108,13 +108,13 @@ export const Settings = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-navy-950 text-slate-900 dark:text-white py-8 px-4 sm:px-6 lg:px-8 transition-colors duration-200">
+    <div className="min-h-screen bg-white dark:bg-navy-950 text-slate-900 dark:text-white py-8 px-4 sm:px-6 lg:px-8 transition-colors duration-200">
       <div className="max-w-4xl mx-auto space-y-8">
         
         {/* Header */}
         <div>
-          <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white flex items-center gap-3">
-            <span>⚙️ Account Settings</span>
+          <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">
+            Account Settings
           </h1>
           <p className="text-sm text-slate-600 dark:text-gray-400 mt-1">
             Manage your personal profile, security credentials, and application preferences
@@ -135,33 +135,33 @@ export const Settings = () => {
         <div className="bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-800 rounded-3xl p-2 flex space-x-2 shadow-sm">
           <button
             onClick={() => { setActiveTab('profile'); setMessage(null); }}
-            className={`flex-1 py-3 px-4 rounded-2xl text-sm font-bold transition flex items-center justify-center gap-2 ${
+            className={`flex-1 py-3 px-4 rounded-2xl text-sm font-bold transition border ${
               activeTab === 'profile'
-                ? 'bg-brand-600 text-white shadow-lg shadow-brand-500/20'
-                : 'text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-navy-800'
+                ? 'border-2 border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400 bg-transparent'
+                : 'border-transparent text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-navy-700 bg-transparent'
             }`}
           >
-            👤 Personal Profile
+            Personal Profile
           </button>
           <button
             onClick={() => { setActiveTab('security'); setMessage(null); }}
-            className={`flex-1 py-3 px-4 rounded-2xl text-sm font-bold transition flex items-center justify-center gap-2 ${
+            className={`flex-1 py-3 px-4 rounded-2xl text-sm font-bold transition border ${
               activeTab === 'security'
-                ? 'bg-brand-600 text-white shadow-lg shadow-brand-500/20'
-                : 'text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-navy-800'
+                ? 'border-2 border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400 bg-transparent'
+                : 'border-transparent text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-navy-700 bg-transparent'
             }`}
           >
-            🔒 Password & Security
+            Password & Security
           </button>
           <button
             onClick={() => { setActiveTab('preferences'); setMessage(null); }}
-            className={`flex-1 py-3 px-4 rounded-2xl text-sm font-bold transition flex items-center justify-center gap-2 ${
+            className={`flex-1 py-3 px-4 rounded-2xl text-sm font-bold transition border ${
               activeTab === 'preferences'
-                ? 'bg-brand-600 text-white shadow-lg shadow-brand-500/20'
-                : 'text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-navy-800'
+                ? 'border-2 border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400 bg-transparent'
+                : 'border-transparent text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-navy-700 bg-transparent'
             }`}
           >
-            🎛️ App Preferences
+            App Preferences
           </button>
         </div>
 
@@ -180,7 +180,7 @@ export const Settings = () => {
                     type="text"
                     disabled
                     value={user?.username || ''}
-                    className="w-full px-4 py-2.5 bg-slate-100 dark:bg-navy-950/60 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-500 dark:text-gray-400 cursor-not-allowed text-sm"
+                    className="w-full px-4 py-2.5 bg-gray-50 dark:bg-navy-950/60 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-500 dark:text-gray-400 cursor-not-allowed text-sm"
                   />
                   <p className="text-[11px] text-slate-500 dark:text-gray-500 mt-1">Username cannot be changed</p>
                 </div>
@@ -191,7 +191,7 @@ export const Settings = () => {
                     type="email"
                     disabled
                     value={user?.email || ''}
-                    className="w-full px-4 py-2.5 bg-slate-100 dark:bg-navy-950/60 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-500 dark:text-gray-400 cursor-not-allowed text-sm"
+                    className="w-full px-4 py-2.5 bg-gray-50 dark:bg-navy-950/60 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-500 dark:text-gray-400 cursor-not-allowed text-sm"
                   />
                   <p className="text-[11px] text-slate-500 dark:text-gray-500 mt-1">Contact support to change email</p>
                 </div>
@@ -205,7 +205,7 @@ export const Settings = () => {
                     value={profileData.firstName}
                     onChange={(e) => setProfileData({ ...profileData, firstName: e.target.value })}
                     placeholder="Rahul"
-                    className="w-full px-4 py-2.5 bg-slate-50 dark:bg-navy-950 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm"
+                    className="w-full px-4 py-2.5 bg-white dark:bg-navy-950 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm"
                   />
                 </div>
 
@@ -216,7 +216,7 @@ export const Settings = () => {
                     value={profileData.lastName}
                     onChange={(e) => setProfileData({ ...profileData, lastName: e.target.value })}
                     placeholder="Sharma"
-                    className="w-full px-4 py-2.5 bg-slate-50 dark:bg-navy-950 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm"
+                    className="w-full px-4 py-2.5 bg-white dark:bg-navy-950 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm"
                   />
                 </div>
               </div>
@@ -229,7 +229,7 @@ export const Settings = () => {
                     value={profileData.phone}
                     onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
                     placeholder="+91 9876543210"
-                    className="w-full px-4 py-2.5 bg-slate-50 dark:bg-navy-950 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm"
+                    className="w-full px-4 py-2.5 bg-white dark:bg-navy-950 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm"
                   />
                 </div>
 
@@ -240,7 +240,7 @@ export const Settings = () => {
                     value={profileData.address}
                     onChange={(e) => setProfileData({ ...profileData, address: e.target.value })}
                     placeholder="Mumbai, India"
-                    className="w-full px-4 py-2.5 bg-slate-50 dark:bg-navy-950 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm"
+                    className="w-full px-4 py-2.5 bg-white dark:bg-navy-950 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm"
                   />
                 </div>
               </div>
@@ -252,7 +252,7 @@ export const Settings = () => {
                   value={profileData.bio}
                   onChange={(e) => setProfileData({ ...profileData, bio: e.target.value })}
                   placeholder="Long term equity investor focused on NSE/BSE stocks..."
-                  className="w-full px-4 py-2.5 bg-slate-50 dark:bg-navy-950 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm"
+                  className="w-full px-4 py-2.5 bg-white dark:bg-navy-950 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm"
                 ></textarea>
               </div>
 
@@ -260,7 +260,7 @@ export const Settings = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-6 py-3 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-xl text-sm shadow-lg shadow-brand-500/25 transition disabled:opacity-50"
+                  className="px-6 py-3 bg-transparent border border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400 hover:border-brand-700 dark:hover:border-brand-300 font-bold rounded-xl text-sm transition disabled:opacity-50"
                 >
                   {loading ? 'Saving...' : 'Save Profile Changes'}
                 </button>
@@ -284,7 +284,7 @@ export const Settings = () => {
                   required
                   value={passwordData.currentPassword}
                   onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-slate-50 dark:bg-navy-950 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm"
+                  className="w-full px-4 py-2.5 bg-white dark:bg-navy-950 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm"
                 />
               </div>
 
@@ -295,7 +295,7 @@ export const Settings = () => {
                   required
                   value={passwordData.newPassword}
                   onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-slate-50 dark:bg-navy-950 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm"
+                  className="w-full px-4 py-2.5 bg-white dark:bg-navy-950 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm"
                   placeholder="At least 6 characters"
                 />
               </div>
@@ -307,7 +307,7 @@ export const Settings = () => {
                   required
                   value={passwordData.confirmPassword}
                   onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-slate-50 dark:bg-navy-950 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm"
+                  className="w-full px-4 py-2.5 bg-white dark:bg-navy-950 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm"
                 />
               </div>
 
@@ -315,7 +315,7 @@ export const Settings = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-6 py-3 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-xl text-sm shadow-lg shadow-brand-500/25 transition disabled:opacity-50"
+                  className="px-6 py-3 bg-transparent border border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400 hover:border-brand-700 dark:hover:border-brand-300 font-bold rounded-xl text-sm transition disabled:opacity-50"
                 >
                   {loading ? 'Updating...' : 'Update Password'}
                 </button>
@@ -337,7 +337,7 @@ export const Settings = () => {
                 <select
                   value={currency}
                   onChange={(e) => setCurrency(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-slate-50 dark:bg-navy-950 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm font-semibold"
+                  className="w-full px-4 py-2.5 bg-white dark:bg-navy-950 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm font-semibold"
                 >
                   <option value="INR">INR (₹ Rupees)</option>
                   <option value="USD">USD ($ Dollars)</option>
@@ -349,10 +349,10 @@ export const Settings = () => {
                 <select
                   value={selectedTheme}
                   onChange={(e) => handleThemeChange(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-slate-50 dark:bg-navy-950 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm font-semibold"
+                  className="w-full px-4 py-2.5 bg-white dark:bg-navy-950 border border-slate-200 dark:border-navy-800 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm font-semibold"
                 >
-                  <option value="dark">Dark Mode (Default 🌙)</option>
-                  <option value="light">Light Mode (☀️)</option>
+                  <option value="dark">Dark Mode (Default)</option>
+                  <option value="light">Light Mode</option>
                 </select>
               </div>
 
@@ -360,7 +360,7 @@ export const Settings = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-6 py-3 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-xl text-sm shadow-lg shadow-brand-500/25 transition disabled:opacity-50"
+                  className="px-6 py-3 bg-transparent border border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400 hover:border-brand-700 dark:hover:border-brand-300 font-bold rounded-xl text-sm transition disabled:opacity-50"
                 >
                   Save Preferences
                 </button>

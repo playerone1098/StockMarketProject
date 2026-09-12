@@ -75,107 +75,106 @@ export const FAQ = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <Helmet>
-        <title>Frequently Asked Questions (FAQ) | JodhpurTraders Help</title>
-        <meta name="description" content="Find answers to common questions about JodhpurTraders's trading ideas, stop loss criteria, IPO board, subscription updates, and market data sources." />
-        <meta property="og:title" content="FAQ — JodhpurTraders Help & Support" />
-        <meta property="og:description" content="Find answers to common questions about JodhpurTraders's trading ideas, stop loss criteria, IPO board, subscription updates, and market data sources." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={window.location.origin + window.location.pathname} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="FAQ — JodhpurTraders Help & Support" />
-        <meta name="twitter:description" content="Find answers to common questions about JodhpurTraders's trading ideas, IPO board, and market data." />
-        <link rel="canonical" href={window.location.origin + window.location.pathname} />
-        <script type="application/ld+json">
-          {JSON.stringify(faqJsonLd)}
-        </script>
-      </Helmet>
+    <div className="min-h-screen bg-white dark:bg-navy-950 py-12">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Helmet>
+          <title>Frequently Asked Questions (FAQ) | JodhpurTraders Help</title>
+          <meta name="description" content="Find answers to common questions about JodhpurTraders's trading ideas, stop loss criteria, IPO board, subscription updates, and market data sources." />
+          <meta property="og:title" content="FAQ — JodhpurTraders Help & Support" />
+          <meta property="og:description" content="Find answers to common questions about JodhpurTraders's trading ideas, stop loss criteria, IPO board, subscription updates, and market data sources." />
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content={window.location.origin + window.location.pathname} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content="FAQ — JodhpurTraders Help & Support" />
+          <meta name="twitter:description" content="Find answers to common questions about JodhpurTraders's trading ideas, IPO board, and market data." />
+          <link rel="canonical" href={window.location.origin + window.location.pathname} />
+          <script type="application/ld+json">
+            {JSON.stringify(faqJsonLd)}
+          </script>
+        </Helmet>
 
-      {/* Header */}
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-black text-navy-950 mb-4 tracking-tight">
-          Frequently Asked Questions
-        </h1>
-        <p className="text-sm text-gray-500 max-w-2xl mx-auto font-medium">
-          Have questions about our trading signals, IPO lists, or data accuracy? Find answers below.
-        </p>
-      </div>
-
-      {/* Search and Filters */}
-      <div className="mb-10 space-y-6">
-        <div className="relative">
-          <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
-            🔍
-          </span>
-          <input
-            type="text"
-            placeholder="Search FAQs (e.g. stop loss, target, IPO)..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-3.5 border border-gray-250 rounded-2xl focus:outline-none focus:ring-1 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm text-sm text-navy-950"
-          />
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-black text-navy-950 dark:text-white mb-4 tracking-tight">
+            Frequently Asked Questions
+          </h1>
+          <p className="text-sm text-gray-500 dark:text-slate-400 max-w-2xl mx-auto font-medium">
+            Have questions about our trading signals, IPO lists, or data accuracy? Find answers below.
+          </p>
         </div>
 
-        {/* Category Pill Filters */}
-        <div className="flex flex-wrap gap-2 justify-center">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => { setActiveCategory(cat.id); setOpenIndex(null); }}
-              className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all ${
-                activeCategory === cat.id
-                  ? 'bg-brand-500 text-white shadow-md shadow-brand-500/10'
-                  : 'bg-white text-navy-800 border border-gray-250 hover:bg-navy-50'
-              }`}
-            >
-              {cat.name}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Accordion Questions List */}
-      <div className="space-y-4">
-        {filteredFaqs.length > 0 ? (
-          filteredFaqs.map((faq, index) => {
-            const isOpen = openIndex === index;
-            return (
-              <div
-                key={index}
-                className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden transition duration-300"
-              >
-                <button
-                  onClick={() => toggleFAQ(index)}
-                  className="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-50 transition focus:outline-none"
-                >
-                  <span className="font-extrabold text-navy-950 text-base md:text-lg">{faq.question}</span>
-                  <span className={`w-8 h-8 rounded-full bg-brand-50 flex items-center justify-center text-brand-600 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
-                    ▼
-                  </span>
-                </button>
-                
-                {/* Accordion body panel */}
-                <div
-                  className={`px-6 transition-all duration-300 ease-in-out overflow-hidden ${
-                    isOpen ? 'max-h-96 py-5 border-t border-gray-100' : 'max-h-0'
-                  }`}
-                >
-                  <p className="text-gray-600 leading-relaxed text-xs md:text-sm">
-                    {faq.answer}
-                  </p>
-                </div>
-              </div>
-            );
-          })
-        ) : (
-          <div className="text-center py-12 bg-white rounded-2xl border border-gray-150 shadow-sm">
-            <h3 className="font-extrabold text-navy-950 text-base mb-1">No FAQs Found</h3>
-            <p className="text-gray-500 text-xs">
-              We couldn't find any questions matching "{searchQuery}". Try using different terms.
-            </p>
+        {/* Search and Filters */}
+        <div className="mb-10 space-y-6">
+          <div>
+            <input
+              type="text"
+              placeholder="Search FAQs (e.g. stop loss, target, IPO)..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full px-4 py-3.5 bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-2xl focus:outline-none focus:border-brand-500 transition shadow-sm text-sm text-navy-950 dark:text-white"
+            />
           </div>
-        )}
+
+          {/* Category Pill Filters */}
+          <div className="flex flex-wrap gap-2 justify-center">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => { setActiveCategory(cat.id); setOpenIndex(null); }}
+                className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all border ${
+                  activeCategory === cat.id
+                    ? 'border-2 border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400 bg-transparent'
+                    : 'border border-gray-300 dark:border-navy-700 text-gray-700 dark:text-slate-300 hover:border-gray-400 dark:hover:border-navy-600 bg-transparent'
+                }`}
+              >
+                {cat.name}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Accordion Questions List */}
+        <div className="space-y-4">
+          {filteredFaqs.length > 0 ? (
+            filteredFaqs.map((faq, index) => {
+              const isOpen = openIndex === index;
+              return (
+                <div
+                  key={index}
+                  className="bg-white dark:bg-navy-900 rounded-2xl border border-gray-200 dark:border-navy-800 shadow-sm overflow-hidden transition duration-300"
+                >
+                  <button
+                    onClick={() => toggleFAQ(index)}
+                    className="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-50 dark:hover:bg-navy-850 transition focus:outline-none bg-transparent"
+                  >
+                    <span className="font-extrabold text-navy-950 dark:text-white text-base md:text-lg pr-4">{faq.question}</span>
+                    <span className="text-xs font-bold px-3 py-1 rounded-lg border border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400 shrink-0">
+                      {isOpen ? 'Hide' : 'Show'}
+                    </span>
+                  </button>
+                  
+                  {/* Accordion body panel */}
+                  <div
+                    className={`px-6 transition-all duration-300 ease-in-out overflow-hidden ${
+                      isOpen ? 'max-h-96 py-5 border-t border-gray-150 dark:border-navy-800' : 'max-h-0'
+                    }`}
+                  >
+                    <p className="text-gray-600 dark:text-slate-300 leading-relaxed text-xs md:text-sm">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <div className="text-center py-12 bg-white dark:bg-navy-900 rounded-2xl border border-gray-200 dark:border-navy-800 shadow-sm">
+              <h3 className="font-extrabold text-navy-950 dark:text-white text-base mb-1">No FAQs Found</h3>
+              <p className="text-gray-500 dark:text-slate-400 text-xs">
+                We couldn't find any questions matching "{searchQuery}". Try using different terms.
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

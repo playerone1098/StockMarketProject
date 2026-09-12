@@ -148,15 +148,17 @@ export const StockDetail = () => {
 
   if (error || !stock) {
     return (
-      <div className="max-w-7xl mx-auto px-4 py-20 text-center">
-        <div className="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-black">
-          !
+      <div className="min-h-screen bg-white dark:bg-navy-950 py-20 px-4 text-center">
+        <div className="max-w-md mx-auto">
+          <div className="w-16 h-16 border border-rose-600 dark:border-rose-400 text-rose-600 dark:text-rose-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-black">
+            !
+          </div>
+          <h2 className="text-2xl font-extrabold text-navy-950 dark:text-white">Stock Symbol Not Found</h2>
+          <p className="text-gray-500 dark:text-slate-400 text-sm mt-2">We could not locate symbol "{symbol?.toUpperCase()}" in our active Indian market directory.</p>
+          <Link to="/stocks" className="mt-6 inline-block px-8 py-3 bg-transparent border border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400 hover:border-brand-700 dark:hover:border-brand-300 font-bold rounded-xl text-sm transition">
+            Browse All Stocks
+          </Link>
         </div>
-        <h2 className="text-2xl font-extrabold text-navy-950">Stock Symbol Not Found</h2>
-        <p className="text-gray-500 text-sm mt-2">We could not locate symbol "{symbol?.toUpperCase()}" in our active Indian market directory.</p>
-        <Link to="/stocks" className="mt-6 inline-block px-8 py-3 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl text-sm transition">
-          Browse All Stocks
-        </Link>
       </div>
     );
   }
@@ -204,7 +206,7 @@ export const StockDetail = () => {
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-white dark:bg-navy-950">
       <Helmet>
         <title>{`${stock.symbol} (${stock.name}) Share Price, Technical Charts & Fundamentals | JodhpurTraders`}</title>
         <meta name="description" content={`Get live stock price of ${stock.name} (${stock.symbol}), interactive TradingView charts, technical analysis notes, price targets, P/E ratio, market cap, and community discussion on JodhpurTraders.`} />
@@ -225,12 +227,12 @@ export const StockDetail = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         
         {/* Breadcrumb */}
-        <div className="text-xs font-semibold text-gray-400 flex items-center space-x-2">
-          <Link to="/" className="hover:text-brand-600">Home</Link>
+        <div className="text-xs font-semibold text-gray-400 dark:text-slate-500 flex items-center space-x-2">
+          <Link to="/" className="hover:text-brand-600 dark:hover:text-brand-400">Home</Link>
           <span>/</span>
-          <Link to="/stocks" className="hover:text-brand-600">Stocks</Link>
+          <Link to="/stocks" className="hover:text-brand-600 dark:hover:text-brand-400">Stocks</Link>
           <span>/</span>
-          <span className="text-navy-950 font-bold">{stock.symbol}</span>
+          <span className="text-navy-950 dark:text-white font-bold">{stock.symbol}</span>
         </div>
 
         {/* Header Card Stack */}
@@ -310,20 +312,20 @@ export const StockDetail = () => {
         </div>
 
         {/* Card Navigation Stack Tabs */}
-        <div className="flex items-center gap-2 border-b border-gray-200 pb-3 overflow-x-auto">
+        <div className="flex items-center gap-2 border-b border-gray-200 dark:border-navy-800 pb-3 overflow-x-auto">
           {[
-            { id: 'chart', label: '📈 Interactive Chart & Technicals' },
-            { id: 'fundamentals', label: '📊 Key Fundamentals' },
-            { id: 'news', label: '📰 Company News & Feed' },
-            { id: 'discussion', label: '💬 Community Discussions' }
+            { id: 'chart', label: 'Interactive Chart & Technicals' },
+            { id: 'fundamentals', label: 'Key Fundamentals' },
+            { id: 'news', label: 'Company News & Feed' },
+            { id: 'discussion', label: 'Community Discussions' }
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-5 py-2.5 rounded-2xl text-xs font-extrabold transition-all whitespace-nowrap ${
+              className={`px-5 py-2.5 rounded-2xl text-xs font-bold transition-all whitespace-nowrap border ${
                 activeTab === tab.id
-                  ? 'bg-navy-950 text-white shadow-md'
-                  : 'bg-white text-gray-600 border border-gray-150 hover:bg-gray-100 hover:text-navy-950'
+                  ? 'border-2 border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400 bg-transparent'
+                  : 'border border-gray-300 dark:border-navy-700 text-gray-700 dark:text-slate-300 hover:border-gray-400 dark:hover:border-navy-600 bg-transparent'
               }`}
             >
               {tab.label}
@@ -336,28 +338,32 @@ export const StockDetail = () => {
 
           {/* CARD 1: CHART SECTION */}
           {(activeTab === 'chart' || activeTab === 'all') && (
-            <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-150 space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-4">
+            <div className="bg-white dark:bg-navy-900 rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-200 dark:border-navy-800 space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-200 dark:border-navy-800 pb-4">
                 <div>
-                  <h2 className="text-xl font-extrabold text-navy-950">Technical Price Chart</h2>
-                  <p className="text-xs text-gray-400">Real-time candlesticks and volume analysis for {stock.symbol}</p>
+                  <h2 className="text-xl font-extrabold text-navy-950 dark:text-white">Technical Price Chart</h2>
+                  <p className="text-xs text-gray-500 dark:text-slate-400">Real-time candlesticks and volume analysis for {stock.symbol}</p>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3">
                   {/* Chart Engine Switch */}
-                  <div className="flex bg-gray-100 p-1 rounded-xl gap-1 text-xs font-bold">
+                  <div className="flex bg-transparent border border-gray-300 dark:border-navy-700 p-1 rounded-xl gap-1 text-xs font-bold">
                     <button
                       onClick={() => setChartType('tradingview')}
-                      className={`px-3 py-1.5 rounded-lg transition ${
-                        chartType === 'tradingview' ? 'bg-navy-950 text-white' : 'text-gray-600 hover:text-navy-950'
+                      className={`px-3 py-1.5 rounded-lg border transition ${
+                        chartType === 'tradingview'
+                          ? 'border-brand-600 text-brand-600 dark:border-brand-400 dark:text-brand-400 font-bold bg-transparent'
+                          : 'border-transparent text-gray-600 dark:text-slate-400 hover:text-navy-950 dark:hover:text-white bg-transparent'
                       }`}
                     >
                       TradingView Engine
                     </button>
                     <button
                       onClick={() => setChartType('jodhpurtraders')}
-                      className={`px-3 py-1.5 rounded-lg transition ${
-                        chartType === 'jodhpurtraders' ? 'bg-navy-950 text-white' : 'text-gray-600 hover:text-navy-950'
+                      className={`px-3 py-1.5 rounded-lg border transition ${
+                        chartType === 'jodhpurtraders'
+                          ? 'border-brand-600 text-brand-600 dark:border-brand-400 dark:text-brand-400 font-bold bg-transparent'
+                          : 'border-transparent text-gray-600 dark:text-slate-400 hover:text-navy-950 dark:hover:text-white bg-transparent'
                       }`}
                     >
                       JodhpurTraders Recharts
@@ -367,9 +373,9 @@ export const StockDetail = () => {
                   {/* Open in Full View Button */}
                   <button
                     onClick={() => setIsFullscreen(true)}
-                    className="px-4 py-2 bg-brand-50 hover:bg-brand-100 text-brand-600 font-extrabold rounded-xl text-xs border border-brand-200 transition flex items-center gap-1.5"
+                    className="px-4 py-2 bg-transparent hover:border-brand-700 text-brand-600 dark:text-brand-400 font-bold rounded-xl text-xs border border-brand-600 dark:border-brand-400 transition"
                   >
-                    <span>⤢</span> Open in Full View
+                    Open in Full View
                   </button>
                 </div>
               </div>
@@ -390,52 +396,52 @@ export const StockDetail = () => {
 
           {/* CARD 2: FUNDAMENTALS CARD STACK */}
           {(activeTab === 'fundamentals' || activeTab === 'chart') && (
-            <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-150 space-y-6">
-              <div className="border-b border-gray-100 pb-4">
-                <h2 className="text-xl font-extrabold text-navy-950">Company Fundamentals & Ratios</h2>
-                <p className="text-xs text-gray-400">Core financial metrics, valuation, and capital health</p>
+            <div className="bg-white dark:bg-navy-900 rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-200 dark:border-navy-800 space-y-6">
+              <div className="border-b border-gray-200 dark:border-navy-800 pb-4">
+                <h2 className="text-xl font-extrabold text-navy-950 dark:text-white">Company Fundamentals & Ratios</h2>
+                <p className="text-xs text-gray-500 dark:text-slate-400">Core financial metrics, valuation, and capital health</p>
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                <div className="bg-gray-50 p-4 rounded-2xl border border-gray-150">
-                  <span className="text-xs text-gray-400 font-medium block">P/E Ratio</span>
-                  <span className="text-xl font-black text-navy-950 mt-1 block">{stock.peRatio || '28.5'}x</span>
-                  <span className="text-[10px] text-gray-400">Price to Earnings</span>
+                <div className="bg-white dark:bg-navy-800 p-4 rounded-2xl border border-gray-200 dark:border-navy-700">
+                  <span className="text-xs text-gray-500 dark:text-slate-400 font-medium block">P/E Ratio</span>
+                  <span className="text-xl font-black text-navy-950 dark:text-white mt-1 block">{stock.peRatio || '28.5'}x</span>
+                  <span className="text-[10px] text-gray-400 dark:text-slate-500">Price to Earnings</span>
                 </div>
-                <div className="bg-gray-50 p-4 rounded-2xl border border-gray-150">
-                  <span className="text-xs text-gray-400 font-medium block">P/B Ratio</span>
-                  <span className="text-xl font-black text-navy-950 mt-1 block">{stock.pbRatio || '3.2'}x</span>
-                  <span className="text-[10px] text-gray-400">Price to Book Value</span>
+                <div className="bg-white dark:bg-navy-800 p-4 rounded-2xl border border-gray-200 dark:border-navy-700">
+                  <span className="text-xs text-gray-500 dark:text-slate-400 font-medium block">P/B Ratio</span>
+                  <span className="text-xl font-black text-navy-950 dark:text-white mt-1 block">{stock.pbRatio || '3.2'}x</span>
+                  <span className="text-[10px] text-gray-400 dark:text-slate-500">Price to Book Value</span>
                 </div>
-                <div className="bg-gray-50 p-4 rounded-2xl border border-gray-150">
-                  <span className="text-xs text-gray-400 font-medium block">Dividend Yield</span>
-                  <span className="text-xl font-black text-navy-950 mt-1 block">{stock.dividendYield || '0.85'}%</span>
-                  <span className="text-[10px] text-gray-400">Annual Return Yield</span>
+                <div className="bg-white dark:bg-navy-800 p-4 rounded-2xl border border-gray-200 dark:border-navy-700">
+                  <span className="text-xs text-gray-500 dark:text-slate-400 font-medium block">Dividend Yield</span>
+                  <span className="text-xl font-black text-navy-950 dark:text-white mt-1 block">{stock.dividendYield || '0.85'}%</span>
+                  <span className="text-[10px] text-gray-400 dark:text-slate-500">Annual Return Yield</span>
                 </div>
-                <div className="bg-gray-50 p-4 rounded-2xl border border-gray-150">
-                  <span className="text-xs text-gray-400 font-medium block">Market Cap</span>
-                  <span className="text-xl font-black text-navy-950 mt-1 block">{formatIndianNumber(stock.marketCap)}</span>
-                  <span className="text-[10px] text-gray-400">{stock.marketCapLabel || 'Large Cap'}</span>
+                <div className="bg-white dark:bg-navy-800 p-4 rounded-2xl border border-gray-200 dark:border-navy-700">
+                  <span className="text-xs text-gray-500 dark:text-slate-400 font-medium block">Market Cap</span>
+                  <span className="text-xl font-black text-navy-950 dark:text-white mt-1 block">{formatIndianNumber(stock.marketCap)}</span>
+                  <span className="text-[10px] text-gray-400 dark:text-slate-500">{stock.marketCapLabel || 'Large Cap'}</span>
                 </div>
-                <div className="bg-gray-50 p-4 rounded-2xl border border-gray-150">
-                  <span className="text-xs text-gray-400 font-medium block">ROE (Return on Equity)</span>
-                  <span className="text-xl font-black text-navy-950 mt-1 block">18.4%</span>
-                  <span className="text-[10px] text-gray-400">Capital Efficiency</span>
+                <div className="bg-white dark:bg-navy-800 p-4 rounded-2xl border border-gray-200 dark:border-navy-700">
+                  <span className="text-xs text-gray-500 dark:text-slate-400 font-medium block">ROE (Return on Equity)</span>
+                  <span className="text-xl font-black text-navy-950 dark:text-white mt-1 block">18.4%</span>
+                  <span className="text-[10px] text-gray-400 dark:text-slate-500">Capital Efficiency</span>
                 </div>
-                <div className="bg-gray-50 p-4 rounded-2xl border border-gray-150">
-                  <span className="text-xs text-gray-400 font-medium block">Debt-to-Equity</span>
-                  <span className="text-xl font-black text-navy-950 mt-1 block">0.42</span>
-                  <span className="text-[10px] text-gray-400">Leverage Level</span>
+                <div className="bg-white dark:bg-navy-800 p-4 rounded-2xl border border-gray-200 dark:border-navy-700">
+                  <span className="text-xs text-gray-500 dark:text-slate-400 font-medium block">Debt-to-Equity</span>
+                  <span className="text-xl font-black text-navy-950 dark:text-white mt-1 block">0.42</span>
+                  <span className="text-[10px] text-gray-400 dark:text-slate-500">Leverage Level</span>
                 </div>
-                <div className="bg-gray-50 p-4 rounded-2xl border border-gray-150">
-                  <span className="text-xs text-gray-400 font-medium block">Volume (Daily)</span>
-                  <span className="text-xl font-black text-navy-950 mt-1 block">{stock.volume ? Number(stock.volume).toLocaleString('en-IN') : '4.8M'}</span>
-                  <span className="text-[10px] text-gray-400">Shares Traded</span>
+                <div className="bg-white dark:bg-navy-800 p-4 rounded-2xl border border-gray-200 dark:border-navy-700">
+                  <span className="text-xs text-gray-500 dark:text-slate-400 font-medium block">Volume (Daily)</span>
+                  <span className="text-xl font-black text-navy-950 dark:text-white mt-1 block">{stock.volume ? Number(stock.volume).toLocaleString('en-IN') : '4.8M'}</span>
+                  <span className="text-[10px] text-gray-400 dark:text-slate-500">Shares Traded</span>
                 </div>
-                <div className="bg-gray-50 p-4 rounded-2xl border border-gray-150">
-                  <span className="text-xs text-gray-400 font-medium block">Exchange Listings</span>
-                  <span className="text-xl font-black text-navy-950 mt-1 block">NSE / BSE</span>
-                  <span className="text-[10px] text-gray-400">Equity Segment</span>
+                <div className="bg-white dark:bg-navy-800 p-4 rounded-2xl border border-gray-200 dark:border-navy-700">
+                  <span className="text-xs text-gray-500 dark:text-slate-400 font-medium block">Exchange Listings</span>
+                  <span className="text-xl font-black text-navy-950 dark:text-white mt-1 block">NSE / BSE</span>
+                  <span className="text-[10px] text-gray-400 dark:text-slate-500">Equity Segment</span>
                 </div>
               </div>
 
@@ -477,10 +483,10 @@ export const StockDetail = () => {
               {/* Quarterly Financial Results */}
               {financialStats && (
                 <div className="mt-6 space-y-3">
-                  <h3 className="text-base font-extrabold text-navy-950">Quarterly Results (₹ in Cr)</h3>
-                  <div className="overflow-x-auto border border-gray-150 rounded-2xl">
+                  <h3 className="text-base font-extrabold text-navy-950 dark:text-white">Quarterly Results (₹ in Cr)</h3>
+                  <div className="overflow-x-auto border border-gray-200 dark:border-navy-700 rounded-2xl">
                     <table className="w-full text-left text-xs">
-                      <thead className="bg-gray-100 text-navy-950 font-bold border-b border-gray-150">
+                      <thead className="bg-gray-50 dark:bg-navy-800 text-navy-950 dark:text-white font-bold border-b border-gray-200 dark:border-navy-700">
                         <tr>
                           <th className="p-3">Metric</th>
                           {Object.keys(financialStats.Sales || {}).map((q) => (
@@ -488,29 +494,29 @@ export const StockDetail = () => {
                           ))}
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-gray-100 font-medium text-gray-700">
+                      <tbody className="divide-y divide-gray-100 dark:divide-navy-800 font-medium text-gray-700 dark:text-slate-300">
                         <tr>
-                          <td className="p-3 font-bold text-navy-950">Sales Revenue</td>
+                          <td className="p-3 font-bold text-navy-950 dark:text-white">Sales Revenue</td>
                           {Object.values(financialStats.Sales || {}).map((val, idx) => (
                             <td key={idx} className="p-3 text-right">₹{val.toLocaleString('en-IN')} Cr</td>
                           ))}
                         </tr>
                         <tr>
-                          <td className="p-3 font-bold text-navy-950">Operating Profit</td>
+                          <td className="p-3 font-bold text-navy-950 dark:text-white">Operating Profit</td>
                           {Object.values(financialStats['Operating Profit'] || {}).map((val, idx) => (
-                            <td key={idx} className="p-3 text-right text-emerald-600">₹{val.toLocaleString('en-IN')} Cr</td>
+                            <td key={idx} className="p-3 text-right text-emerald-600 dark:text-emerald-400">₹{val.toLocaleString('en-IN')} Cr</td>
                           ))}
                         </tr>
                         <tr>
-                          <td className="p-3 font-bold text-navy-950">Net Profit</td>
+                          <td className="p-3 font-bold text-navy-950 dark:text-white">Net Profit</td>
                           {Object.values(financialStats['Net Profit'] || {}).map((val, idx) => (
-                            <td key={idx} className="p-3 text-right font-extrabold text-navy-950">₹{val.toLocaleString('en-IN')} Cr</td>
+                            <td key={idx} className="p-3 text-right font-extrabold text-navy-950 dark:text-white">₹{val.toLocaleString('en-IN')} Cr</td>
                           ))}
                         </tr>
                         <tr>
-                          <td className="p-3 font-bold text-navy-950">EPS (₹)</td>
+                          <td className="p-3 font-bold text-navy-950 dark:text-white">EPS (₹)</td>
                           {Object.values(financialStats['EPS in Rs'] || {}).map((val, idx) => (
-                            <td key={idx} className="p-3 text-right text-brand-600 font-bold">₹{val}</td>
+                            <td key={idx} className="p-3 text-right text-brand-600 dark:text-brand-400 font-bold">₹{val}</td>
                           ))}
                         </tr>
                       </tbody>
@@ -523,14 +529,14 @@ export const StockDetail = () => {
 
           {/* CARD 3: NEWS TAB CARD */}
           {(activeTab === 'news' || activeTab === 'chart') && (
-            <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-150 space-y-6">
-              <div className="flex justify-between items-center border-b border-gray-100 pb-4">
+            <div className="bg-white dark:bg-navy-900 rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-200 dark:border-navy-800 space-y-6">
+              <div className="flex justify-between items-center border-b border-gray-200 dark:border-navy-800 pb-4">
                 <div>
-                  <h2 className="text-xl font-extrabold text-navy-950">Company News & Market Updates</h2>
-                  <p className="text-xs text-gray-400">Latest announcements and analysis concerning {stock.name}</p>
+                  <h2 className="text-xl font-extrabold text-navy-950 dark:text-white">Company News & Market Updates</h2>
+                  <p className="text-xs text-gray-500 dark:text-slate-400">Latest announcements and analysis concerning {stock.name}</p>
                 </div>
-                <Link to="/blog" className="text-xs font-bold text-brand-600 hover:text-brand-700">
-                  View All News →
+                <Link to="/blog" className="text-xs font-bold text-brand-600 dark:text-brand-400 hover:underline">
+                  View All News
                 </Link>
               </div>
 
@@ -540,27 +546,27 @@ export const StockDetail = () => {
                     <Link
                       key={newsItem._id}
                       to={`/blog/${newsItem.slug}`}
-                      className="p-5 rounded-2xl border border-gray-100 hover:border-brand-300 hover:shadow-md transition bg-gray-50/50 flex flex-col justify-between"
+                      className="p-5 rounded-2xl border border-gray-200 dark:border-navy-800 hover:border-brand-500 dark:hover:border-brand-400 transition bg-white dark:bg-navy-850 flex flex-col justify-between"
                     >
                       <div>
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-brand-50 text-brand-600 border border-brand-200">
+                          <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full border border-brand-500 dark:border-brand-400 text-brand-600 dark:text-brand-400">
                             {newsItem.category || 'Market News'}
                           </span>
-                          <span className="text-[11px] text-gray-400 font-medium">
+                          <span className="text-[11px] text-gray-400 dark:text-slate-400 font-medium">
                             {new Date(newsItem.createdAt).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}
                           </span>
                         </div>
-                        <h3 className="font-bold text-navy-950 text-base leading-snug line-clamp-2">{newsItem.title}</h3>
-                        <p className="text-xs text-gray-500 mt-2 line-clamp-2">{newsItem.excerpt}</p>
+                        <h3 className="font-bold text-navy-950 dark:text-white text-base leading-snug line-clamp-2">{newsItem.title}</h3>
+                        <p className="text-xs text-gray-500 dark:text-slate-400 mt-2 line-clamp-2">{newsItem.excerpt}</p>
                       </div>
-                      <span className="text-xs font-bold text-brand-600 mt-4 block">Read Analysis →</span>
+                      <span className="text-xs font-bold text-brand-600 dark:text-brand-400 mt-4 block">Read Analysis</span>
                     </Link>
                   ))}
                 </div>
               ) : (
-                <div className="p-8 text-center bg-gray-50 rounded-2xl border border-gray-100">
-                  <p className="text-sm font-semibold text-gray-500">No company news currently available for {stock.name}.</p>
+                <div className="p-8 text-center bg-white dark:bg-navy-850 rounded-2xl border border-gray-200 dark:border-navy-800">
+                  <p className="text-sm font-semibold text-gray-500 dark:text-slate-400">No company news currently available for {stock.name}.</p>
                 </div>
               )}
             </div>
@@ -571,15 +577,14 @@ export const StockDetail = () => {
             <StockSocialWidget symbol={symbol} />
           )}
 
-
           {/* CARD 5: COMPANY PROFILE & SECTOR CARD */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-150 space-y-4">
-            <h2 className="text-xl font-extrabold text-navy-950">About {stock.name}</h2>
-            <p className="text-xs sm:text-sm text-gray-700 leading-relaxed font-medium whitespace-pre-line">
+          <div className="bg-white dark:bg-navy-900 rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-200 dark:border-navy-800 space-y-4">
+            <h2 className="text-xl font-extrabold text-navy-950 dark:text-white">About {stock.name}</h2>
+            <p className="text-xs sm:text-sm text-gray-700 dark:text-slate-300 leading-relaxed font-medium whitespace-pre-line">
               {stock.about || stock.description || `${stock.name} is a leading public enterprise in the ${stock.sector} sector listed on the National Stock Exchange (NSE: ${stock.symbol}) and Bombay Stock Exchange (BSE). The company delivers core capital products, market-leading solutions, and maintains high compliance with Indian financial regulatory authorities.`}
             </p>
-            <div className="bg-gray-50 p-4 rounded-2xl border border-gray-150 text-xs text-gray-500 leading-relaxed">
-              <strong className="text-navy-950">Regulatory & Market Disclaimer:</strong> Market price updates, fundamentals, and chart technicals presented for {stock.symbol} are provided for educational and research purposes. Always verify prices with your registered broker prior to executing market orders.
+            <div className="bg-white dark:bg-navy-800 p-4 rounded-2xl border border-gray-200 dark:border-navy-700 text-xs text-gray-500 dark:text-slate-400 leading-relaxed">
+              <strong className="text-navy-950 dark:text-white">Regulatory & Market Disclaimer:</strong> Market price updates, fundamentals, and chart technicals presented for {stock.symbol} are provided for educational and research purposes. Always verify prices with your registered broker prior to executing market orders.
             </div>
           </div>
 
@@ -596,13 +601,13 @@ export const StockDetail = () => {
             </div>
             <button
               onClick={() => setIsFullscreen(false)}
-              className="px-4 py-1.5 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-xl text-xs transition"
+              className="px-4 py-1.5 bg-transparent border border-white/60 hover:border-white text-white font-bold rounded-xl text-xs transition"
             >
-              ✕ Exit Full View
+              Exit Full View
             </button>
           </div>
 
-          <div className="flex-1 w-full bg-white rounded-2xl overflow-hidden shadow-2xl p-2 sm:p-4">
+          <div className="flex-1 w-full bg-white dark:bg-navy-900 rounded-2xl overflow-hidden shadow-2xl p-2 sm:p-4">
             {chartType === 'tradingview' ? (
               <TradingViewChart symbol={stock.symbol} exchange={stock.exchange || 'NSE'} isFullscreen={true} />
             ) : (
@@ -618,6 +623,6 @@ export const StockDetail = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };

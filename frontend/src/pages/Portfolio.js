@@ -283,10 +283,10 @@ export const Portfolio = () => {
 
   if (authLoading || (loading && isAuthenticated)) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center bg-navy-950 text-white">
+      <div className="min-h-[70vh] flex items-center justify-center bg-white dark:bg-navy-950 text-navy-950 dark:text-white">
         <div className="flex flex-col items-center gap-3">
           <div className="w-10 h-10 border-4 border-brand-500 border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-gray-400 font-medium">Loading portfolio metrics...</p>
+          <p className="text-gray-500 dark:text-gray-400 font-medium">Loading portfolio metrics...</p>
         </div>
       </div>
     );
@@ -294,37 +294,31 @@ export const Portfolio = () => {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-[80vh] flex items-center justify-center bg-navy-950 text-white py-16 px-4">
-        <div className="max-w-xl w-full bg-navy-900 border border-navy-800 rounded-3xl p-8 sm:p-12 text-center shadow-2xl space-y-6 relative overflow-hidden">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-brand-500/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-          <div className="w-20 h-20 bg-brand-500/10 border border-brand-500/30 rounded-3xl flex items-center justify-center mx-auto text-4xl shadow-inner">
-            🔐
-          </div>
-
+      <div className="min-h-[80vh] flex items-center justify-center bg-white dark:bg-navy-950 text-navy-950 dark:text-white py-16 px-4">
+        <div className="max-w-xl w-full bg-white dark:bg-navy-900 border border-gray-200 dark:border-navy-800 rounded-3xl p-8 sm:p-12 text-center shadow-2xl space-y-6 relative overflow-hidden">
           <div className="space-y-2">
-            <span className="text-xs font-extrabold text-brand-400 uppercase tracking-widest bg-brand-500/10 px-3 py-1 rounded-full border border-brand-500/20">
+            <span className="text-xs font-extrabold text-brand-600 dark:text-brand-400 uppercase tracking-widest bg-brand-500/10 px-3 py-1 rounded-full border border-brand-500/20">
               Authentication Required
             </span>
-            <h1 className="text-3xl font-black text-white tracking-tight">
+            <h1 className="text-3xl font-black text-navy-950 dark:text-white tracking-tight">
               Sign in to Access Portfolio Tracker
             </h1>
-            <p className="text-sm text-gray-300 leading-relaxed max-w-md mx-auto">
+            <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed max-w-md mx-auto">
               Track live equity profit & loss, manage custom portfolios, and import holding statements from Zerodha, Groww, Upstox & Angel One.
             </p>
           </div>
 
-          <div className="bg-navy-950 border border-navy-800/80 rounded-2xl p-5 text-left text-xs text-gray-300 space-y-3">
+          <div className="bg-gray-50 dark:bg-navy-950 border border-gray-200 dark:border-navy-800/80 rounded-2xl p-5 text-left text-xs text-navy-950 dark:text-gray-300 space-y-3">
             <div className="flex items-center gap-3 font-semibold">
-              <span className="text-emerald-400 text-base">✓</span>
+              <span className="text-emerald-500 text-base">✓</span>
               <span>Real-time Live Equity P&L & Return Calculation</span>
             </div>
             <div className="flex items-center gap-3 font-semibold">
-              <span className="text-emerald-400 text-base">✓</span>
+              <span className="text-emerald-500 text-base">✓</span>
               <span>1-Click Statement CSV/Excel Import (Zerodha, Groww, Upstox)</span>
             </div>
             <div className="flex items-center gap-3 font-semibold">
-              <span className="text-emerald-400 text-base">✓</span>
+              <span className="text-emerald-500 text-base">✓</span>
               <span>Interactive Sector Allocation Breakdown</span>
             </div>
           </div>
@@ -332,9 +326,9 @@ export const Portfolio = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
             <Link
               to="/login"
-              className="w-full sm:w-auto px-8 py-3.5 bg-brand-600 hover:bg-brand-500 text-white font-extrabold text-sm rounded-xl shadow-lg shadow-brand-500/25 transition text-center"
+              className="w-full sm:w-auto px-8 py-3.5 bg-transparent border border-brand-600 dark:border-brand-500 text-brand-600 dark:text-brand-400 hover:border-brand-700 font-extrabold text-sm rounded-xl transition text-center"
             >
-              Sign In to Access Portfolio Tracker →
+              Sign In to Access Portfolio Tracker
             </Link>
           </div>
         </div>
@@ -353,16 +347,16 @@ export const Portfolio = () => {
   };
 
   return (
-    <div className="min-h-screen bg-navy-950 text-white py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-white dark:bg-navy-950 text-navy-950 dark:text-white py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto space-y-8">
         
         {/* Header & Portfolio Switcher */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-navy-800 pb-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-200 dark:border-navy-800 pb-6">
           <div>
-            <h1 className="text-3xl font-black tracking-tight text-white flex items-center gap-3">
-              <span>📊 Portfolio Tracker</span>
+            <h1 className="text-3xl font-black tracking-tight text-navy-950 dark:text-white">
+              Portfolio Tracker
             </h1>
-            <p className="text-sm text-gray-400 mt-1">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
               Track live equity values, profit & loss, and import statements from Zerodha, Groww & Upstox
             </p>
           </div>
@@ -372,7 +366,7 @@ export const Portfolio = () => {
             <select
               value={selectedPortfolioId}
               onChange={(e) => setSelectedPortfolioId(e.target.value)}
-              className="bg-navy-900 border border-navy-800 text-white text-sm font-semibold rounded-xl px-4 py-2.5 focus:outline-none focus:border-brand-500"
+              className="bg-white dark:bg-navy-900 border border-gray-300 dark:border-navy-800 text-navy-950 dark:text-white text-sm font-semibold rounded-xl px-4 py-2.5 focus:outline-none focus:border-brand-500 shadow-sm"
             >
               {portfolios.map(p => (
                 <option key={p._id} value={p._id}>
@@ -383,21 +377,15 @@ export const Portfolio = () => {
 
             <button
               onClick={() => setShowAddPortfolioModal(true)}
-              className="px-3.5 py-2.5 bg-navy-900 hover:bg-navy-800 border border-navy-800 text-sm font-semibold rounded-xl transition flex items-center gap-1.5"
+              className="px-3.5 py-2.5 bg-transparent hover:border-gray-400 border border-gray-300 dark:border-navy-700 text-navy-950 dark:text-white text-sm font-semibold rounded-xl transition"
             >
-              <svg className="w-4 h-4 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-              </svg>
               New Portfolio
             </button>
 
             <button
               onClick={() => setShowImportModal(true)}
-              className="px-4 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-sm font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition flex items-center gap-2"
+              className="px-4 py-2.5 bg-transparent hover:border-emerald-700 border border-emerald-600 dark:border-emerald-500 text-emerald-600 dark:text-emerald-400 text-sm font-bold rounded-xl transition"
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-              </svg>
               Import CSV / Excel Statement
             </button>
 
@@ -407,11 +395,8 @@ export const Portfolio = () => {
                 setHoldingForm({ symbol: '', name: '', shares: '', avgBuyPrice: '', broker: 'Zerodha', notes: '' });
                 setShowHoldingModal(true);
               }}
-              className="px-4 py-2.5 bg-brand-600 hover:bg-brand-500 text-white text-sm font-bold rounded-xl shadow-lg shadow-brand-500/20 transition flex items-center gap-2"
+              className="px-4 py-2.5 bg-transparent hover:border-brand-700 border border-brand-600 dark:border-brand-500 text-brand-600 dark:text-brand-400 text-sm font-bold rounded-xl transition"
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-              </svg>
               Add Stock Holding
             </button>
           </div>
@@ -419,9 +404,9 @@ export const Portfolio = () => {
 
         {/* Portfolio Summary Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          <div className="bg-navy-900 border border-navy-800 rounded-3xl p-6 shadow-xl">
+          <div className="bg-white dark:bg-navy-900 border border-gray-200 dark:border-navy-800 rounded-3xl p-6 shadow-xl">
             <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">Current Portfolio Value</p>
-            <h3 className="text-3xl font-black text-white mt-2">
+            <h3 className="text-3xl font-black text-navy-950 dark:text-white mt-2">
               ₹{summary.currentValue.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
             </h3>
             <p className="text-xs text-gray-400 mt-2">
@@ -429,34 +414,34 @@ export const Portfolio = () => {
             </p>
           </div>
 
-          <div className="bg-navy-900 border border-navy-800 rounded-3xl p-6 shadow-xl">
+          <div className="bg-white dark:bg-navy-900 border border-gray-200 dark:border-navy-800 rounded-3xl p-6 shadow-xl">
             <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Invested Value</p>
-            <h3 className="text-3xl font-black text-gray-200 mt-2">
+            <h3 className="text-3xl font-black text-navy-900 dark:text-gray-200 mt-2">
               ₹{summary.totalInvested.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
             </h3>
             <p className="text-xs text-gray-400 mt-2">Initial buy cost in Rupees</p>
           </div>
 
-          <div className="bg-navy-900 border border-navy-800 rounded-3xl p-6 shadow-xl">
+          <div className="bg-white dark:bg-navy-900 border border-gray-200 dark:border-navy-800 rounded-3xl p-6 shadow-xl">
             <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">Overall Returns (P&L)</p>
             <div className="flex items-baseline gap-2 mt-2">
-              <h3 className={`text-3xl font-black ${summary.totalPnl >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+              <h3 className={`text-3xl font-black ${summary.totalPnl >= 0 ? 'text-emerald-500 dark:text-emerald-400' : 'text-rose-500 dark:text-rose-400'}`}>
                 {summary.totalPnl >= 0 ? '+' : ''}₹{summary.totalPnl.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
               </h3>
-              <span className={`text-sm font-bold px-2 py-0.5 rounded-lg ${summary.totalPnl >= 0 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'}`}>
+              <span className={`text-sm font-bold px-2 py-0.5 rounded-lg ${summary.totalPnl >= 0 ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'bg-rose-500/10 text-rose-600 dark:text-rose-400'}`}>
                 {summary.totalPnlPercent >= 0 ? '+' : ''}{summary.totalPnlPercent.toFixed(2)}%
               </span>
             </div>
             <p className="text-xs text-gray-400 mt-2">Unrealized total return</p>
           </div>
 
-          <div className="bg-navy-900 border border-navy-800 rounded-3xl p-6 shadow-xl">
+          <div className="bg-white dark:bg-navy-900 border border-gray-200 dark:border-navy-800 rounded-3xl p-6 shadow-xl">
             <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">1-Day P&L Change</p>
             <div className="flex items-baseline gap-2 mt-2">
-              <h3 className={`text-3xl font-black ${summary.dayPnl >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+              <h3 className={`text-3xl font-black ${summary.dayPnl >= 0 ? 'text-emerald-500 dark:text-emerald-400' : 'text-rose-500 dark:text-rose-400'}`}>
                 {summary.dayPnl >= 0 ? '+' : ''}₹{summary.dayPnl.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
               </h3>
-              <span className={`text-sm font-bold px-2 py-0.5 rounded-lg ${summary.dayPnl >= 0 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'}`}>
+              <span className={`text-sm font-bold px-2 py-0.5 rounded-lg ${summary.dayPnl >= 0 ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'bg-rose-500/10 text-rose-600 dark:text-rose-400'}`}>
                 {summary.dayPnlPercent >= 0 ? '+' : ''}{summary.dayPnlPercent.toFixed(2)}%
               </span>
             </div>
@@ -466,16 +451,16 @@ export const Portfolio = () => {
 
         {/* Sector Allocation Breakdown */}
         {currentPortfolio?.sectorAllocation?.length > 0 && (
-          <div className="bg-navy-900 border border-navy-800 rounded-3xl p-6 shadow-xl">
-            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-              <span>🍰 Sector Allocation</span>
+          <div className="bg-white dark:bg-navy-900 border border-gray-200 dark:border-navy-800 rounded-3xl p-6 shadow-xl">
+            <h3 className="text-lg font-bold text-navy-950 dark:text-white mb-4">
+              Sector Allocation
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
               {currentPortfolio.sectorAllocation.map((item, idx) => (
-                <div key={idx} className="bg-navy-950 border border-navy-800 p-3.5 rounded-2xl">
-                  <p className="text-xs font-bold text-gray-400 truncate">{item.sector}</p>
-                  <p className="text-base font-black text-brand-400 mt-1">{item.percentage}%</p>
-                  <p className="text-xs text-gray-500 mt-0.5">₹{item.value.toLocaleString('en-IN')}</p>
+                <div key={idx} className="bg-gray-50 dark:bg-navy-950 border border-gray-200 dark:border-navy-800 p-3.5 rounded-2xl">
+                  <p className="text-xs font-bold text-gray-500 dark:text-gray-400 truncate">{item.sector}</p>
+                  <p className="text-base font-black text-brand-600 dark:text-brand-400 mt-1">{item.percentage}%</p>
+                  <p className="text-xs text-gray-400 mt-0.5">₹{item.value.toLocaleString('en-IN')}</p>
                 </div>
               ))}
             </div>
@@ -483,16 +468,16 @@ export const Portfolio = () => {
         )}
 
         {/* Holdings Table */}
-        <div className="bg-navy-900 border border-navy-800 rounded-3xl overflow-hidden shadow-2xl">
-          <div className="px-6 py-5 border-b border-navy-800 flex justify-between items-center">
+        <div className="bg-white dark:bg-navy-900 border border-gray-200 dark:border-navy-800 rounded-3xl overflow-hidden shadow-2xl">
+          <div className="px-6 py-5 border-b border-gray-200 dark:border-navy-800 flex justify-between items-center bg-gray-50 dark:bg-navy-950/40">
             <div>
-              <h2 className="text-xl font-bold text-white">Stock Holdings ({currentPortfolio?.holdings?.length || 0})</h2>
+              <h2 className="text-xl font-bold text-navy-950 dark:text-white">Stock Holdings ({currentPortfolio?.holdings?.length || 0})</h2>
               <p className="text-xs text-gray-400">All prices in Indian Rupees (₹ INR)</p>
             </div>
             {currentPortfolio && portfolios.length > 1 && (
               <button
                 onClick={() => handleDeletePortfolio(currentPortfolio._id)}
-                className="text-xs text-rose-400 hover:text-rose-300 font-semibold px-3 py-1.5 bg-rose-500/10 rounded-lg transition"
+                className="text-xs text-rose-600 dark:text-rose-400 border border-rose-600 dark:border-rose-400 hover:border-rose-700 bg-transparent font-semibold px-3 py-1.5 rounded-lg transition"
               >
                 Delete Portfolio
               </button>
@@ -501,25 +486,20 @@ export const Portfolio = () => {
 
           {(!currentPortfolio?.holdings || currentPortfolio.holdings.length === 0) ? (
             <div className="p-12 text-center">
-              <div className="w-16 h-16 rounded-3xl bg-navy-950 border border-navy-800 text-gray-500 flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-bold text-white">No stocks in this portfolio yet</h3>
+              <h3 className="text-lg font-bold text-navy-950 dark:text-white">No stocks in this portfolio yet</h3>
               <p className="text-sm text-gray-400 max-w-md mx-auto mt-1 mb-6">
                 Add your stock holdings manually or upload your CSV / Excel holding statement from Zerodha, Groww, or Upstox.
               </p>
               <div className="flex justify-center gap-3">
                 <button
                   onClick={() => setShowImportModal(true)}
-                  className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm rounded-xl transition"
+                  className="px-4 py-2.5 bg-transparent border border-emerald-600 dark:border-emerald-500 text-emerald-600 dark:text-emerald-400 hover:border-emerald-700 font-bold text-sm rounded-xl transition"
                 >
                   Import Broker Statement
                 </button>
                 <button
                   onClick={() => setShowHoldingModal(true)}
-                  className="px-4 py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-bold text-sm rounded-xl transition"
+                  className="px-4 py-2.5 bg-transparent border border-brand-600 dark:border-brand-500 text-brand-600 dark:text-brand-400 hover:border-brand-700 font-bold text-sm rounded-xl transition"
                 >
                   Add Holding Manually
                 </button>
@@ -529,7 +509,7 @@ export const Portfolio = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="border-b border-navy-800 text-xs font-bold text-gray-400 uppercase tracking-wider bg-navy-950/60">
+                  <tr className="border-b border-gray-200 dark:border-navy-800 text-xs font-bold text-gray-400 uppercase tracking-wider bg-gray-50 dark:bg-navy-950/60">
                     <th className="px-6 py-4">Stock</th>
                     <th className="px-4 py-4 text-right">Shares</th>
                     <th className="px-4 py-4 text-right">Avg Price (₹)</th>
@@ -540,19 +520,19 @@ export const Portfolio = () => {
                     <th className="px-4 py-4 text-center">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-navy-800 text-sm">
+                <tbody className="divide-y divide-gray-100 dark:divide-navy-800 text-sm">
                   {currentPortfolio.holdings.map((h) => (
-                    <tr key={h._id || h.symbol} className="hover:bg-navy-800/50 transition">
+                    <tr key={h._id || h.symbol} className="hover:bg-gray-50 dark:hover:bg-navy-800/50 transition">
                       <td className="px-6 py-4 font-bold">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-xl bg-navy-950 border border-navy-800 flex items-center justify-center font-black text-brand-400 text-xs">
+                          <div className="w-9 h-9 rounded-xl border border-gray-300 dark:border-navy-800 flex items-center justify-center font-black text-brand-600 dark:text-brand-400 text-xs">
                             {h.symbol.slice(0, 3)}
                           </div>
                           <div>
-                            <div className="text-white font-extrabold flex items-center gap-2">
+                            <div className="text-navy-950 dark:text-white font-extrabold flex items-center gap-2">
                               {h.symbol}
                               {h.broker && (
-                                <span className="text-[10px] font-semibold text-gray-400 bg-navy-950 px-2 py-0.5 rounded-md border border-navy-800">
+                                <span className="text-[10px] font-semibold text-gray-500 bg-gray-100 dark:bg-navy-950 px-2 py-0.5 rounded-md border border-gray-200 dark:border-navy-800">
                                   {h.broker}
                                 </span>
                               )}
@@ -563,31 +543,31 @@ export const Portfolio = () => {
                           </div>
                         </div>
                       </td>
-                      <td className="px-4 py-4 text-right font-bold text-white">
+                      <td className="px-4 py-4 text-right font-bold text-navy-950 dark:text-white">
                         {h.shares}
                       </td>
-                      <td className="px-4 py-4 text-right text-gray-300">
+                      <td className="px-4 py-4 text-right text-gray-600 dark:text-gray-300">
                         ₹{Number(h.avgBuyPrice).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                       </td>
-                      <td className="px-4 py-4 text-right font-bold text-white">
+                      <td className="px-4 py-4 text-right font-bold text-navy-950 dark:text-white">
                         ₹{Number(h.livePrice).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                         {h.dayChangePercent !== undefined && (
-                          <div className={`text-[11px] font-semibold ${h.dayChangePercent >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                          <div className={`text-[11px] font-semibold ${h.dayChangePercent >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
                             {h.dayChangePercent >= 0 ? '+' : ''}{h.dayChangePercent}%
                           </div>
                         )}
                       </td>
-                      <td className="px-4 py-4 text-right text-gray-300">
+                      <td className="px-4 py-4 text-right text-gray-600 dark:text-gray-300">
                         ₹{Number(h.investedValue).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                       </td>
-                      <td className="px-4 py-4 text-right font-black text-white">
+                      <td className="px-4 py-4 text-right font-black text-navy-950 dark:text-white">
                         ₹{Number(h.currentValue).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                       </td>
                       <td className="px-4 py-4 text-right">
-                        <div className={`font-black ${h.pnl >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                        <div className={`font-black ${h.pnl >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
                           {h.pnl >= 0 ? '+' : ''}₹{Number(h.pnl).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                         </div>
-                        <div className={`text-xs font-bold ${h.pnlPercent >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                        <div className={`text-xs font-bold ${h.pnlPercent >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
                           {h.pnlPercent >= 0 ? '+' : ''}{h.pnlPercent}%
                         </div>
                       </td>
@@ -595,17 +575,17 @@ export const Portfolio = () => {
                         <div className="flex items-center justify-center gap-2">
                           <button
                             onClick={() => handleEditHolding(h)}
-                            className="p-1.5 hover:bg-navy-950 text-gray-400 hover:text-white rounded-lg transition"
+                            className="px-2.5 py-1 bg-transparent border border-gray-300 dark:border-navy-700 hover:border-gray-400 text-navy-950 dark:text-gray-300 rounded-lg transition text-xs font-semibold"
                             title="Edit Holding"
                           >
-                            ✏️
+                            Edit
                           </button>
                           <button
                             onClick={() => handleDeleteHolding(h._id)}
-                            className="p-1.5 hover:bg-navy-950 text-gray-400 hover:text-rose-400 rounded-lg transition"
+                            className="px-2.5 py-1 bg-transparent border border-rose-600 dark:border-rose-400 hover:border-rose-700 text-rose-600 dark:text-rose-400 rounded-lg transition text-xs font-semibold"
                             title="Remove Stock"
                           >
-                            🗑️
+                            Delete
                           </button>
                         </div>
                       </td>
@@ -620,31 +600,31 @@ export const Portfolio = () => {
         {/* --- Create Portfolio Modal --- */}
         {showAddPortfolioModal && (
           <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div className="bg-navy-900 border border-navy-800 rounded-3xl p-6 max-w-md w-full shadow-2xl">
-              <h3 className="text-xl font-bold text-white mb-4">Create New Portfolio</h3>
+            <div className="bg-white dark:bg-navy-900 border border-gray-200 dark:border-navy-800 rounded-3xl p-6 max-w-md w-full shadow-2xl">
+              <h3 className="text-xl font-bold text-navy-950 dark:text-white mb-4">Create New Portfolio</h3>
               <form onSubmit={handleCreatePortfolio} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-1">Portfolio Name</label>
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Portfolio Name</label>
                   <input
                     type="text"
                     required
                     value={newPortfolioName}
                     onChange={(e) => setNewPortfolioName(e.target.value)}
                     placeholder="e.g. Long Term Wealth, Tech Portfolio"
-                    className="w-full px-4 py-2.5 bg-navy-950 border border-navy-800 rounded-xl text-white focus:outline-none focus:border-brand-500"
+                    className="w-full px-4 py-2.5 bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl text-navy-950 dark:text-white focus:outline-none focus:border-brand-500"
                   />
                 </div>
                 <div className="flex justify-end gap-3 pt-2">
                   <button
                     type="button"
                     onClick={() => setShowAddPortfolioModal(false)}
-                    className="px-4 py-2 bg-navy-950 hover:bg-navy-800 text-gray-300 font-semibold rounded-xl text-sm"
+                    className="px-4 py-2 bg-transparent border border-gray-300 dark:border-navy-700 hover:border-gray-400 text-gray-700 dark:text-gray-300 font-semibold rounded-xl text-sm transition"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-xl text-sm shadow-md"
+                    className="px-4 py-2 bg-transparent border border-brand-600 dark:border-brand-500 text-brand-600 dark:text-brand-400 hover:border-brand-700 font-bold rounded-xl text-sm transition"
                   >
                     Create Portfolio
                   </button>
@@ -657,37 +637,37 @@ export const Portfolio = () => {
         {/* --- Add / Edit Holding Modal --- */}
         {showHoldingModal && (
           <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div className="bg-navy-900 border border-navy-800 rounded-3xl p-6 max-w-md w-full shadow-2xl">
-              <h3 className="text-xl font-bold text-white mb-4">
+            <div className="bg-white dark:bg-navy-900 border border-gray-200 dark:border-navy-800 rounded-3xl p-6 max-w-md w-full shadow-2xl">
+              <h3 className="text-xl font-bold text-navy-950 dark:text-white mb-4">
                 {editingHolding ? 'Edit Holding' : 'Add Stock Holding'}
               </h3>
               <form onSubmit={handleSaveHolding} className="space-y-4">
                 
                 {/* Symbol with auto-suggest */}
                 <div className="relative">
-                  <label className="block text-xs font-semibold text-gray-300 mb-1">Stock Symbol (NSE/BSE)</label>
+                  <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Stock Symbol (NSE/BSE)</label>
                   <input
                     type="text"
                     required
                     value={stockQuery}
                     onChange={(e) => handleStockSearch(e.target.value)}
                     placeholder="Search e.g. RELIANCE, TCS, INFY, TATAMOTORS"
-                    className="w-full px-4 py-2.5 bg-navy-950 border border-navy-800 rounded-xl text-white uppercase focus:outline-none focus:border-brand-500"
+                    className="w-full px-4 py-2.5 bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl text-navy-950 dark:text-white uppercase focus:outline-none focus:border-brand-500"
                   />
 
                   {stockSuggestions.length > 0 && (
-                    <div className="absolute left-0 right-0 mt-1 bg-navy-950 border border-navy-800 rounded-xl shadow-2xl max-h-48 overflow-y-auto z-20 divide-y divide-navy-800">
+                    <div className="absolute left-0 right-0 mt-1 bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl shadow-2xl max-h-48 overflow-y-auto z-20 divide-y divide-gray-100 dark:divide-navy-800">
                       {stockSuggestions.map((s) => (
                         <div
                           key={s._id}
                           onClick={() => selectSuggestedStock(s)}
-                          className="p-2.5 hover:bg-navy-800 cursor-pointer flex justify-between items-center"
+                          className="p-2.5 hover:bg-gray-50 dark:hover:bg-navy-800 cursor-pointer flex justify-between items-center"
                         >
                           <div>
-                            <span className="font-bold text-white text-sm">{s.symbol}</span>
+                            <span className="font-bold text-navy-950 dark:text-white text-sm">{s.symbol}</span>
                             <span className="text-xs text-gray-400 ml-2">{s.companyName}</span>
                           </div>
-                          <span className="text-xs font-bold text-brand-400">₹{s.currentPrice}</span>
+                          <span className="text-xs font-bold text-brand-600 dark:text-brand-400">₹{s.currentPrice}</span>
                         </div>
                       ))}
                     </div>
@@ -696,7 +676,7 @@ export const Portfolio = () => {
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-300 mb-1">Share Quantity</label>
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Share Quantity</label>
                     <input
                       type="number"
                       step="any"
@@ -705,12 +685,12 @@ export const Portfolio = () => {
                       value={holdingForm.shares}
                       onChange={(e) => setHoldingForm({ ...holdingForm, shares: e.target.value })}
                       placeholder="e.g. 50"
-                      className="w-full px-4 py-2.5 bg-navy-950 border border-navy-800 rounded-xl text-white focus:outline-none focus:border-brand-500"
+                      className="w-full px-4 py-2.5 bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl text-navy-950 dark:text-white focus:outline-none focus:border-brand-500"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-gray-300 mb-1">Avg Buy Price (₹ INR)</label>
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Avg Buy Price (₹ INR)</label>
                     <input
                       type="number"
                       step="any"
@@ -719,18 +699,18 @@ export const Portfolio = () => {
                       value={holdingForm.avgBuyPrice}
                       onChange={(e) => setHoldingForm({ ...holdingForm, avgBuyPrice: e.target.value })}
                       placeholder="e.g. 2450.50"
-                      className="w-full px-4 py-2.5 bg-navy-950 border border-navy-800 rounded-xl text-white focus:outline-none focus:border-brand-500"
+                      className="w-full px-4 py-2.5 bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl text-navy-950 dark:text-white focus:outline-none focus:border-brand-500"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-300 mb-1">Broker</label>
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Broker</label>
                     <select
                       value={holdingForm.broker}
                       onChange={(e) => setHoldingForm({ ...holdingForm, broker: e.target.value })}
-                      className="w-full px-3 py-2.5 bg-navy-950 border border-navy-800 rounded-xl text-white focus:outline-none focus:border-brand-500"
+                      className="w-full px-3 py-2.5 bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl text-navy-950 dark:text-white focus:outline-none focus:border-brand-500"
                     >
                       <option value="Zerodha">Zerodha</option>
                       <option value="Groww">Groww</option>
@@ -743,13 +723,13 @@ export const Portfolio = () => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-gray-300 mb-1">Notes (Optional)</label>
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Notes (Optional)</label>
                     <input
                       type="text"
                       value={holdingForm.notes}
                       onChange={(e) => setHoldingForm({ ...holdingForm, notes: e.target.value })}
                       placeholder="e.g. Long term target"
-                      className="w-full px-3 py-2.5 bg-navy-950 border border-navy-800 rounded-xl text-white focus:outline-none focus:border-brand-500"
+                      className="w-full px-3 py-2.5 bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl text-navy-950 dark:text-white focus:outline-none focus:border-brand-500"
                     />
                   </div>
                 </div>
@@ -758,13 +738,13 @@ export const Portfolio = () => {
                   <button
                     type="button"
                     onClick={() => setShowHoldingModal(false)}
-                    className="px-4 py-2 bg-navy-950 hover:bg-navy-800 text-gray-300 font-semibold rounded-xl text-sm"
+                    className="px-4 py-2 bg-transparent border border-gray-300 dark:border-navy-700 hover:border-gray-400 text-gray-700 dark:text-gray-300 font-semibold rounded-xl text-sm transition"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-xl text-sm shadow-md"
+                    className="px-4 py-2 bg-transparent border border-brand-600 dark:border-brand-500 text-brand-600 dark:text-brand-400 hover:border-brand-700 font-bold rounded-xl text-sm transition"
                   >
                     Save Holding
                   </button>
@@ -777,11 +757,11 @@ export const Portfolio = () => {
         {/* --- Statement CSV / Excel Import Modal --- */}
         {showImportModal && (
           <div className="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div className="bg-navy-900 border border-navy-800 rounded-3xl p-6 max-w-lg w-full shadow-2xl">
+            <div className="bg-white dark:bg-navy-900 border border-gray-200 dark:border-navy-800 rounded-3xl p-6 max-w-lg w-full shadow-2xl">
               <div className="flex justify-between items-center mb-4">
                 <div>
-                  <h3 className="text-xl font-black text-white flex items-center gap-2">
-                    <span>📄 Import Broker Holding Statement</span>
+                  <h3 className="text-xl font-black text-navy-950 dark:text-white">
+                    Import Broker Holding Statement
                   </h3>
                   <p className="text-xs text-gray-400 mt-0.5">
                     Upload statement CSV/Excel from Zerodha, Groww, Upstox, Angel One, ICICI, etc.
@@ -789,48 +769,48 @@ export const Portfolio = () => {
                 </div>
                 <button
                   onClick={() => setShowImportModal(false)}
-                  className="text-gray-400 hover:text-white text-lg font-bold"
+                  className="px-2.5 py-1 bg-transparent border border-gray-300 dark:border-navy-700 hover:border-gray-400 text-gray-700 dark:text-gray-300 text-xs font-bold rounded-lg transition"
                 >
-                  ✕
+                  Close
                 </button>
               </div>
 
               {importMessage && (
                 <div className={`p-4 rounded-2xl mb-4 text-sm font-semibold flex items-center gap-3 ${
                   importMessage.type === 'success'
-                    ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400'
-                    : 'bg-rose-500/10 border border-rose-500/30 text-rose-400'
+                    ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400'
+                    : 'bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400'
                 }`}>
                   <span>{importMessage.text}</span>
                 </div>
               )}
 
-              <div className="flex gap-2 border-b border-navy-800 mb-4">
+              <div className="flex gap-2 border-b border-gray-200 dark:border-navy-800 mb-4">
                 <button
                   onClick={() => setImportTab('file')}
                   className={`pb-2 px-3 text-sm font-bold border-b-2 transition ${
-                    importTab === 'file' ? 'border-brand-500 text-brand-400' : 'border-transparent text-gray-400'
+                    importTab === 'file' ? 'border-brand-500 text-brand-600 dark:text-brand-400' : 'border-transparent text-gray-400'
                   }`}
                 >
-                  📁 Upload File (.csv, .xlsx, .xls)
+                  Upload File (.csv, .xlsx, .xls)
                 </button>
                 <button
                   onClick={() => setImportTab('paste')}
                   className={`pb-2 px-3 text-sm font-bold border-b-2 transition ${
-                    importTab === 'paste' ? 'border-brand-500 text-brand-400' : 'border-transparent text-gray-400'
+                    importTab === 'paste' ? 'border-brand-500 text-brand-600 dark:text-brand-400' : 'border-transparent text-gray-400'
                   }`}
                 >
-                  📋 Paste CSV Text
+                  Paste CSV Text
                 </button>
               </div>
 
               <form onSubmit={handleImportStatement} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold text-gray-300 mb-1">Select Broker</label>
+                  <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Select Broker</label>
                   <select
                     value={importBroker}
                     onChange={(e) => setImportBroker(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-navy-950 border border-navy-800 rounded-xl text-white focus:outline-none focus:border-brand-500"
+                    className="w-full px-4 py-2.5 bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl text-navy-950 dark:text-white focus:outline-none focus:border-brand-500"
                   >
                     <option value="Zerodha">Zerodha Console Holding Statement</option>
                     <option value="Groww">Groww Stocks Holding Statement</option>
@@ -844,49 +824,45 @@ export const Portfolio = () => {
 
                 {importTab === 'file' ? (
                   <div>
-                    <label className="block text-xs font-semibold text-gray-300 mb-1">Statement File</label>
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Statement File</label>
                     <input
                       type="file"
                       accept=".csv, .xlsx, .xls"
                       onChange={(e) => setImportFile(e.target.files[0])}
-                      className="w-full p-3 bg-navy-950 border border-navy-800 rounded-xl text-white text-sm focus:outline-none"
+                      className="w-full p-3 bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl text-navy-950 dark:text-white text-sm focus:outline-none"
                     />
                     <p className="text-[11px] text-gray-400 mt-1.5">
                       Supports Zerodha Console holding Excel/CSV, Groww CSV, Upstox statement, or CSV with headers: 
-                      <code className="text-brand-400 ml-1">Symbol, Quantity, Avg Price, Invested Value</code>
+                      <code className="text-brand-600 dark:text-brand-400 ml-1">Symbol, Quantity, Avg Price, Invested Value</code>
                     </p>
                   </div>
                 ) : (
                   <div>
-                    <label className="block text-xs font-semibold text-gray-300 mb-1">Paste CSV Contents</label>
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Paste CSV Contents</label>
                     <textarea
                       rows={5}
                       value={rawCsvText}
                       onChange={(e) => setRawCsvText(e.target.value)}
                       placeholder={`Symbol, Quantity, Avg Price\nRELIANCE, 25, 2450.50\nTCS, 10, 3800.00\nINFY, 40, 1420.00`}
-                      className="w-full p-3 bg-navy-950 border border-navy-800 rounded-xl text-white text-xs font-mono focus:outline-none focus:border-brand-500"
+                      className="w-full p-3 bg-white dark:bg-navy-950 border border-gray-300 dark:border-navy-800 rounded-xl text-navy-950 dark:text-white text-xs font-mono focus:outline-none focus:border-brand-500"
                     ></textarea>
                   </div>
                 )}
 
-                <div className="flex justify-end gap-3 pt-3 border-t border-navy-800">
+                <div className="flex justify-end gap-3 pt-3 border-t border-gray-200 dark:border-navy-800">
                   <button
                     type="button"
                     onClick={() => setShowImportModal(false)}
-                    className="px-4 py-2 bg-navy-950 hover:bg-navy-800 text-gray-300 font-semibold rounded-xl text-sm"
+                    className="px-4 py-2 bg-transparent border border-gray-300 dark:border-navy-700 hover:border-gray-400 text-gray-700 dark:text-gray-300 font-semibold rounded-xl text-sm transition"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={importLoading}
-                    className="px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-xl text-sm shadow-md flex items-center gap-2 disabled:opacity-50"
+                    className="px-5 py-2.5 bg-transparent border border-emerald-600 dark:border-emerald-500 text-emerald-600 dark:text-emerald-400 hover:border-emerald-700 font-bold rounded-xl text-sm transition disabled:opacity-50"
                   >
-                    {importLoading ? (
-                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    ) : (
-                      'Import Holdings Now'
-                    )}
+                    {importLoading ? 'Importing Holdings...' : 'Import Holdings Now'}
                   </button>
                 </div>
               </form>

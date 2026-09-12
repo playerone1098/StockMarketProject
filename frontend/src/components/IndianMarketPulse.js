@@ -113,20 +113,20 @@ export const IndianMarketPulse = () => {
         </div>
 
         {/* Tab Controls */}
-        <div className="flex bg-gray-100 p-1 rounded-2xl gap-1 text-xs font-extrabold overflow-x-auto">
+        <div className="flex bg-transparent p-1 rounded-2xl gap-1 text-xs font-extrabold overflow-x-auto">
           {[
-            { id: 'commodities', label: '🥇 Commodity Futures' },
-            { id: 'shockers', label: '⚡ Price Shockers' },
-            { id: 'highlow', label: '📈 52W High / Low' },
-            { id: 'mostactive', label: '🔥 Most Active (Volume)' }
+            { id: 'commodities', label: 'Commodity Futures' },
+            { id: 'shockers', label: 'Price Shockers' },
+            { id: 'highlow', label: '52W High / Low' },
+            { id: 'mostactive', label: 'Most Active (Volume)' }
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`px-4 py-2 rounded-xl transition whitespace-nowrap ${
                 activeTab === tab.id
-                  ? 'bg-navy-950 text-white shadow-sm'
-                  : 'text-gray-600 hover:text-navy-950'
+                  ? 'border-2 border-navy-950 dark:border-white text-navy-950 dark:text-white bg-transparent font-black'
+                  : 'border border-transparent text-gray-600 dark:text-gray-400 hover:text-navy-950 dark:hover:text-white hover:border-gray-300 dark:hover:border-navy-700 bg-transparent'
               }`}
             >
               {tab.label}
@@ -211,7 +211,7 @@ export const IndianMarketPulse = () => {
               {/* 52W High */}
               <div className="space-y-3">
                 <h3 className="text-sm font-extrabold text-emerald-700 flex items-center gap-2">
-                  <span>🚀</span> 52-Week High Breakouts (NSE)
+                  52-Week High Breakouts (NSE)
                 </h3>
                 <div className="space-y-2">
                   {(highLowData?.NSE_52WeekHighLow?.high52Week || []).map((item, idx) => (
@@ -232,7 +232,7 @@ export const IndianMarketPulse = () => {
               {/* 52W Low */}
               <div className="space-y-3">
                 <h3 className="text-sm font-extrabold text-rose-700 flex items-center gap-2">
-                  <span>📉</span> 52-Week Low Touch (NSE)
+                  52-Week Low Touch (NSE)
                 </h3>
                 <div className="space-y-2">
                   {(highLowData?.NSE_52WeekHighLow?.low52Week || []).map((item, idx) => (

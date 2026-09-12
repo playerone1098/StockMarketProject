@@ -51,20 +51,19 @@ export const MarketMovers = ({ movers, isLoading }) => {
           Market Pulse & Movers
         </h2>
 
-        <div className="flex flex-wrap items-center gap-1.5 bg-navy-950 p-1 rounded-xl border border-navy-800">
+        <div className="flex flex-wrap items-center gap-1.5 bg-transparent p-1 rounded-xl border border-navy-800">
           {tabs.map(tab => {
             const isActive = activeTab === tab.id;
             return (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all bg-transparent ${
                   isActive
-                    ? 'bg-navy-800 text-white shadow'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-navy-900'
+                    ? 'border-2 border-white text-white font-bold'
+                    : 'border border-transparent text-slate-400 hover:text-slate-200 hover:border-navy-700'
                 }`}
               >
-                <span className={`w-2 h-2 rounded-full ${tab.color.replace('text-', 'bg-')}`}></span>
                 {tab.label}
               </button>
             );

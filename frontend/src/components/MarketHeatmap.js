@@ -117,9 +117,9 @@ export const MarketHeatmap = ({ sectors, isLoading, error, onSelectSector }) => 
                   {onSelectSector && (
                     <button
                       onClick={() => onSelectSector(sector.name)}
-                      className="text-[10px] text-cyan-400 hover:text-cyan-300 font-semibold hover:underline"
+                      className="text-[10px] px-2 py-0.5 border border-cyan-500/50 hover:border-cyan-400 text-cyan-400 hover:text-cyan-300 font-semibold rounded bg-transparent transition"
                     >
-                      Screen Sector →
+                      Screen Sector
                     </button>
                   )}
                 </div>

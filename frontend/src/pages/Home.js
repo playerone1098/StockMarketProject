@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { 
-  fetchFeaturedTradingIdeas, 
-  fetchIPOs, 
-  fetchFeaturedBlogs, 
-  fetchMarketStats, 
-  fetchStocks 
+import {
+  fetchFeaturedTradingIdeas,
+  fetchIPOs,
+  fetchFeaturedBlogs,
+  fetchMarketStats,
+  fetchStocks
 } from '../services/api';
 import { IdeaCard } from '../components/IdeaCard';
 import { IPOCard } from '../components/IPOCard';
@@ -106,12 +106,12 @@ export const Home = () => {
     }
   };
 
-  const filteredIdeas = ideaFilter === 'all' 
-    ? featuredIdeas 
-    : featuredIdeas.filter(idea => 
-        idea.timeHorizon?.toLowerCase().includes(ideaFilter) || 
-        idea.ideaType?.toLowerCase() === ideaFilter
-      );
+  const filteredIdeas = ideaFilter === 'all'
+    ? featuredIdeas
+    : featuredIdeas.filter(idea =>
+      idea.timeHorizon?.toLowerCase().includes(ideaFilter) ||
+      idea.ideaType?.toLowerCase() === ideaFilter
+    );
 
   const websiteJsonLd = {
     '@context': 'https://schema.org',
@@ -171,9 +171,9 @@ export const Home = () => {
         {/* Glowing Background Orbs */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-brand-500/10 dark:bg-brand-500/15 rounded-full blur-[120px] pointer-events-none"></div>
         <div className="absolute top-1/3 right-10 w-[300px] h-[300px] bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-[100px] pointer-events-none"></div>
-        
+
         <div className="max-w-5xl mx-auto px-4 relative z-10 text-center">
-          
+
           <div className="inline-flex items-center gap-2 bg-brand-50 dark:bg-navy-800/80 backdrop-blur-md border border-brand-500/30 px-4 py-1.5 rounded-full text-xs font-bold text-brand-700 dark:text-brand-300 shadow-inner mb-6">
             <span className="flex h-2 w-2 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
@@ -285,28 +285,24 @@ export const Home = () => {
         {/* Real Platform Statistics Counter */}
         <section className="bg-white dark:bg-navy-900 rounded-3xl p-8 text-slate-900 dark:text-white shadow-md relative overflow-hidden border border-slate-200 dark:border-navy-800 transition-colors duration-200">
           <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center relative z-10">
             <div className="p-4 bg-white dark:bg-navy-950/60 rounded-2xl border border-slate-200 dark:border-navy-800">
-              <div className="w-10 h-10 mx-auto mb-2 rounded-xl border border-brand-500/30 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold text-xs">ST</div>
               <div className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">{stats.stocks}</div>
               <div className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider mt-1">Stocks Tracked</div>
             </div>
-            
+
             <div className="p-4 bg-white dark:bg-navy-950/60 rounded-2xl border border-slate-200 dark:border-navy-800">
-              <div className="w-10 h-10 mx-auto mb-2 rounded-xl border border-brand-500/30 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold text-xs">TI</div>
               <div className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">{stats.ideas}</div>
               <div className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider mt-1">Trading Ideas</div>
             </div>
-            
+
             <div className="p-4 bg-white dark:bg-navy-950/60 rounded-2xl border border-slate-200 dark:border-navy-800">
-              <div className="w-10 h-10 mx-auto mb-2 rounded-xl border border-brand-500/30 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold text-xs">IP</div>
               <div className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">{stats.ipos}</div>
               <div className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider mt-1">Active IPOs</div>
             </div>
-            
+
             <div className="p-4 bg-white dark:bg-navy-950/60 rounded-2xl border border-slate-200 dark:border-navy-800">
-              <div className="w-10 h-10 mx-auto mb-2 rounded-xl border border-brand-500/30 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold text-xs">RB</div>
               <div className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">{stats.blogs}</div>
               <div className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider mt-1">Research Blogs</div>
             </div>
@@ -422,8 +418,8 @@ export const Home = () => {
               <h2 className="text-3xl font-extrabold text-navy-950 dark:text-white">Active & Upcoming IPOs</h2>
               <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">Track subscription status, price bands, and listing dates from database</p>
             </div>
-            <Link 
-              to="/ipos" 
+            <Link
+              to="/ipos"
               className="px-5 py-2.5 border border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-300 hover:border-brand-700 dark:hover:border-brand-200 font-bold text-xs rounded-xl transition bg-transparent"
             >
               Explore Full IPO Board

@@ -258,19 +258,19 @@ export const Home = () => {
           <div className="flex flex-nowrap justify-center items-center gap-3 sm:gap-4 overflow-x-auto whitespace-nowrap py-1 max-w-full px-2">
             <Link
               to="/trading-ideas"
-              className="px-5 sm:px-6 py-3 border border-brand-400 text-brand-300 hover:border-brand-300 hover:text-white rounded-xl text-sm font-bold bg-transparent transition-all shrink-0 whitespace-nowrap"
+              className="px-5 sm:px-6 py-3 border border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-300 hover:border-brand-700 dark:hover:border-brand-200 hover:text-brand-700 dark:hover:text-white rounded-xl text-sm font-bold bg-transparent transition-all shrink-0 whitespace-nowrap"
             >
-              Browse Trading Setups
+              Browse Trading Ideas
             </Link>
             <Link
               to="/ipos"
-              className="px-5 sm:px-6 py-3 border border-slate-600 hover:border-slate-400 text-white rounded-xl text-sm font-bold bg-transparent transition-all shrink-0 whitespace-nowrap"
+              className="px-5 sm:px-6 py-3 border border-slate-300 dark:border-slate-600 hover:border-slate-500 dark:hover:border-slate-400 text-slate-800 dark:text-white hover:text-slate-950 dark:hover:text-slate-100 rounded-xl text-sm font-bold bg-transparent transition-all shrink-0 whitespace-nowrap"
             >
               Track Live IPOs
             </Link>
             <Link
               to="/portfolio"
-              className="px-5 sm:px-6 py-3 border border-emerald-500/40 hover:border-emerald-400 text-emerald-400 rounded-xl text-sm font-bold bg-transparent transition-all shrink-0 whitespace-nowrap"
+              className="px-5 sm:px-6 py-3 border border-emerald-600/50 dark:border-emerald-500/40 hover:border-emerald-700 dark:hover:border-emerald-400 text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 rounded-xl text-sm font-bold bg-transparent transition-all shrink-0 whitespace-nowrap"
             >
               Portfolio Tracker
             </Link>

@@ -27,8 +27,8 @@ const getBaseURL = () => {
     return `http://${hostname}:5000`;
   }
 
-  // Use build-time environment variable if defined, fallback to AWS deployment
-  return process.env.REACT_APP_API_URL || 'http://52.91.30.253:5000';
+  // Use build-time environment variable if defined, fallback to Render production backend
+  return process.env.REACT_APP_API_URL || 'https://stockmarketproject-zk90.onrender.com';
 };
 
 axios.defaults.baseURL = getBaseURL();

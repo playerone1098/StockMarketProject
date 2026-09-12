@@ -17,11 +17,31 @@ export const WebSocketProvider = ({ children }) => {
   const isAllSubscribedRef = useRef(false);
 
   const getWsUrl = () => {
+    if (process.env.REACT_APP_WS_URL) {
+      return process.env.REACT_APP_WS_URL;
+    }
+
+    const hostname = window.location.hostname;
+    const isLocal =
+      hostname === 'localhost' ||
+      hostname === '127.0.0.1' ||
+      hostname.startsWith('192.168.') ||
+      hostname.startsWith('10.') ||
+      hostname.endsWith('.local');
+
+    if (isLocal) {
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      const port = process.env.NODE_ENV === 'development' ? '5000' : (window.location.port || '5000');
+      return `${protocol}//${hostname}:${port}/ws/live`;
+    }
+
+    const apiBase = process.env.REACT_APP_API_URL || 'https://stockmarketproject-zk90.onrender.com';
+    if (apiBase.startsWith('http')) {
+      return apiBase.replace(/^http/, 'ws').replace(/\/$/, '') + '/ws/live';
+    }
+
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const host = window.location.hostname;
-    // In dev mode, backend runs on port 5000 unless proxied
-    const port = process.env.NODE_ENV === 'development' ? '5000' : window.location.port;
-    return `${protocol}//${host}${port ? `:${port}` : ''}/ws/live`;
+    return `${protocol}//${hostname}/ws/live`;
   };
 
   const connect = useCallback(() => {

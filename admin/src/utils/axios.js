@@ -20,8 +20,8 @@ const getBaseURL = () => {
     return `http://${hostname}:5000/api`;
   }
 
-  // Use environment variable or fallback to production AWS URL
-  const apiBase = process.env.REACT_APP_API_URL || 'http://52.91.30.253:5000';
+  // Use environment variable or fallback to production Render backend URL
+  const apiBase = process.env.REACT_APP_API_URL || 'https://stockmarketproject-zk90.onrender.com';
   return `${apiBase}/api`;
 };
 

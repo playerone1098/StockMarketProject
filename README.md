@@ -152,4 +152,4 @@ The information provided on JodhpurTraders is for educational and informational 
 
 ## License
 
-Private — All rights reserved.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

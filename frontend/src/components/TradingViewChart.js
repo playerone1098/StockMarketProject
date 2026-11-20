@@ -37,6 +37,7 @@ export const TradingViewChart = memo(({ symbol, exchange = 'NSE', isFullscreen =
   const [saveStatus, setSaveStatus] = useState('');
   const [loadingAnalysis, setLoadingAnalysis] = useState(false);
   const [isModalFullscreen, setIsModalFullscreen] = useState(false);
+  const [isOfflineScript, setIsOfflineScript] = useState(!navigator.onLine);
 
   const deviceId = getDeviceId();
 
@@ -127,6 +128,9 @@ export const TradingViewChart = memo(({ symbol, exchange = 'NSE', isFullscreen =
     script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
     script.type = 'text/javascript';
     script.async = true;
+    script.onerror = () => {
+      setIsOfflineScript(true);
+    };
     script.innerHTML = JSON.stringify({
       autosize: true,
       symbol: tvSymbol,
@@ -440,10 +444,23 @@ export const TradingViewChart = memo(({ symbol, exchange = 'NSE', isFullscreen =
       )}
 
       {/* TradingView Embed Canvas Container */}
-      <div
-        ref={containerRef}
-        className={`w-full ${isFullscreen ? 'h-[85vh]' : (height === 'h-full' ? 'flex-1 min-h-[550px]' : (height || 'h-[520px]'))} bg-gray-50 rounded-2xl overflow-hidden border border-gray-150 relative shadow-sm`}
-      />
+      {isOfflineScript ? (
+        <div className={`w-full ${isFullscreen ? 'h-[85vh]' : (height === 'h-full' ? 'flex-1 min-h-[550px]' : (height || 'h-[520px]'))} bg-gray-50 dark:bg-navy-900 rounded-2xl border border-dashed border-gray-300 dark:border-navy-700 flex flex-col items-center justify-center p-6 text-center`}>
+          <span className="text-3xl mb-3">📶</span>
+          <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-1">TradingView Chart (Offline Mode)</h4>
+          <p className="text-sm text-gray-600 dark:text-gray-400 max-w-md mb-4">
+            External TradingView CDN scripts require an active internet connection. You are running 100% offline.
+          </p>
+          <div className="text-xs bg-brand-50 dark:bg-brand-950/40 border border-brand-200 dark:border-brand-800 text-brand-700 dark:text-brand-300 px-4 py-2 rounded-xl font-bold">
+            ✓ Use the "JodhpurTraders Recharts" tab above for local offline interactive charts
+          </div>
+        </div>
+      ) : (
+        <div
+          ref={containerRef}
+          className={`w-full ${isFullscreen ? 'h-[85vh]' : (height === 'h-full' ? 'flex-1 min-h-[550px]' : (height || 'h-[520px]'))} bg-gray-50 rounded-2xl overflow-hidden border border-gray-150 relative shadow-sm`}
+        />
+      )}
 
       {/* FULLSCREEN OVERLAY MODAL */}
       {isModalFullscreen && (

@@ -23,7 +23,12 @@ const getYahooTicker = (stock) => {
  * @returns {Promise<{success: boolean, updated: number, failed: number, errors: Array}>}
  */
 const syncStockPrices = async () => {
-  console.log('🔄 Initiating Indian stock price synchronization via Yahoo Finance & Indian API...');
+  const isOfflineSimulation = process.env.DISABLE_EXTERNAL_APIS === 'true';
+  if (isOfflineSimulation) {
+    console.log('⚡ [Offline Mode] Running internal live stock price simulator (0 external HTTP requests)...');
+  } else {
+    console.log('🔄 Initiating Indian stock price synchronization via Yahoo Finance & Indian API...');
+  }
   
   try {
     const activeStocks = await Stock.find({ isActive: true });
@@ -57,45 +62,47 @@ const syncStockPrices = async () => {
           let peRatio = stock.peRatio;
           let marketCap = stock.marketCap;
 
-          // Strategy 1: Attempt Yahoo Finance quote
-          try {
-            const quote = await yahooFinance.quote(ticker);
-            if (quote && (quote.regularMarketPrice || quote.price)) {
-              currentPrice = quote.regularMarketPrice ?? quote.price ?? currentPrice;
-              dayChange = quote.regularMarketChange ?? dayChange;
-              dayChangePercent = quote.regularMarketChangePercent ?? dayChangePercent;
-              weekHigh52 = quote.fiftyTwoWeekHigh ?? weekHigh52;
-              weekLow52 = quote.fiftyTwoWeekLow ?? weekLow52;
-              dayHigh = quote.regularMarketDayHigh ?? dayHigh;
-              dayLow = quote.regularMarketDayLow ?? dayLow;
-              volume = quote.regularMarketVolume ?? volume;
-              peRatio = quote.trailingPE ?? quote.forwardPE ?? peRatio;
-              if (quote.marketCap) {
-                marketCap = Math.round(quote.marketCap / 10000000); // convert to Crores INR
-              }
-              synced = true;
-              console.log(`✅ [Yahoo Finance] Synced ${stock.symbol} (${ticker}): ₹${currentPrice} (${dayChangePercent >= 0 ? '+' : ''}${dayChangePercent.toFixed(2)}%)`);
-            }
-          } catch (yfError) {
-            // Strategy 2: Fallback to Indian API if Yahoo Finance fails
+          if (!isOfflineSimulation) {
+            // Strategy 1: Attempt Yahoo Finance quote
             try {
-              const apiData = await indianApiService.getCompanyStockData(stock.symbol);
-              if (apiData && apiData.currentPrice) {
-                const priceVal = typeof apiData.currentPrice === 'object' 
-                  ? (apiData.currentPrice.NSE || apiData.currentPrice.BSE || currentPrice) 
-                  : apiData.currentPrice;
-                
-                if (priceVal && !isNaN(priceVal)) {
-                  currentPrice = Number(priceVal);
-                  if (apiData.percentChange) dayChangePercent = Number(apiData.percentChange);
-                  if (apiData.yearHigh) weekHigh52 = Number(apiData.yearHigh);
-                  if (apiData.yearLow) weekLow52 = Number(apiData.yearLow);
-                  synced = true;
-                  console.log(`✅ [Indian API] Synced ${stock.symbol}: ₹${currentPrice}`);
+              const quote = await yahooFinance.quote(ticker);
+              if (quote && (quote.regularMarketPrice || quote.price)) {
+                currentPrice = quote.regularMarketPrice ?? quote.price ?? currentPrice;
+                dayChange = quote.regularMarketChange ?? dayChange;
+                dayChangePercent = quote.regularMarketChangePercent ?? dayChangePercent;
+                weekHigh52 = quote.fiftyTwoWeekHigh ?? weekHigh52;
+                weekLow52 = quote.fiftyTwoWeekLow ?? weekLow52;
+                dayHigh = quote.regularMarketDayHigh ?? dayHigh;
+                dayLow = quote.regularMarketDayLow ?? dayLow;
+                volume = quote.regularMarketVolume ?? volume;
+                peRatio = quote.trailingPE ?? quote.forwardPE ?? peRatio;
+                if (quote.marketCap) {
+                  marketCap = Math.round(quote.marketCap / 10000000); // convert to Crores INR
                 }
+                synced = true;
+                console.log(`✅ [Yahoo Finance] Synced ${stock.symbol} (${ticker}): ₹${currentPrice} (${dayChangePercent >= 0 ? '+' : ''}${dayChangePercent.toFixed(2)}%)`);
               }
-            } catch (apiErr) {
-              // Ignore fallback error
+            } catch (yfError) {
+              // Strategy 2: Fallback to Indian API if Yahoo Finance fails
+              try {
+                const apiData = await indianApiService.getCompanyStockData(stock.symbol);
+                if (apiData && apiData.currentPrice) {
+                  const priceVal = typeof apiData.currentPrice === 'object' 
+                    ? (apiData.currentPrice.NSE || apiData.currentPrice.BSE || currentPrice) 
+                    : apiData.currentPrice;
+                  
+                  if (priceVal && !isNaN(priceVal)) {
+                    currentPrice = Number(priceVal);
+                    if (apiData.percentChange) dayChangePercent = Number(apiData.percentChange);
+                    if (apiData.yearHigh) weekHigh52 = Number(apiData.yearHigh);
+                    if (apiData.yearLow) weekLow52 = Number(apiData.yearLow);
+                    synced = true;
+                    console.log(`✅ [Indian API] Synced ${stock.symbol}: ₹${currentPrice}`);
+                  }
+                }
+              } catch (apiErr) {
+                // Ignore fallback error
+              }
             }
           }
 

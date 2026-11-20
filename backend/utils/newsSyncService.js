@@ -96,8 +96,9 @@ const generateSimulatedNews = async () => {
  * @returns {Promise<{success: boolean, inserted: number, mode: string, errors: Array}>}
  */
 const syncNewsData = async () => {
-  const apiKey = process.env.INDIAN_API_KEY;
-  const isSimulationMode = !apiKey;
+  const isOfflineSimulation = process.env.DISABLE_EXTERNAL_APIS === 'true';
+  const apiKey = isOfflineSimulation ? null : process.env.INDIAN_API_KEY;
+  const isSimulationMode = !apiKey || isOfflineSimulation;
   const modeLabel = isSimulationMode ? 'Simulation Mode' : 'Live API Mode';
 
   console.log(`🔄 Initiating market news synchronization (${modeLabel})...`);

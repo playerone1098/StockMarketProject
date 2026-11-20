@@ -44,8 +44,9 @@ const fetchLiveIpoData = async (apiKey) => {
  * @returns {Promise<{success: boolean, updated: number, mode: string, errors: Array}>}
  */
 const syncIpoData = async (force = false) => {
-  const apiKey = process.env.INDIAN_API_KEY;
-  const isSimulationMode = !apiKey;
+  const isOfflineSimulation = process.env.DISABLE_EXTERNAL_APIS === 'true';
+  const apiKey = isOfflineSimulation ? null : process.env.INDIAN_API_KEY;
+  const isSimulationMode = !apiKey || isOfflineSimulation;
   const modeLabel = isSimulationMode ? 'Simulation Mode' : 'Live API Mode';
   
   // Throttle API requests in Live API mode to strictly respect 500 requests/month pacing (every 86.4 minutes)

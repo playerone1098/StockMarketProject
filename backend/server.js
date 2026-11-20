@@ -12,9 +12,17 @@ const { syncStockPrices } = require('./utils/stockSyncService');
 const { syncIpoData } = require('./utils/ipoSyncService');
 const { syncNewsData } = require('./utils/newsSyncService');
 const { initWebSocketServer, getWSStats } = require('./utils/websocketService');
+const { initPostgres, getStatus: getPostgresStatus } = require('./db/postgres');
 
 const app = express();
 const server = http.createServer(app);
+
+// Initialize PostgreSQL and Database Engine
+initPostgres().then(({ engine }) => {
+  console.log(`🚀 Database engine ready: ${engine.toUpperCase()}`);
+}).catch(err => {
+  console.warn('⚠️ PostgreSQL initialization notice:', err.message);
+});
 
 // Initialize WebSocket real-time data server
 try {
@@ -113,6 +121,7 @@ app.get('/health', (req, res) => {
 
 // Status check
 app.get('/api/status', (req, res) => {
+  const pgStatus = getPostgresStatus();
   const dbState = mongoose.connection.readyState;
   const dbStatusMap = { 0: 'Disconnected', 1: 'Connected', 2: 'Connecting', 3: 'Disconnecting' };
   res.json({
@@ -120,7 +129,9 @@ app.get('/api/status', (req, res) => {
     data: {
       platform: 'JodhpurTraders',
       backend: 'Connected',
-      database: dbStatusMap[dbState] || 'Unknown',
+      database: pgStatus.connected ? `PostgreSQL (${pgStatus.engine})` : (dbStatusMap[dbState] || 'Offline/Mock'),
+      postgresEngine: pgStatus.engine,
+      offlineMode: process.env.DISABLE_EXTERNAL_APIS === 'true',
       environment: config.nodeEnv,
       websocket: getWSStats()
     }
